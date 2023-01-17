@@ -1,8 +1,8 @@
 <link rel="stylesheet" href="../../static/styles/main.css">
 <footer>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm-12 col-md-6">
+    <div>
+        <div>
+            <div>
                 <ul>
                     <a href="#">Mentions Légales</a>
                     <a href="#">Contact</a>
