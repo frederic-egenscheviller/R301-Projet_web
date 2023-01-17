@@ -2,6 +2,12 @@
 
 final class UploadPicture
 {
+    static function createProjectPicturesDirectory(): void
+    {
+        if (!file_exists("../content")) {
+            mkdir("../content", 0777, true);
+        }
+    }
     static function createPictureName(string $projectName): string
     {
         return strtolower(preg_replace("/[^A-Za-z]/", "", iconv('UTF-8', 'ASCII//TRANSLIT', $projectName)));
@@ -23,6 +29,7 @@ final class UploadPicture
             $extension = strtolower(end($tabExtension));
             if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
                 $file = $elementName . $extension;
+                self::createProjectPicturesDirectory();
                 move_uploaded_file($tmpName, "../content/" . $file);
                 return "../content/". $file;
             }
