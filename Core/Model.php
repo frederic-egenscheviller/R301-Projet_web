@@ -2,7 +2,7 @@
 
 final class Model{
 
-    public static function selectById(String $id, String $S_className) : Array{
+    public static function selectById(String $id, String $S_className) : array{
         $db = Connection::initConnection();
         $stmnt = "SELECT * FROM $S_className WHERE ID = ? ";
         $sth = $db->prepare($stmnt);
@@ -40,7 +40,7 @@ final class Model{
 
         $keys = "";
         foreach (array_keys($A_postParams) as &$key){
-             $keys.= $key."= ? ,";
+            $keys.= $key."= ? ,";
         }
         $keys[-1] = " ";
 
