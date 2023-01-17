@@ -52,7 +52,7 @@ final class Model{
 
     public static function selectHowMany(String $S_className) : int{
         $db = Connection::initConnection();
-        $stmnt = "SELECt count(*) FROM $S_className";
+        $stmnt = "SELECT count(*) FROM $S_className";
         $sth = $db->prepare($stmnt);
         $sth->execute();
         $row = $sth->fetch(PDO::FETCH_ASSOC);

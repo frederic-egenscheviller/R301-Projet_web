@@ -46,8 +46,8 @@ class Recipe{
      * @return array
      */
     public static function randomRecipe():array{
-        $O_con = Model::initConnection();
-        $S_sql = "SELECT * FROM RECIEPE ORDER BY RANDOM() LIMIT 3";
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT * FROM RECIPE ORDER BY RANDOM() LIMIT 3";
         $sth = $O_con->prepare($S_sql);
         $sth->execute();
         return $sth->fetchAll();
@@ -55,8 +55,8 @@ class Recipe{
 
     public static function selectRecipeByUser(array $A_postParams):array{
         $I_id = $A_postParams['id'];
-        $O_con = Model::initConnection();
-        $S_sql = "SELECT * FROM RECIEPE WHERE user_id = :user";
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT * FROM RECIPE WHERE user_id = :user";
         $sth = $O_con->prepare($S_sql);
         $sth->execute();
         $sth->bindValue(':user', $I_id, PDO::PARAM_INT);
