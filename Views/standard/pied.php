@@ -1,5 +1,4 @@
-<link rel="stylesheet" type="text/css" href="footer.css">
-
+<link rel="stylesheet" type="text/css" href="../../static/styles/main.css">
 
 <footer>
     <div class="container">
