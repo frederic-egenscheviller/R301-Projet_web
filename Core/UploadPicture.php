@@ -2,7 +2,7 @@
 
 final class UploadPicture
 {
-    static function createProjectPicturesDirectory(): void
+    static function createPicturesDirectory(): void
     {
         if (!file_exists("../content")) {
             mkdir("../content", 0777, true);
@@ -29,7 +29,7 @@ final class UploadPicture
             $extension = strtolower(end($tabExtension));
             if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
                 $file = $elementName . $extension;
-                self::createProjectPicturesDirectory();
+                self::createPicturesDirectory();
                 move_uploaded_file($tmpName, "../content/" . $file);
                 return "../content/". $file;
             }
