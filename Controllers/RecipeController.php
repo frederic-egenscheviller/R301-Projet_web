@@ -24,7 +24,7 @@ final class RecipeController
         View::show("recipe/form", Recipe::selectById($A_postParams['id']));
     }
 
-    public function randomRecipe() {
+    public function randomRecipeAction() {
         View::show("recipe/show-three-recipes", Recipe::randomRecipe());
     }
 }

@@ -39,19 +39,26 @@ class Recipe{
      * @return mixed
      */
     public static function selectById(int $I_id):array{
-        $A_receive = Model::selectById($I_id, "recipe");
-        return $A_receive[0];
+        return Model::selectById($I_id, "RECIPE");
     }
 
     /**
      * @return array
      */
     public static function randomRecipe():array{
-        $I_IdMax = Model::selectHowMany();
-        $A_id = array(rand(0,$I_IdMax),rand(0,$I_IdMax),rand(0,$I_IdMax));
+        $I_IdMax = Model::selectHowMany("RECIPE");
+        $A_usedId = array();
+        $A_id = array();
+        while (sizeof($A_id) < 3) {
+            $I_randomId = rand(1, $I_IdMax);
+            if(!in_array($I_randomId, $A_usedId)) {
+                $A_id[] = $I_randomId;
+                $A_usedId[] = $I_randomId;
+            }
+        }
         $A_data = array();
         foreach ($A_id as $I_id){
-            array_push($A_data, self::selectById($I_id, "recipe"));
+            $A_data[] = self::selectById($I_id, "RECIPE");
         }
         return $A_data;
     }
