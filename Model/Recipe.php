@@ -46,21 +46,11 @@ class Recipe{
      * @return array
      */
     public static function randomRecipe():array{
-        $I_IdMax = Model::selectHowMany("RECIPE");
-        $A_usedId = array();
-        $A_id = array();
-        while (sizeof($A_id) < 3) {
-            $I_randomId = rand(1, $I_IdMax);
-            if(!in_array($I_randomId, $A_usedId)) {
-                $A_id[] = $I_randomId;
-                $A_usedId[] = $I_randomId;
-            }
-        }
-        $A_data = array();
-        foreach ($A_id as $I_id){
-            $A_data[] = self::selectById($I_id, "RECIPE");
-        }
-        return $A_data;
+        $O_con = Model::initConnection();
+        $S_sql = "SELECT * FROM RECIEPE ORDER BY RANDOM() LIMIT 3";
+        $sth = $O_con->prepare($S_sql);
+        $sth->execute();
+        return $sth->fetchAll();
     }
 
     public static function selectRecipeByUser(array $A_postParams):array{
