@@ -3,6 +3,8 @@
 class Recipe{
 
     public static function create(array $A_postParams):array{
+        $A_picture = Upload::uploadPicture($A_postParams);
+        $A_postParams['picture'] = $A_picture;
         $B_receive = Model::create($A_postParams, "recipe");
         if($B_receive){
             return array('message' => "Recette crée", 'status' => true);
@@ -27,6 +29,8 @@ class Recipe{
      * @return array
      */
     public static function update(array $A_postParams):array{
+        $A_picture = Upload::uploadPicture($A_postParams);
+        $A_data['picture'] = $A_picture;
         $B_receive = Model::updateById($A_postParams, "recipe");
         if($B_receive){
             return array('message' => "Changements enregistrés", 'status' => true);
@@ -64,6 +68,10 @@ class Recipe{
         $sth->execute();
         $sth->bindValue(':user', $I_id, PDO::PARAM_INT);
         return $sth->fetchAll();
+    }
+
+    public static function updatePicture(array $A_postParams):string{
+        return self::update($A_postParams);
     }
 
 }

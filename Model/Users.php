@@ -6,6 +6,8 @@ class Users {
      * @return array
      */
     public static function create(array $A_postParams):array{
+        $A_picture = Upload::upploadPicture($A_postParams);
+        $A_postParams['picture'] = $A_picture;
         $B_receive = Model::create($A_postParams, "user");
         if($B_receive){
             return array('message' => "Utilisateur crée", 'status' => true);
@@ -30,6 +32,8 @@ class Users {
      * @return array
      */
     public static function update(array $A_postParams):array{
+        $A_picture = Upload::upploadPicture($A_postParams);
+        $A_postParams['picture'] = $A_picture;
         $B_receive = Model::update($A_postParams, "user");
         if($B_receive){
             return array('message' => "Changements enregistrés", 'status' => true);
@@ -46,4 +50,7 @@ class Users {
         return $A_receive[0];
     }
 
+    public static function updatePicture(array $A_postParams):string{
+        return self::update($A_postParams);
+    }
 }
