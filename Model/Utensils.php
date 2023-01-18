@@ -42,4 +42,11 @@ class Utensils{
         $A_receive = Model::selectById($id,"ustensil");
         return $A_receive[0];
     }
+    public static function selectAll(): array{
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT * FROM UTENSILS";
+        $sth = $O_con->prepare($S_sql);
+        $sth->execute();
+        return $sth->fetchAll();
+    }
 }
