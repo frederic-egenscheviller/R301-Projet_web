@@ -2,7 +2,7 @@
 final class RecipeController
 {
     public function defaultAction($A_postParams) {
-        View::show("recipe/show", Recipe::selectById($A_postParams));
+        View::show("recipe/show", Recipe::select($A_postParams));
     }
     public function formAction() {
         View::show("recipe/form");
