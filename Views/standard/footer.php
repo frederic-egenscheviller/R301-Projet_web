@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="../../static/styles/main.css">
-
 <footer class="site-footer">
     <section class="container">
         <div class="row">

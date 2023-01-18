@@ -2,6 +2,7 @@
 <html lang="fr">
     <head>
         <meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+        <link rel="stylesheet" href="/static/styles/main.css">
         <link rel="stylesheet" href="/static/styles/error.css">
         <link rel="stylesheet" href="/static/styles/sign.css">
         <link rel="stylesheet" type="text/css" href="/static/styles/show-three-recipes.css">
