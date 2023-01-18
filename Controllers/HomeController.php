@@ -2,7 +2,7 @@
 
 final class HomeController
 {
-    public function defaultAction($A_postParams): void
+    public function defaultAction(): void
     {
         $this->categories();
         $this->randomRecipe();
