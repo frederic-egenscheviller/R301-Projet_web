@@ -4,8 +4,8 @@ final class UploadPicture
 {
     static function createPicturesDirectory(): void
     {
-        if (!file_exists("../content")) {
-            mkdir("../content", 0777, true);
+        if (!file_exists("../static/content")) {
+            mkdir("../static/content", 0777, true);
         }
     }
     static function createPictureName(string $projectName): string
@@ -30,8 +30,8 @@ final class UploadPicture
             if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
                 $file = $elementName . $extension;
                 self::createPicturesDirectory();
-                move_uploaded_file($tmpName, "../content/" . $file);
-                return "../content/". $file;
+                move_uploaded_file($tmpName, "../static/content/" . $file);
+                return "../static/content/". $file;
             }
         }
         return null;
