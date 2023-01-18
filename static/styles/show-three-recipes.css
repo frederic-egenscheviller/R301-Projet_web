@@ -10,7 +10,6 @@ h2 {
 #recipesContainer {
     display: flex;
     flex-direction: row;
-    align-items: center;
     justify-content: center;
     background-color: black;
     padding-top: 2%;
