@@ -1,19 +1,18 @@
-<div class="nav">
-    <input type="checkbox" id="nav-check">
-    <div class="nav-header">
-        <div class="nav-title">
-            Cookeat
-        </div>
-    </div>
-    <div class="nav-btn">
-        <label for="nav-check">
-            <span></span>
-            <span></span>
-            <span></span>
-        </label>
-    </div>
+<link rel="stylesheet" href="../../static/styles/main.css">
 
-    <div class="nav-links">
-        <a href="/recipe/randomRecipe">Accueil</a>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<section class="top-nav">
+    <div>
+        JuJu KitKat
     </div>
-</div>
+    <input id="menu-toggle" type="checkbox" />
+    <label class='menu-button-container' for="menu-toggle">
+        <div class='menu-button'></div>
+    </label>
+    <ul class="menu">
+        <li><a href="#">Accueil</a></li>
+        <li><a href="#">Recettes</a></li>
+        <li><a href="#">A propos</a></li>
+        <li><a href="#">Contact</a></li>
+    </ul>
+</section>
