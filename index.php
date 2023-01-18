@@ -30,7 +30,7 @@
     }
     catch (ControllerException $O_exception)
     {
-        echo ('Une erreur s\'est produite : ' . $O_exception->getMessage());
+        $O_exception->getMessage();
     }
 
 
