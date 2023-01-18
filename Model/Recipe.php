@@ -39,27 +39,24 @@ class Recipe{
      * @return mixed
      */
     public static function selectById(int $I_id):array{
-        $A_receive = Model::selectById($I_id, "recipe");
-        return $A_receive[0];
+        return Model::selectById($I_id, "RECIPE");
     }
 
     /**
      * @return array
      */
     public static function randomRecipe():array{
-        $I_IdMax = Model::selectHowMany();
-        $A_id = array(rand(0,$I_IdMax),rand(0,$I_IdMax),rand(0,$I_IdMax));
-        $A_data = array();
-        foreach ($A_id as $I_id){
-            array_push($A_data, self::selectById($I_id, "recipe"));
-        }
-        return $A_data;
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT * FROM RECIPE ORDER BY RANDOM() LIMIT 3";
+        $sth = $O_con->prepare($S_sql);
+        $sth->execute();
+        return $sth->fetchAll();
     }
 
     public static function selectRecipeByUser(array $A_postParams):array{
         $I_id = $A_postParams['id'];
-        $O_con = Model::initConnection();
-        $S_sql = "SELECT * FROM RECIEPE WHERE user_id = :user";
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT * FROM RECIPE WHERE user_id = :user";
         $sth = $O_con->prepare($S_sql);
         $sth->execute();
         $sth->bindValue(':user', $I_id, PDO::PARAM_INT);
