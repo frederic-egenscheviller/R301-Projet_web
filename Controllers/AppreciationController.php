@@ -3,7 +3,7 @@
 final class AppreciationController
 {
     public function defaultAction($A_postParams) {
-        View::show("appreciation/show", Appreciation::selectById($A_postParams['id']));
+        View::show("appreciation/show", Appreciation::selectById($A_postParams));
     }
 
     public function createAction($A_postParams) {
