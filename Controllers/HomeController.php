@@ -14,10 +14,10 @@ final class HomeController
             'ingredients' =>  Ingredients::selectAll(),
             'utensils' => Utensils::selectAll(),
             'cooking_times' => Recipe::selectCookingTimes(),
-            'type_cooking' => Recipe::selectCookingTypes(),
-            'difficulty' => Recipe::selectDifficulty(),
-            'cost' => Recipe::selectCosts(),
-            'particularities' => Recipe::selectParticularities()));
+            'types_cooking' => Recipe::selectCookingTypes(),
+            'difficulties' => Recipe::selectDifficulties(),
+            'costs' => Recipe::selectCosts(),
+            'particularities' => Particularities::selectAll()));
     }
 
     private function randomRecipe() :void
