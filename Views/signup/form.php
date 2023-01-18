@@ -1,6 +1,5 @@
-<link rel="stylesheet" href="../../static/styles/sign.css">
 <?php
-echo("<form method='post' action='#'>
+echo("<form class='signup' method='post' action='#'>
         <label>eMail :</label>
         <input type='email' id='id' name='id' placeholder='eMail' required><br>
         <label>Pseudo :</label>
