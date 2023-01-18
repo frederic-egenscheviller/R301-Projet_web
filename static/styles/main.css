@@ -197,11 +197,6 @@ html, body {
     color:#000000;
     text-decoration:none;
 }
-.site-footer a:hover
-{
-    color:#3366cc;
-    text-decoration:none;
-}
 .top-footer
 {
     padding: 20px 0px 20px 30px;
@@ -213,9 +208,9 @@ html, body {
     padding-top: 20px;
     display:block
 }
-.top-footer a:active,.top-footer a:focus,.top-footer a:hover
+.top-footer a:focus,.top-footer a:hover
 {
-    color:#3366cc;
+    color:white;
     text-decoration:none;
 }
 .top-footer.inline li
