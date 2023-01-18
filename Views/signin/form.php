@@ -1,6 +1,6 @@
 <link rel="stylesheet" href="../../static/styles/sign.css">
 <?php
-echo("<form method='post' action='#'>
+echo("<form class='sigin' method='post' action='#'>
         <label><b>Nom d'utilisateur</b></label>
         <input type='text' placeholder='votre pseudo' name='username' required><br>
 
