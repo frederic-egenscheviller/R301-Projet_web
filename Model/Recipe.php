@@ -91,7 +91,7 @@ class Recipe{
         return $sth->fetchAll();
     }
 
-    public static function selectCost(): array{
+    public static function selectCosts(): array{
         $O_con = Connection::initConnection();
         $S_sql = "SELECT DISTINCT COST FROM RECIPE";
         $sth = $O_con->prepare($S_sql);
