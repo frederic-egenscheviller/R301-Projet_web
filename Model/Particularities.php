@@ -43,7 +43,7 @@ class Particularities{
         return $A_receive[0];
     }
 
-    public static function selectParticularities(): array{
+    public static function selectAll(): array{
         $O_con = Connection::initConnection();
         $S_sql = "SELECT * FROM Particularities";
         $sth = $O_con->prepare($S_sql);
