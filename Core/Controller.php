@@ -53,20 +53,18 @@ final class Controller
     public function execute()
     {
         if (!class_exists($this->_A_peeredUrl['controller'])) {
-            throw new ControllerException($this->_A_peeredUrl['controller'] . " n'est pas un controleur valide.");
+            throw new ControllerException();
         }
 
         if (!method_exists($this->_A_peeredUrl['controller'], $this->_A_peeredUrl['action'])) {
-            throw new ControllerException($this->_A_peeredUrl['action'] . " du contrôleur " .
-                $this->_A_peeredUrl['controller'] . " n'est pas une action valide.");
+            throw new ControllerException();
         }
 
         $B_called = call_user_func_array(array(new $this->_A_peeredUrl['controller'],
             $this->_A_peeredUrl['action']), array($this->_A_urlParameters, $this->_A_postParams ));
 
         if (false === $B_called) {
-            throw new ControllerException("L'action " . $this->_A_peeredUrl['action'] .
-                " du contrôleur " . $this->_A_peeredUrl['controller'] . " a rencontré une erreur.");
+            throw new ControllerException();
         }
     }
 }
