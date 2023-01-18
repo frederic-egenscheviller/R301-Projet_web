@@ -19,7 +19,6 @@ html, body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background-color: #00BAF0;
     background: linear-gradient(to left, #f46b45, #eea849);
     /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #FFF;
@@ -170,7 +169,7 @@ html, body {
 .site-footer
 {
     width: 100%;
-    background-color:#fdba00;
+    background: linear-gradient(to left, #f46b45, #eea849);
     font-size:15px;
 }
 .row
