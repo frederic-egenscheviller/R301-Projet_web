@@ -22,6 +22,6 @@ final class HomeController
 
     private function randomRecipe() :void
     {
-        View::show("recipe/show-three-recipes", Recipe::randomRecipe());
+        View::show("recipe/show-three-recipes", array('randomRecipes' => Recipe::randomRecipe()));
     }
 }
