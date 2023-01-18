@@ -1,0 +1,29 @@
+h2 {
+    text-align: center;
+}
+
+.recipe img {
+    width: 400px;
+    border-radius: 2%;
+}
+
+#recipesContainer {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: center;
+    background-color: black;
+    padding-top: 2%;
+    padding-bottom: 2%;
+}
+
+.recipe {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin-right: 5%;
+    margin-left: 5%;
+    padding: 2%;
+    background-color: #f1923a;
+    border-radius: 2%;
+}

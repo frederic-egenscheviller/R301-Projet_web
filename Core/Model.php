@@ -2,64 +2,60 @@
 
 final class Model{
 
-    public static function selectById(String $id, String $S_className) : row{
+    public static function selectById(String $id, String $S_className) : array{
         $db = Connection::initConnection();
-        $stmnt = "SELECT * FROM $S_className WHERE ID = :id";
+        $stmnt = "SELECT * FROM $S_className WHERE ID = ? ";
         $sth = $db->prepare($stmnt);
-        $sth->bindValue(':id', $id, PDO::PARAM_STR);
-        $sth->execute();
+        $sth->execute(array($id));
         $row = $sth->fetch(PDO::FETCH_ASSOC);
         return $row;
     }
 
     public static function deleteByID(String $id, String $S_className) : bool{
         $db = Connection::initConnection();
-        $stmnt = "DELETE * FROM $S_className WHERE ID = :id";
+        $stmnt = "DELETE FROM $S_className WHERE ID = ? ";
         $sth = $db->prepare($stmnt);
-        $sth->bindValue(':id', $id, PDO::PARAM_STR);
-        return $sth->execute();
+        return $sth->execute(array($id));
     }
 
     public static function create(Array $A_postParams, String $S_className) : bool{
         $db = Connection::initConnection();
 
-        $keys = "(";
-        $vals = "(";
+        $keys = " ";
+        $vals = " ";
         foreach (array_keys($A_postParams) as &$key){
-            $keys.$key.",";
-            $vals."?,";
+            $keys .= $key.",";
+            $vals .= "?,";
         }
-        $key[-1] = ")";
-        $vals[-1] = ")";
+        $keys[-1] = " ";
+        $vals[-1] = " ";
 
-
-        $stmnt = "INSERT INTO $S_className".$keys." VALUES ".$vals;
+        $stmnt = "INSERT INTO $S_className ($keys) VALUES ($vals)";
         $sth = $db->prepare($stmnt);
-        echo $stmnt;
         return $sth->execute(array_values($A_postParams));
     }
 
-    public static function updateByID(Array $A_postParams, String $id, String $S_className) : bool{
+    public static function updateById(Array $A_postParams,String $id , String $S_className) : bool{
         $db = Connection::initConnection();
 
         $keys = "";
         foreach (array_keys($A_postParams) as &$key){
-            " ".$keys.$key."=".$A_postParams[$key]." ,";
+            $keys.= $key."= ? ,";
         }
-        $key[-1] = " ";
+        $keys[-1] = " ";
 
-
-        $stmnt = "UPDATE $S_className SET ".$keys." WHERE ID =".$id;
+        $stmnt = "UPDATE $S_className SET ".$keys." WHERE ID = ?";
         $sth = $db->prepare($stmnt);
+        array_push($A_postParams,$id);
         return $sth->execute(array_values($A_postParams));
     }
 
     public static function selectHowMany(String $S_className) : int{
         $db = Connection::initConnection();
-        $stmnt = "SELECt count(*) FROM $S_className";
+        $stmnt = "SELECT count(*) FROM $S_className";
         $sth = $db->prepare($stmnt);
         $sth->execute();
         $row = $sth->fetch(PDO::FETCH_ASSOC);
-        return $row['count(*)'];
+        return $row['count'];
     }
 }
