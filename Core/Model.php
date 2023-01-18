@@ -58,4 +58,18 @@ abstract class Model{
         $row = $sth->fetch(PDO::FETCH_ASSOC);
         return $row['count'];
     }
+
+    public static function selectAll(): Array{
+        $O_db = Connection::initConnection();
+        $S_stmnt = "SELECT * FROM ".get_called_class();
+        $sth = $O_db->prepare($S_stmnt);
+        $sth->execute();
+        return $sth->fetchAll();
+    }
+
+    public static function uploadPictures(Array $A_postParams) : Array{
+        $A_picture = UploadPicture::uploadPicture($A_postParams);
+        $A_postParams['picture'] = $A_picture;
+        return $A_postParams;
+    }
 }
