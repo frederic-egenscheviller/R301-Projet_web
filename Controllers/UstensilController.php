@@ -3,7 +3,7 @@
 final class UstensilController
 {
     public function defaultAction($A_postParams) {
-        View::show("ustensil/show", Ustensil::selectById($A_postParams['id']));
+        View::show("ustensil/show", Ustensil::select($A_postParams));
     }
 
     public function createAction($A_postParams) {

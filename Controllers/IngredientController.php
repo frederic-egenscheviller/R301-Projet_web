@@ -3,7 +3,7 @@
 final class IngredientController
 {
     public function defaultAction($A_postParams) {
-        View::show("ingredient/show", Ingredient::selectById($A_postParams['id']));
+        View::show("ingredient/show", Ingredient::select($A_postParams));
     }
 
     public function createAction($A_postParams) {

@@ -2,8 +2,8 @@
 
 final class AppreciationController
 {
-    public function defaultAction($A_postParams) {
-        View::show("appreciation/show", Appreciation::selectById($A_postParams['id']));
+    public function defaultAction() {
+        View::show("errors/error404");
     }
 
     public function createAction($A_postParams) {

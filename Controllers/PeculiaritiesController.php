@@ -3,7 +3,7 @@
 final class PeculiaritiesController
 {
     public function defaultAction($A_postParams) {
-        View::show("peculiarities/show", Peculiarities::selectById($A_postParams['id']));
+        View::show("peculiarities/show", Peculiarities::select($A_postParams));
     }
 
     public function createAction($A_postParams) {
