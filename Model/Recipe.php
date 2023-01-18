@@ -66,4 +66,40 @@ class Recipe{
         $sth->bindValue(':user', $I_id, PDO::PARAM_INT);
         return $sth->fetchAll();
     }
+
+    public static function selectCookingTimes(): array{
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT DISTINCT COOKING_TIME FROM RECIPE";
+        $sth = $O_con->prepare($S_sql);
+        $sth->execute();
+        return $sth->fetchAll();
+    }
+
+    public static function selectCookingTypes(): array{
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT DISTINCT COOKING_TYPE FROM RECIPE";
+        $sth = $O_con->prepare($S_sql);
+        $sth->execute();
+        return $sth->fetchAll();
+    }
+
+    public static function selectDifficulty(): array{
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT DISTINCT DIFFICULTY FROM RECIPE";
+        $sth = $O_con->prepare($S_sql);
+        $sth->execute();
+        return $sth->fetchAll();
+    }
+
+    public static function selectCost(): array{
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT DISTINCT COST FROM RECIPE";
+        $sth = $O_con->prepare($S_sql);
+        $sth->execute();
+        return $sth->fetchAll();
+    }
+
+
+
+
 }

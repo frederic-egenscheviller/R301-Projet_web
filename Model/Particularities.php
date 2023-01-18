@@ -42,4 +42,12 @@ class Particularities{
         $A_receive = Model::selectById($id, "peculiarities");
         return $A_receive[0];
     }
+
+    public static function selectParticularities(): array{
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT * FROM Particularities";
+        $sth = $O_con->prepare($S_sql);
+        $sth->execute();
+        return $sth->fetchAll();
+    }
 }
