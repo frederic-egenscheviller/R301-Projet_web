@@ -10,7 +10,7 @@
                     </div>
                     <div class="contant_box_404">
                         <p>La page n'est pas accessible!</p>
-                        <a href="" class="link_404">Retour à l'accueil</a>
+                        <a href="../home" class="link_404">Retour à l'accueil</a>
                     </div>
                 </div>
             </div>
