@@ -1,4 +1,3 @@
-<link rel="stylesheet" href="../../static/styles/sign.css">
 <?php
 echo("<form method='post' action='#'>
         <label><b>Nom d'utilisateur</b></label>
