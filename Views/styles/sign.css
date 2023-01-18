@@ -1,0 +1,52 @@
+#container{
+    width:420px;
+    margin: 5rem auto 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    position : absolute;
+    left : 50%;
+    top : 40%;
+    transform: translate(-50%, -50%);
+}
+
+form {
+    width:100%;
+    padding: 30px;
+    border: 1px solid #f1f1f1;
+    background: #fff;
+    border-radius: 1rem;
+}
+#container h1{
+    text-align: center;
+    padding-bottom: 10px;
+}
+
+input[type=text], input[type=password] {
+    width: 100%;
+    padding: 12px 20px;
+    margin: 8px 0;
+    display: inline-block;
+    border: 1px solid #ccc;
+    box-sizing: border-box;
+}
+
+input[type=submit] {
+    background-color: black;
+    color: white;
+    padding: 14px 20px;
+    margin: 8px 0;
+    width: 100%;
+    transition: ease-in-out;
+    transition: 2s;
+}
+
+input[type=submit]:hover {
+    background-color: green;
+    transition: 2s;
+    color: black;
+}
+
+.menu-container{
+    position: relative;
+}
