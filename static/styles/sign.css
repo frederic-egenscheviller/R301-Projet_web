@@ -1,10 +1,22 @@
 .signup, .sigin{
     width:50%;
     padding: 30px;
-    margin: auto;
+    margin: 100px auto;
     border: 1px solid #f1f1f1;
     background: #fff;
     border-radius: 1rem;
+}
+
+a{
+    text-decoration: none;
+    color: black;
+    display: flex;
+    justify-content: center;
+}
+
+a:hover{
+    text-decoration: none;
+    color: #EEA849FF;
 }
 
 input[type=email], input[type=text], input[type=password], input[type=text] {
