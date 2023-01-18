@@ -9,6 +9,7 @@ final class RecipeController
     }
 
     public function createAction($A_postParams) {
+        $A_postParams = Recipe::uploadPictures($A_postParams);
         View::show("status", Recipe::create($A_postParams));
     }
 
@@ -17,6 +18,7 @@ final class RecipeController
     }
 
     public function updateAction($A_postParams) {
+        $A_postParams = Recipe::uploadPictures($A_postParams);
         View::show("status", Recipe::update($A_postParams));
     }
 

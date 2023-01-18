@@ -7,18 +7,20 @@ final class UserController
     }
 
     public function createAction($A_postParams) {
-        View::show("status", User::create($A_postParams));
+        $A_postParams = Users::uploadPictures($A_postParams);
+        View::show("status", Users::create($A_postParams));
     }
 
     public function deleteAction($A_postParams) {
-        View::show("status", User::deleteById($A_postParams['id']));
+        View::show("status", Users::deleteById($A_postParams['id']));
     }
 
     public function updateAction($A_postParams) {
-        View::show("status", User::update($A_postParams));
+        $A_postParams = Users::uploadPictures($A_postParams);
+        View::show("status", Users::update($A_postParams));
     }
 
     public function connectionAction($A_postParams) {
-        View::show("status", User::connection($A_postParams));
+        View::show("status", Users::connection($A_postParams));
     }
 }
