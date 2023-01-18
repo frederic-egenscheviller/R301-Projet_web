@@ -1,13 +1,13 @@
 <?php
 
-class Ingredient{
+class Ingredients{
 
     public static function create(array $A_postParams):array{
-        $B_receive = Model::create($A_postParams, "Ingredient");
+        $B_receive = Model::create($A_postParams, "Ingredients");
         if($B_receive){
-            return array('message' => "Ingredient crée", 'status' => true);
+            return array('message' => "Ingredients crée", 'status' => true);
         }
-        return array('message' => "Ingredient non crée", 'status' => false);
+        return array('message' => "Ingredients non crée", 'status' => false);
     }
 
     /**
@@ -15,9 +15,9 @@ class Ingredient{
      * @return array
      */
     public static function delete(array $A_postParams):array{
-        $B_receive = Model::deleteById($A_postParams, "Ingredient");
+        $B_receive = Model::deleteById($A_postParams, "Ingredients");
         if($B_receive){
-            return array('message' => "Ingredient supprimé", 'status' => true);
+            return array('message' => "Ingredients supprimé", 'status' => true);
         }
         return array('message' => "Erreur de supression", 'status' => false);
     }
@@ -27,7 +27,7 @@ class Ingredient{
      * @return array
      */
     public static function update(array $A_postParams):array{
-        $B_receive = Model::updateById($A_postParams, "Ingredient");
+        $B_receive = Model::updateById($A_postParams, "Ingredients");
         if($B_receive){
             return array('message' => "Changements enregistrés", 'status' => true);
         }
@@ -39,7 +39,7 @@ class Ingredient{
      * @return mixed
      */
     public static function selectById(int $I_id):array{
-        $A_receive = Model::selectById($I_id, "Ingredient");
+        $A_receive = Model::selectById($I_id, "Ingredients");
         return $A_receive[0];
     }
 }

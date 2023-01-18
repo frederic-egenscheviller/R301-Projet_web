@@ -69,9 +69,4 @@ class Recipe{
         $sth->bindValue(':user', $I_id, PDO::PARAM_INT);
         return $sth->fetchAll();
     }
-
-    public static function updatePicture(array $A_postParams):string{
-        return self::update($A_postParams);
-    }
-
 }

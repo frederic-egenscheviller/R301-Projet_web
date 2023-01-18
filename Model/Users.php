@@ -49,8 +49,4 @@ class Users {
         $A_receive = Model::selectById($I_id, "user");
         return $A_receive[0];
     }
-
-    public static function updatePicture(array $A_postParams):string{
-        return self::update($A_postParams);
-    }
 }
