@@ -4,20 +4,20 @@ require 'Core/Constants.php';
 
 final class AutoLoad
 {
-    public static function loadCoreClasses ($S_className)
+    public static function loadCoreClasses($S_className)
     {
         $S_file = Constants::coreDirectory() . "$S_className.php";
         return static::_load($S_file);
     }
 
-    public static function loadExceptionClasses ($S_className)
+    public static function loadExceptionClasses($S_className)
     {
         $S_file = Constants::exceptionsDirectory() . "$S_className.php";
 
         return static::_load($S_file);
     }
 
-    public static function loadModelClasses ($S_className)
+    public static function loadModelClasses($S_className)
     {
         $S_file = Constants::modelDirectory() . "$S_className.php";
 
@@ -25,23 +25,30 @@ final class AutoLoad
     }
 
 
-    public static function loadViewClasses ($S_className)
+    public static function loadViewClasses($S_className)
     {
         $S_file = Constants::viewsDirectory() . "$S_className.php";
 
         return static::_load($S_file);
     }
 
-    public static function loadControllerClass ($S_className)
+    public static function loadControllerClass($S_className)
     {
         $S_file = Constants::controllersDirectory() . "$S_className.php";
 
         return static::_load($S_file);
     }
-    private static function _load ($S_fileToLoad)
+
+    public static function loadDatabaseClass($S_className)
     {
-        if (is_readable($S_fileToLoad))
-        {
+        $S_file = Constants::databseDirectory() . "$S_className.php";
+
+        return static::_load($S_file);
+    }
+
+    private static function _load($S_fileToLoad)
+    {
+        if (is_readable($S_fileToLoad)) {
             require $S_fileToLoad;
         }
     }
@@ -53,3 +60,4 @@ spl_autoload_register('AutoLoad::loadExceptionClasses');
 spl_autoload_register('AutoLoad::loadModelClasses');
 spl_autoload_register('AutoLoad::loadViewClasses');
 spl_autoload_register('AutoLoad::loadControllerClass');
+spl_autoload_register('AutoLoad::loadDatabaseClass');
