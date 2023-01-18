@@ -12,6 +12,7 @@
     <ul class="menu">
         <li><a href="#">Accueil</a></li>
         <li><a href="#">Recettes</a></li>
+        <li><a href="#">Compte</a></li>
         <li><a href="#">A propos</a></li>
         <li><a href="#">Contact</a></li>
     </ul>

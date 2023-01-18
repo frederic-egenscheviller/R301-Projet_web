@@ -5,7 +5,9 @@
         <div class="row">
             <div class="top-footer">
                 <h6>Categories</h6>
+                <li><a href="#">Accueil</a></li>
                 <li><a href="#">Recettes</a></li>
+                <li><a href="#">Compte</a></li>
             </div>
             <div class="top-footer">
                 <h6>Liens rapides</h6>
