@@ -83,7 +83,7 @@ class Recipe{
         return $sth->fetchAll();
     }
 
-    public static function selectDifficulty(): array{
+    public static function selectDifficulties(): array{
         $O_con = Connection::initConnection();
         $S_sql = "SELECT DISTINCT DIFFICULTY FROM RECIPE";
         $sth = $O_con->prepare($S_sql);
