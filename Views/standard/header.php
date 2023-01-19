@@ -1,5 +1,3 @@
-<link rel="stylesheet" href="../../static/styles/main.css">
-
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <section class="top-nav">
     <div>
@@ -12,6 +10,7 @@
     <ul class="menu">
         <li><a href="#">Accueil</a></li>
         <li><a href="#">Recettes</a></li>
+        <li><a href="#">Compte</a></li>
         <li><a href="#">A propos</a></li>
         <li><a href="#">Contact</a></li>
     </ul>

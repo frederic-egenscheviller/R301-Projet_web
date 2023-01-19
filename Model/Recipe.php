@@ -1,51 +1,7 @@
 <?php
 
-class Recipe{
-
-    public static function create(array $A_postParams):array{
-        $A_picture = Upload::uploadPicture($A_postParams);
-        $A_postParams['picture'] = $A_picture;
-        $B_receive = Model::create($A_postParams, "recipe");
-        if($B_receive){
-            return array('message' => "Recette crée", 'status' => true);
-        }
-        return array('message' => "Recette non crée", 'status' => false);
-    }
-
-    /**
-     * @param $A_postParams
-     * @return array
-     */
-    public static function delete(int $I_id):array{
-        $B_receive = Model::deleteById($I_id, "recipe");
-        if($B_receive){
-            return array('message' => "Recette supprimé", 'status' => true);
-        }
-        return array('message' => "Erreur de supression", 'status' => false);
-    }
-
-    /**
-     * @param $A_postParams
-     * @return array
-     */
-    public static function update(array $A_postParams):array{
-        $A_picture = Upload::uploadPicture($A_postParams);
-        $A_data['picture'] = $A_picture;
-        $B_receive = Model::updateById($A_postParams, "recipe");
-        if($B_receive){
-            return array('message' => "Changements enregistrés", 'status' => true);
-        }
-        return array('message' => "Erreur d'enregistrement", 'status' => false);
-    }
-
-    /**
-     * @param $A_postParams
-     * @return mixed
-     */
-    public static function selectById(int $I_id):array{
-        return Model::selectById($I_id, "RECIPE");
-    }
-
+class Recipe extends Model
+{
     /**
      * @return array
      */
@@ -98,8 +54,5 @@ class Recipe{
         $sth->execute();
         return $sth->fetchAll();
     }
-
-
-
 
 }
