@@ -2,11 +2,18 @@
 h2 {
     vertical-align: center;
     text-align: center;
+    color: white;
 }
 
 html, body {
     margin: 0;
     height: 100%;
+}
+
+body {
+    background-image: url("../../static/content/pictures/background.jpg");
+    background-size: cover;
+    background-position: center;
 }
 
 * {
@@ -20,7 +27,6 @@ html, body {
     align-items: center;
     justify-content: space-between;
     background: linear-gradient(to left, #f46b45, #eea849);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #FFF;
     height: 50px;
     padding: 1em;
