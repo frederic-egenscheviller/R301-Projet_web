@@ -1,15 +1,15 @@
 .recipe img {
-    width: 400px;
+    width: 100%;
     border-radius: 2%;
 }
 
 #recipesContainer {
     display: flex;
     flex-direction: row;
+    align-items: center;
     justify-content: center;
-    background-color: black;
-    padding-top: 2%;
-    padding-bottom: 2%;
+    padding: 2%;
+    margin-bottom: 5%;
 }
 
 .recipe {
@@ -19,6 +19,102 @@
     margin-right: 5%;
     margin-left: 5%;
     padding: 2%;
-    background-color: #f1923a;
+    background: #eea849;
     border-radius: 2%;
+}
+
+#features {
+    display: flex;
+    justify-content: center;
+    flex-wrap: wrap;
+    overflow: hidden;
+    background-color: #333;
+    font-family: Arial;
+}
+
+
+.dropdown {
+    overflow: hidden;
+}
+
+.dropdown .dropbtn {
+    font-size: 16px;
+    border: none;
+    outline: none;
+    color: white;
+    padding: 14px 16px;
+    background-color: inherit;
+    font-family: inherit; /* Important for vertical align on mobile phones */
+    margin: 0; /* Important for vertical align on mobile phones */
+}
+
+.dropdown-content {
+    flex-direction: column;
+    align-items: flex-start;
+    display: flex;
+    visibility: hidden;
+    position: absolute;
+    background-color: #f9f9f9;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
+    z-index: 1;
+}
+
+#description p{
+    margin-top: 2%;
+    text-align: justify;
+    font-size: 120%;
+}
+
+#description h2{
+    font-size: 200%;
+    color: black;
+    font-family: Palatino, sans-serif;
+}
+
+#description{
+    background-color: white;
+    padding: 2% 30%;
+}
+
+#recipesDiscoverTitle{
+    font-size: 200%;
+    margin-top: 5%;
+}
+
+.recipe p{
+    margin-top: 5%;
+}
+
+#sendFeaturesSearch{
+    background: #ffffff;
+    border:none;
+}
+
+.checkboxContainer {
+    display: flex;
+    flex-direction: row;
+}
+
+@media (max-width:1000px) {
+    #description{
+        padding: 5% 5%;
+    }
+
+    #description p{
+        font-size: 80%;
+    }
+
+    #recipesDiscoverTitle, #description h2{
+        font-size: 100%;
+    }
+
+    #recipesContainer {
+        flex-direction: column;
+    }
+
+    .recipe {
+        margin-top: 10%;
+        margin-bottom: 10%;
+    }
 }
