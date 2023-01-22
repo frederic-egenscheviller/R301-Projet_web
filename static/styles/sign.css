@@ -37,7 +37,7 @@ input::file-selector-button {
     cursor: pointer;
 }
 
-input[type=submit] {
+#submit {
     background-color: #EEA849FF;
     color: white;
     padding: 14px 20px;
@@ -45,7 +45,7 @@ input[type=submit] {
     width: 100%;
 }
 
-input[type=submit]:hover {
+#submit:hover {
     background-color: #f17555;
     color: white;
     cursor: pointer;
