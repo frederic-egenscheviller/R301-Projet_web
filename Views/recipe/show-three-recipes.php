@@ -9,6 +9,7 @@ Pour faire une recherche par filtre, utilisez la barre ci-dessus !</p></section>
 echo '<link rel="stylesheet" type="text/css" href="../../static/styles/show-three-recipes.css">';
 
 echo '<h2 id="recipesDiscoverTitle">Faites de nouvelles découvertes culinaires !</h2>';
+
 echo '<div id="recipesContainer">';
 foreach ($A_view['randomRecipes'] as $recipe){
     echo '<div class="recipe">';

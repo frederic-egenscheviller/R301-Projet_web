@@ -1,9 +1,4 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway);
-h2 {
-    vertical-align: center;
-    text-align: center;
-    color: white;
-}
 
 html, body {
     margin: 0;
@@ -30,6 +25,11 @@ body {
     color: #FFF;
     height: 50px;
     padding: 1em;
+}
+
+.center-title {
+    vertical-align: center;
+    text-align: center;
 }
 
 .menu {
