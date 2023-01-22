@@ -8,7 +8,7 @@ de s'inspirer et de s'échanger des idées.<br>
 Pour faire une recherche par filtre, utilisez la barre ci-dessus !</p></section>";
 echo '<link rel="stylesheet" type="text/css" href="../../static/styles/show-three-recipes.css">';
 
-echo '<h2 id="recipesDiscoverTitle">Faites de nouvelles découvertes culinaires !</h2>';
+echo '<h2 id="center-title">Faites de nouvelles découvertes culinaires !</h2>';
 
 echo '<div id="recipesContainer">';
 foreach ($A_view['randomRecipes'] as $recipe){
