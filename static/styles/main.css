@@ -26,11 +26,6 @@ body {
     padding: 1em;
 }
 
-.center-title {
-    vertical-align: center;
-    text-align: center;
-}
-
 .menu {
     display: flex;
     flex-direction: row;
