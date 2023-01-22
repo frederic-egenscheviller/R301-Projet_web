@@ -1,4 +1,6 @@
 .recipes-container {
+    margin: 2em 0;
+
     -moz-column-count: 3;
     -moz-column-gap: 1%;
     -moz-column-width: 32%;
@@ -8,7 +10,6 @@
     column-count: 3;
     column-gap: 1%;
     column-width: 32%;
-    margin: 2em 0;
 }
 
 .card {
@@ -65,14 +66,25 @@
 }
 
 @media (max-width: 768px) {
-    .recipe-container {
+    .recipes-container {
         -moz-column-count: 1;
-        -moz-column-gap: 1%;
         -moz-column-width: 49%;
         -webkit-column-count: 1;
-        -webkit-column-gap: 1%;
         -webkit-column-width: 49%;
         column-count: 1;
+        column-width: 49%;
+    }
+}
+
+@media (min-width: 768px) and (max-width: 1000px) {
+    .recipes-container {
+        -moz-column-count: 2;
+        -moz-column-gap: 1%;
+        -moz-column-width: 49%;
+        -webkit-column-count: 2;
+        -webkit-column-gap: 1%;
+        -webkit-column-width: 49%;
+        column-count: 2;
         column-gap: 1%;
         column-width: 49%;
     }
