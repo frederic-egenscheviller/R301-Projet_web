@@ -1,18 +1,17 @@
 @import url(https://fonts.googleapis.com/css?family=Raleway);
 
-html, body {
-    margin: 0;
-    height: 100%;
-}
 
 body {
     background-image: url("../../static/content/pictures/background.jpg");
     background-size: cover;
     background-position: center;
+    background-repeat: no-repeat;
+    min-height:100vh;
 }
 
 * {
-    font-family: "Raleway";
+    margin: 0;
+    font-family: "Raleway", sans-serif;
     box-sizing: border-box;
 }
 
@@ -166,12 +165,8 @@ body {
     .menu > li:not(:last-child) {
         border-bottom: 1px solid #444;
     }
+}
 
-}
-*
-{
-    margin: 0;
-}
 .site-footer
 {
     width: 100%;
