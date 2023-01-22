@@ -6,6 +6,7 @@
         <link rel="stylesheet" href="/static/styles/error.css">
         <link rel="stylesheet" href="/static/styles/sign.css">
         <link rel="stylesheet" type="text/css" href="/static/styles/show-three-recipes.css">
+        <link rel="stylesheet" type="text/css" href="/static/styles/recipes-show.css">
         <title>Cookeat</title>
     </head>
     <body>

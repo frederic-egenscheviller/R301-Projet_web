@@ -1,6 +1,6 @@
 <?php
 
-echo '<h2>Faites de nouvelles découvertes culinaires !</h2>';
+echo '<h2 class="center-title">Faites de nouvelles découvertes culinaires !</h2>';
 echo '<div id="recipesContainer">';
 foreach ($A_view as $recipe){
     echo '<div class="recipe">';
