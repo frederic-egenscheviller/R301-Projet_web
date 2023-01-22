@@ -5,6 +5,12 @@ html, body {
     height: 100%;
 }
 
+body {
+    background-image: url("../../static/content/pictures/background.jpg");
+    background-size: cover;
+    background-position: center;
+}
+
 * {
     font-family: "Raleway";
     box-sizing: border-box;
@@ -16,7 +22,6 @@ html, body {
     align-items: center;
     justify-content: space-between;
     background: linear-gradient(to left, #f46b45, #eea849);
-    /* W3C, IE 10+/ Edge, Firefox 16+, Chrome 26+, Opera 12+, Safari 7+ */
     color: #FFF;
     height: 50px;
     padding: 1em;
