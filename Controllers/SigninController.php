@@ -8,13 +8,15 @@ final class SigninController
 
     public function updateAction(Array $A_parametres = null, Array $A_postParams = null) {
         $status = Users::isUser($A_postParams);
+
         switch ($status) {
-            case 'user' || 'admin':
+            case 'user':
+            case 'admin':
                 Session::start($status, $A_postParams['id']);
-                View::show("categories/show");
+                header('Location: /home');
                 break;
             default:
-                View::show("signin/form");
+                header("Location: /signin");
         }
     }
 }

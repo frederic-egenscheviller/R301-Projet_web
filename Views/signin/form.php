@@ -1,5 +1,5 @@
 <?php
-echo("<form class='sigin' method='post' action='#'>
+echo("<form class='sigin' method='post' action='/signin/update'>
         <label><b>Nom d'utilisateur</b></label>
         <input type='text' placeholder='Votre pseudo' name='id' required><br>
 

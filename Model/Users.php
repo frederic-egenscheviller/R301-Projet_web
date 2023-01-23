@@ -4,11 +4,17 @@ class Users extends Model{
         return UploadPicture::uploadPicture($A_getParams);
     }
 
-    public static function isUser(array $A_getParams):array{
+    public static function isUser(array $A_getParams):string{
         $S_id = $A_getParams['id'];
+
         $A_user = self::selectById($S_id);
-        $A_admin = Admin::selectById($S_id);
-        return array('user'=>$A_user['password']==$A_getParams['password'], 'admin'=>sizeof($A_admin)!=0);
+        if (($A_user) && ($A_user['password']==$A_getParams['password'])) {
+            if(Admin::selectById($S_id)) {
+                return 'admin';
+            }
+            return 'user';
+        }
+        return 'visitor';
     }
 
 

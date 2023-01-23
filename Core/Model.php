@@ -2,7 +2,7 @@
 
 abstract class Model{
 
-    public static function selectById(String $id) : array{
+    public static function selectById(String $id){
         $db = Connection::initConnection();
         $stmnt = "SELECT * FROM ".get_called_class()." WHERE ID = ? ";
         $sth = $db->prepare($stmnt);
