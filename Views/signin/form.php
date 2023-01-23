@@ -1,7 +1,7 @@
 <?php
 echo("<form class='sigin' method='post' action='#'>
         <label><b>Nom d'utilisateur</b></label>
-        <input type='text' placeholder='Votre pseudo' name='username' required><br>
+        <input type='text' placeholder='Votre pseudo' name='id' required><br>
 
         <label><b>Mot de passe</b></label>
         <input type='password' placeholder='Entrer le mot de passe' name='password' required>
