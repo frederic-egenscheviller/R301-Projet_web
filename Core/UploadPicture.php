@@ -2,36 +2,35 @@
 
 final class UploadPicture
 {
-    static function createPicturesDirectory(): void
-    {
-        if (!file_exists("../static/content")) {
-            mkdir("../static/content", 0777, true);
-        }
-    }
+
     static function createPictureName(string $projectName): string
     {
-        return strtolower(preg_replace("/[^A-Za-z]/", "", iconv('UTF-8', 'ASCII//TRANSLIT', $projectName)));
+        return strtolower(preg_replace("/[^A-Za-z1-9]/", "", iconv('UTF-8', 'ASCII//TRANSLIT', $projectName)));
     }
 
-    static function uploadPicture($elementName)
+    static function uploadPicture($elementName, $isRecipe)
     {
-        if (isset($_FILES['miniature'])) {
+        if (isset($_FILES['picture'])) {
             $elementName = self::createPictureName($elementName);
 
-            $extensions = ['jpg', 'jpeg'];
+            $extensions = ['jpg', 'jpeg','png'];
             $maxSize = 5000000;
 
-            $tmpName = $_FILES['miniature']['tmp_name'];
-            $name = $_FILES['miniature']['name'];
-            $size = $_FILES['miniature']['size'];
-            $error = $_FILES['miniature']['error'];
+            $tmpName = $_FILES['picture']['tmp_name'];
+            $name = $_FILES['picture']['name'];
+            $size = $_FILES['picture']['size'];
+            $error = $_FILES['picture']['error'];
             $tabExtension = explode('.', $name);
             $extension = strtolower(end($tabExtension));
             if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
-                $file = $elementName . $extension;
-                self::createPicturesDirectory();
-                move_uploaded_file($tmpName, "../static/content/" . $file);
-                return "../static/content/". $file;
+                $file = $elementName . '.' . $extension;
+
+                if($isRecipe) {
+                    move_uploaded_file($tmpName, $_SERVER['DOCUMENT_ROOT'] . "/static/content/recipes/" . $file);
+                    return "/static/content/recipes/". $file;
+                }
+                move_uploaded_file($tmpName, $_SERVER['DOCUMENT_ROOT'] . "/static/content/users/" . $file);
+                return "/static/content/users/". $file;
             }
         }
         return null;

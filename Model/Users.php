@@ -1,7 +1,7 @@
 <?php
 class Users extends Model{
-    public static function uploadUserPicture(array $A_getParams):string{
-        return UploadPicture::uploadPicture($A_getParams);
+    public static function uploadUserPicture(string $name):string{
+        return UploadPicture::uploadPicture($name . Users::selectHowMany() ,false);
     }
 
     public static function isUser(array $A_getParams):string{
