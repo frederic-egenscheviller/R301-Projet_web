@@ -5,7 +5,7 @@ final class RecipeController
         View::show("recipe/show", Recipe::selectAll($A_postParams));
     }
     public function formAction() {
-        View::show("recipe/form");
+        View::show("recipe/add-form");
     }
 
     public function createAction($A_postParams) {
