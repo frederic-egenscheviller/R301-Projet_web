@@ -26,10 +26,10 @@ final class UploadPicture
                 $file = $elementName . '.' . $extension;
 
                 if($isRecipe) {
-                    move_uploaded_file($tmpName, "/static/content/recipes/" . $file);
+                    move_uploaded_file($tmpName, $_SERVER['DOCUMENT_ROOT'] . "/static/content/recipes/" . $file);
                     return "/static/content/recipes/". $file;
                 }
-                move_uploaded_file($tmpName, "/static/content/users/" . $file);
+                move_uploaded_file($tmpName, $_SERVER['DOCUMENT_ROOT'] . "/static/content/users/" . $file);
                 return "/static/content/users/". $file;
             }
         }
