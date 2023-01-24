@@ -3,6 +3,59 @@
 class Recipe extends Model
 {
 
+    public static function addRecipeElem(int $I_recipeId ,array $A_params, string $S_table):bool{
+        $O_con = Connection::initConnection();
+        foreach($A_params as $S_elem){
+            try{
+                switch ($S_table){
+                    case 'ingerdients' :
+                        Ingredients::create($S_elem);
+                        break;
+                    case 'utensils' :
+                        Utensils::create($S_elem);
+                        break;
+                    case 'particularities' :
+                        Particularities::create($S_elem);
+                        break;
+                } 
+            }catch(Exception $e){}
+
+            $S_sql = "insert into :table values (:recipe, :elem)";
+            $sth = $O_con->prepare($S_sql);
+            $sth->bindValue(':table', $S_table."_recipe", PDO::PARAM_STR);
+            $sth->bindValue(':elem', $S_elem, PDO::PARAM_STR);
+            $sth->bindValue(':recipe', $I_recipeId, PDO::PARAM_STR);
+            return $sth->execute();
+        }
+    }
+
+    public static function create(array $A_postParams):bool{
+
+        if(self::create($A_postParams)){
+        
+            $O_con = Connection::initConnection();
+            $S_sql = "select id from recipe where name = :name and preparation_description = :desc";
+            $sth = $O_con->prepare($S_sql);
+            $sth->bindValue(':name', $A_postParams['name'], PDO::PARAM_STR);
+            $sth->bindValue(':desc', $A_postParams['preparation_description'], PDO::PARAM_STR);
+            $sth->execute();
+            $A_recipe = $sth->fetch();
+            $I_recipeId = intval($A_recipe['id']);
+
+            $B_flag = true;
+            if(isset($A_postParams['ingredients']) && $B_flag){
+                $B_flag = self::addRecipeElem($I_recipeId ,$A_postParams['ingredients'], "ingredients");
+            }
+            if(isset($A_postParams['utensils']) && $B_flag){
+                $B_flag = self::addRecipeElem($I_recipeId ,$A_postParams['utensils'], "utensils");
+            }
+            if(isset($A_postParams['particularities']) && $B_flag){
+                $B_flag = self::addRecipeElem($I_recipeId ,$A_postParams['particularities'], "particularities");
+            }
+            return $B_flag;
+        }
+    }
+
     public static function randomRecipe():array{
         $O_con = Connection::initConnection();
         $S_sql = "SELECT * FROM RECIPE ORDER BY RANDOM() LIMIT 3";
