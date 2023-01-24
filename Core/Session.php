@@ -12,7 +12,7 @@ final class Session
         return isset($_SESSION);
     }
 
-    public static function getSession(): ?string {
+    public static function getSession(): ?array {
         if (Session::check()) {
             return $_SESSION;
         }

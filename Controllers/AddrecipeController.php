@@ -8,6 +8,6 @@ final class AddrecipeController
 
     public function updateAction(Array $A_parametres = null, Array $A_postParams = null) {
         $A_postParams['picture'] = Recipe::uploadRecipePicture($A_postParams['name']);
-        Recipe::createRecipe($A_postParams);
+        Recipe::create($A_postParams);
     }
 }

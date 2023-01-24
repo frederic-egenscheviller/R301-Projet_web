@@ -12,29 +12,39 @@ echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-dat
     
         <div id='container2'>
         <label for='ingredient'>Ingredient :</label><br>
-            <input type='text' id='ingredient' name='ingredient[]' value='' required>
+            <input type='text' id='ingredient' name='ingredients[]' value='' required>
         </div>
         <button type='button' value='addFields' onclick='addIngredient()'>Ajouter un ingerdient</button><br /><br>
         <div id='container'>
             <label for=ustensile'>Ustensile :</label><br>
-            <input type='text' id='ustensile' name='ustensile[]' value='' required>
+            <input type='text' id='ustensile' name='utensils[]' value='' required>
         </div>
         <button type='button' value='addFields' onclick='addUtensil()'>Ajouter un ustensile</button><br><br>
 
-        <label><b>Temps de preparation</b></label>
-        <input type='text' placeholder='temps de préparetion' name='cooking_time' required>
+        <label><b>Temps de preparation</b></label><br>
+        <input type='number' placeholder='temps de préparetion' name='cooking_time' min='0' required>
         <br><br>
 
-        <label><b>Difficulte de la recette</b></label>
-        <input type='int' placeholder='difficulte de la recette' name='difficulty' required>
+        <label><b>Difficulte de la recette</b></label><br>
+        <lable>Facile</lable>
+        <input type='radio' name='difficulty' value='facile' required><br>
+        <lable>Moyen</lable>
+        <input type='radio' name='difficulty' value='moyen' required><br>
+        <lable>Difficile</lable>
+        <input type='radio' name='difficulty' value='difficile' required>
         <br><br>
 
-        <label><b>Cout de la recette</b></label>
-        <input type='int' placeholder='cout de la recette' name='cost' required>
+        <label><b>Cout de la recette</b></label><br>
+        <lable>€</lable>
+        <input type='radio' name='cost' value='€' required><br>
+        <lable>€€</lable>
+        <input type='radio' name='cost' value='€€' required><br>
+        <lable>€€€</lable>
+        <input type='radio' name='cost' value='€€€' required>
         <br><br>
 
-        <label><b>Description de la recette</b></label>
-        <input type='text' placeholder='description de la recette' name='preparation_description' required>
+        <label><b>Description de la recette</b></label><br>
+        <textarea type='text' placeholder='description de la recette' name='preparation_description' required></textarea>
         <br><br>
 
         <label><b>Type de cuisson</b></label>
@@ -43,7 +53,7 @@ echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-dat
 
         <div id='container3'>
             <label for='particularite'>Particularite :</label><br>
-            <input type='text' id='particularite' name='particularite[]' value='' required>
+            <input type='text' id='particularite' name='particularities[]' value=''>
         </div>
         <button type='button' value='addFields' onclick='addParticularity()'>Ajouter une particularité</button><br><br>
 
