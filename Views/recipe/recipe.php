@@ -37,4 +37,16 @@ echo '              </ul>
         </section>
         <p id="instructions">'. $A_view['recipe']['preparation_description'] . '</p>
     </section>
+</section>
+<section id="recipe-comments">
+    <h2>Commentaires</h2>
+    <section id="comments">';
+foreach ($A_view['comments'] as $comment) {
+    echo '<section class="comment">
+        <h3></h3>
+        <p>Commentaire 1</p>
+    </section>';
+}
+echo '
+    </section>
 </section>';
