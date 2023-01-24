@@ -46,21 +46,7 @@ final class AutoLoad
         return static::_load($S_file);
     }
 
-    public static function loadPHPMailerClass($S_className)
-    {
-        $S_file = Constants::phpMailerDirectory() . "$S_className.php";
-
-        return static::_load($S_file);
-    }
-
-    public static function loadPHPMailerExceptionClass($S_className)
-    {
-        $S_file = Constants::phpMailerDirectory() . "$S_className.php";
-
-        return static::_load($S_file);
-    }
-
-    public static function loadPHPMailerSMTPClass($S_className)
+    public static function loadPHPMailerClasses($S_className)
     {
         $S_file = Constants::phpMailerDirectory() . "$S_className.php";
 
@@ -82,6 +68,5 @@ spl_autoload_register('AutoLoad::loadModelClasses');
 spl_autoload_register('AutoLoad::loadViewClasses');
 spl_autoload_register('AutoLoad::loadControllerClass');
 spl_autoload_register('AutoLoad::loadDatabaseClass');
-spl_autoload_register('AutoLoad::loadPHPMailerClass');
-spl_autoload_register('AutoLoad::loadPHPMailerExceptionClass');
-spl_autoload_register('AutoLoad::loadPHPMailerSMTPClass');
+spl_autoload_register('AutoLoad::loadPHPMailerClasses');
+

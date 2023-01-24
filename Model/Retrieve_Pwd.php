@@ -1,5 +1,5 @@
 <?php
-
+//require "Core/Phpmailer/PHPMailer.php";
 class Retrieve_Pwd extends Model
 {
     public static function generateToken() : int{
@@ -9,7 +9,7 @@ class Retrieve_Pwd extends Model
 
     public static function sendMail(Array $A_postParams) : void {
         // On crée uns instance de PHPMailer
-        $mail = new PHPMailer();
+        $mail = new \PHPMailer\PHPMailer\PHPMailer();
 
         // Encodage UTF-8 pour les accents...
         $mail->CharSet = 'UTF-8';
@@ -36,7 +36,7 @@ class Retrieve_Pwd extends Model
         $mail->Password = "bpghsngrhhjqnznl";
 
         // Le sujet de l'email
-        $mail->Subject = "Récupération de mot de passe FindTheBreach ";
+        $mail->Subject = "Récupération de mot de passe ";
 
         // La personne qui envoie l'email
         $mail->setFrom("findthebreach.noreply@gmail.com");
@@ -48,20 +48,8 @@ class Retrieve_Pwd extends Model
         $mail->Body = "Votre Token de récupération :\n ".strval($A_postParams["token"]);
 
         // On ajoute l'adresse mail du destinataire
-        $mail->addAddress($A_postParams["mail"]);
+        $mail->addAddress($A_postParams["id"]);
 
-        /*
-        // Enfin on envoie le mail
-        if ( $mail->send() ) {
-
-            header("location: ../pages/token-mot-de-passe.php");
-            exit;
-        }else{
-
-            header("location: ../pages/mot-de-passe-oublie.php");
-            exit;
-        }
-        */
         // On ferme la connexion SMTP au compte GMAIL
         $mail->smtpClose();
     }
