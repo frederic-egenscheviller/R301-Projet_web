@@ -12,9 +12,9 @@ final class Session
         return isset($_SESSION);
     }
 
-    public static function getStatus(): ?string {
+    public static function getSession(): ?string {
         if (Session::check()) {
-            return $_SESSION['status'];
+            return $_SESSION;
         }
         return null;
     }
