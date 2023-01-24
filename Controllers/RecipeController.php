@@ -2,12 +2,21 @@
 
 final class RecipeController
 {
-    public function defaultAction($A_postParams) {
-        if($A_postParams[2] == null) {
-            View::show("errors/error404");
+    public function showAction(Array $A_parametres = null) {
+        if($A_parametres == null || Recipe::selectById($A_parametres[0]) == null) {
+            header("Location: ../../errors/error404");
             exit();
         }
-        View::show("recipe/recipe", Recipe::selectById($A_postParams[2]));
+        $this -> getRecipeCard($A_parametres);
+        $this -> getIngredients($A_parametres);
+    }
+
+    public function getRecipeCard(Array $A_parametres) {
+        View::show("recipe/recipe", Recipe::selectById($A_parametres[0]));
+    }
+
+    public function getIngredients(Array $A_parametres) {
+        View::show("recipe/ingredients", Ingredients::selectByRecipeId($A_parametres[0]));
     }
 
     public function formAction() {

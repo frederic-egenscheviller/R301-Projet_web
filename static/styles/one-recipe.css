@@ -1,0 +1,15 @@
+#recipe-container{
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+#recipe-card{
+    margin: 2em;
+    display: flex;
+    flex-direction: column;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0px 0px 17px 18px rgba(0, 0, 0, 0.1);
+    width: 50%;
+}
