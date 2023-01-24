@@ -54,8 +54,8 @@ class Recipe extends Model
         return $sth->fetchAll();
     }
 
-    public static function uploadRecipePicture(array $A_getParams):string{
-        return UploadPicture::uploadPicture($A_getParams);
+    public static function uploadRecipePicture(string $name):string{
+        return UploadPicture::uploadPicture($name . Recipe::selectHowMany(), true);
     }
 
 

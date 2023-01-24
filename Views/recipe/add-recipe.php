@@ -1,5 +1,5 @@
 <?php
-echo "<form action='/addrecipe/update' method='POST'>
+echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-data'>
         <h1>Ajouter une recette</h1>
     
         <label><b>Nom de la recette</b></label>
@@ -7,7 +7,7 @@ echo "<form action='/addrecipe/update' method='POST'>
         <br><br>
     
         <label><b>Photo de la recette</b></label>
-        <input type='file' name='recipepicture' id='rp' required/>
+        <input type='file' id='file' name='picture' required>
         <br><br>
     
         <div id='container2'>
