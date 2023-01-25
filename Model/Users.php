@@ -8,7 +8,8 @@ class Users extends Model{
         $S_id = $A_getParams['id'];
 
         $A_user = self::selectById($S_id);
-        if (($A_user) && ($A_user['password']==$A_getParams['password'])) {
+        $S_password = hash('sha512', $A_getParams['password']);
+        if ($A_user && $A_user['password']== $S_password) {
             if(Admin::selectById($S_id)) {
                 return 'admin';
             }
