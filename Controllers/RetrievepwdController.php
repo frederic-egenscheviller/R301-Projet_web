@@ -20,10 +20,13 @@ class RetrievepwdController
         }
 
         unset($A_postParams["password_confirmation"]);
+        unset($A_postParams["token"]);
+
         Users::updateById($A_postParams,$A_postParams["id"]);
 
         Retrieve_Pwd::deleteByID($A_postParams["id"]);
 
         header("Location: /signin");
+        //TODO : Effacer les require dans Model (mm si tt as deja été fait dans Autoload) et creer un mail
     }
 }

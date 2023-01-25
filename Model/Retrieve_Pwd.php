@@ -1,5 +1,8 @@
 <?php
-//require "Core/Phpmailer/PHPMailer.php";
+require "Core/Phpmailer/PHPMailer.php";
+require "Core/Phpmailer/Exception.php";
+require "Core/Phpmailer/SMTP.php";
+
 class Retrieve_Pwd extends Model
 {
     public static function generateToken() : int{
@@ -49,6 +52,8 @@ class Retrieve_Pwd extends Model
 
         // On ajoute l'adresse mail du destinataire
         $mail->addAddress($A_postParams["id"]);
+
+        $mail->send();
 
         // On ferme la connexion SMTP au compte GMAIL
         $mail->smtpClose();

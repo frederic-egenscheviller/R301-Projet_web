@@ -904,7 +904,7 @@ class PHPMailer
                 "\t",
                     //Trim trailing space
                 trim(
-                    //Indent for readability, except for trailing break
+                //Indent for readability, except for trailing break
                     str_replace(
                         "\n",
                         "\n                   \t                  ",
@@ -1172,8 +1172,8 @@ class PHPMailer
             $list = imap_rfc822_parse_adrlist($addrstr, '');
             foreach ($list as $address) {
                 if (('.SYNTAX-ERROR.' !== $address->host) && static::validateAddress(
-                    $address->mailbox . '@' . $address->host
-                )) {
+                        $address->mailbox . '@' . $address->host
+                    )) {
                     $addresses[] = [
                         'name' => (property_exists($address, 'personal') ? $address->personal : ''),
                         'address' => $address->mailbox . '@' . $address->host,
@@ -1229,7 +1229,7 @@ class PHPMailer
         $pos = strrpos($address, '@');
         if ((false === $pos)
             || ((!$this->has8bitChars(substr($address, ++$pos)) || !static::idnSupported())
-            && !static::validateAddress($address))
+                && !static::validateAddress($address))
         ) {
             $error_message = sprintf(
                 '%s (From): %s',
@@ -1391,7 +1391,7 @@ class PHPMailer
                 $errorcode = 0;
                 $punycode = idn_to_ascii($domain, $errorcode, INTL_IDNA_VARIANT_UTS46);
                 if (false !== $punycode) {
-                    return PHPMailer . phpsubstr($address, 0, $pos) . $punycode;
+                    return substr($address, 0, $pos) . $punycode;
                 }
             }
         }
@@ -1547,7 +1547,7 @@ class PHPMailer
                     $this->encodeHeader($this->secureHeader($this->Subject)),
                     $this->MIMEBody
                 );
-                $this->MIMEHeader = PHPMailer . phprtrim($this->MIMEHeader, "\r\n ") . static::$LE .
+                $this->MIMEHeader = rtrim($this->MIMEHeader, "\r\n ") . static::$LE .
                     static::normalizeBreaks($header_dkim) . static::$LE;
             }
 
@@ -1614,7 +1614,7 @@ class PHPMailer
      */
     protected function sendmailSend($header, $body)
     {
-        $header = PHPMailer . phprtrim($header, "\r\n ") . static::$LE . static::$LE;
+        $header = rtrim($header, "\r\n ") . static::$LE . static::$LE;
 
         // CVE-2016-10033, CVE-2016-10045: Don't pass -f if characters will be escaped.
         if (!empty($this->Sender) && self::isShellSafe($this->Sender)) {
@@ -1744,7 +1744,7 @@ class PHPMailer
      */
     protected function mailSend($header, $body)
     {
-        $header = PHPMailer . phprtrim($header, "\r\n ") . static::$LE . static::$LE;
+        $header = rtrim($header, "\r\n ") . static::$LE . static::$LE;
 
         $toArr = [];
         foreach ($this->to as $toaddr) {
@@ -1833,7 +1833,7 @@ class PHPMailer
      */
     protected function smtpSend($header, $body)
     {
-        $header = PHPMailer . phprtrim($header, "\r\n ") . static::$LE . static::$LE;
+        $header = rtrim($header, "\r\n ") . static::$LE . static::$LE;
         $bad_rcpt = [];
         if (!$this->smtpConnect($this->SMTPOptions)) {
             throw new Exception($this->lang('smtp_connect_failed'), self::STOP_CRITICAL);
@@ -1946,7 +1946,7 @@ class PHPMailer
                 trim($hostentry),
                 $hostinfo
             )) {
-                $this->edebug($this->lang('connect_host') . ' PHPMailer.php' . $hostentry);
+                $this->edebug($this->lang('connect_host') . ' ' . $hostentry);
                 // Not a valid host entry
                 continue;
             }
@@ -1958,7 +1958,7 @@ class PHPMailer
 
             //Check the host name is a valid name or IP address before trying to use it
             if (!static::isValidHost($hostinfo[3])) {
-                $this->edebug($this->lang('connect_host') . ' PHPMailer.php' . $hostentry);
+                $this->edebug($this->lang('connect_host') . ' ' . $hostentry);
                 continue;
             }
             $prefix = '';
@@ -2011,11 +2011,11 @@ class PHPMailer
                         $this->smtp->hello($hello);
                     }
                     if ($this->SMTPAuth && !$this->smtp->authenticate(
-                        $this->Username,
-                        $this->Password,
-                        $this->AuthType,
-                        $this->oauth
-                    )) {
+                            $this->Username,
+                            $this->Password,
+                            $this->AuthType,
+                            $this->oauth
+                        )) {
                         throw new Exception($this->lang('authenticate'));
                     }
 
@@ -2504,7 +2504,7 @@ class PHPMailer
      */
     public function getSentMIMEMessage()
     {
-        return PHPMailer . phprtrim($this->MIMEHeader . $this->mailHeader, "\n\r") . static::$LE . static::$LE . $this->MIMEBody;
+        return rtrim($this->MIMEHeader . $this->mailHeader, "\n\r") . static::$LE . static::$LE . $this->MIMEBody;
     }
 
     /**
@@ -4660,7 +4660,7 @@ class PHPMailer
         $signature = $this->DKIM_Sign($canonicalizedHeaders);
         $signature = trim(chunk_split($signature, self::STD_LINE_LENGTH - 3, static::$LE . ' '));
 
-        return PHPMailer . phpstatic::normalizeBreaks($dkimSignatureHeader . $signature) . static::$LE;
+        return static::normalizeBreaks($dkimSignatureHeader . $signature) . static::$LE;
     }
 
     /**
