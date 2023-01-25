@@ -27,4 +27,14 @@ class Users extends Model{
         $sth->execute();
         return $sth->fetch();
     }
+
+    public static function selectByUserId($user_id){
+        $db = Connection::initConnection();
+        $stmnt = "SELECT * FROM USERS WHERE USER_ID = :user_id ";
+        $sth = $db->prepare($stmnt);
+        $sth->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $sth->execute();
+        $row = $sth->fetch(PDO::FETCH_ASSOC);
+        return $row;
+    }
 }

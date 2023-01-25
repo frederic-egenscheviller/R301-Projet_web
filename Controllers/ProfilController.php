@@ -2,13 +2,11 @@
 
 final class ProfilController
 {
-    function defaultAction() {
-        if(!Session::check()) {
-            header('Location: /signin');
-            exit;
-        }
-        View::show("profil/profil", Users::selectById(Session::getSession()['id']));
-        View::show("recipe/recipes", Recipe::selectRecipeByUser(Session::getSession()));
-        View::show("appreciation/appreciation", Appreciation::selectAppreciationByUser(Session::getSession()));
+    function showAction(Array $A_parametres = null) {
+        $user_id = $A_parametres[0];
+        $user = Users::selectByUserId($user_id);
+        View::show("/profil/profil", Users::selectByUserId($user_id));
+        View::show("/recipe/recipes", Recipe::selectRecipeByUser($user['id']));
+        View::show("/appreciation/appreciation", Appreciation::selectAppreciationByUser($user['id']));
     }
 }
