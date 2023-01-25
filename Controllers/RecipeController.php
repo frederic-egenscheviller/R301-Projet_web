@@ -15,6 +15,7 @@ final class RecipeController
             'recipe' => Recipe::selectById($A_parametres[0]),
             'ingredients' => Ingredients::selectByRecipeId($A_parametres[0]),
             'utensils' => Utensils::selectByRecipeId($A_parametres[0]),
+            'particularities' => Particularities::selectByRecipeId($A_parametres[0]),
             'appreciation' => $A_appreciation,
             'isUser' => Session::check()));
     }
