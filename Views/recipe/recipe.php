@@ -61,7 +61,7 @@ echo '
     <section id="comments">';
 foreach ($A_view['appreciation'] as $appreciation) {
     echo '<section class="comment">
-        <h3>Posté par :' . $appreciation['user_id'] . '</h3>
+        <h3>Posté par :' . $appreciation['user_id'] . ', le '. date("d/m/Y", strtotime($appreciation['appreciation_date'])) .'</h3>
         <p>' . $appreciation['comment'] . '</p>
     </section>';
 }
