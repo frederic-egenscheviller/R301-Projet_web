@@ -12,6 +12,7 @@ echo("<form class='signup' method='post' action='/signup/update' enctype='multip
         <input type='hidden' id='last_login' name='last_login' value='". date('Y-m-d',time()) ."'>
         <label>J'accepte les conditions d'utilisation</label>
         <input type='checkbox' required>
+        <a href='/termsofuses'>Voir les conditions d'utilisations</a>
         <input type='submit' id='submit' value='Inscription'>
         <label><a href='/signin'><b>Se connecter</b></a></label>
     </form>");
