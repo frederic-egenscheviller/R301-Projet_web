@@ -1,12 +1,8 @@
 <?php
 
-final class UserController
+final class LogoutController
 {
     public function defaultAction() {
-        View::show("errors/error404");
-    }
-
-    public function logoutAction() {
         Session::destroy();
         header('Location: /home');
         exit;

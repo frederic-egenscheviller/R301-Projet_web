@@ -12,7 +12,9 @@ final class SignupController
         if(Users::create($A_postParams)) {
             Session::start('user', $A_postParams['id']);
             header('Location: /home');
+            exit;
         }
         header('Location: /signin');
+        exit;
     }
 }

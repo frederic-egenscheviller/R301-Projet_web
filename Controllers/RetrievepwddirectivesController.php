@@ -9,7 +9,7 @@ class RetrievepwddirectivesController
 
         if(!Users::checkIfExistsById($A_postParams["id"])){
             header("Location: /signup");
-            return;
+            exit;
         }
 
         $I_token = Retrieve_Pwd::generateToken();
@@ -23,5 +23,6 @@ class RetrievepwddirectivesController
 
         Retrieve_Pwd::sendMail($A_postParams);
         header("Location: /retrievepwd");
+        exit;
     }
 }

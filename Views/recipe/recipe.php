@@ -42,7 +42,7 @@ if($A_view['isUser']){
     echo '
     <section id="add-appreciation">
     <h2>Ajouter un commentaire</h2>
-    <form action="/appreciation/upload" method="post">
+    <form action="/recipe/uploadappreciation" method="post">
         <input type="hidden" name="recipe_id" value="' . $A_view['recipe']['id'] . '">
         <input type="hidden" name="appreciation_date" value="'. date("Y-m-d") .'">
         <input type="hidden" name="user_id" value="'. Session::getSession()['id'] .'">

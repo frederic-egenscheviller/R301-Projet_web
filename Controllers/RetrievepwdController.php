@@ -12,13 +12,13 @@ class RetrievepwdController
         if ($A_retrieveTable["token"] != $A_postParams["token"]){
             //Token doesnt exists
             header("Location: /retrievepwd");
-            return;
+            exit;
         }
 
         if ($A_postParams["password"] != $A_postParams["password_confirmation"]){
             //Passwords do not match
             header("Location: /retrievepwd");
-            return;
+            exit;
         }
 
         unset($A_postParams["password_confirmation"]);
@@ -29,5 +29,6 @@ class RetrievepwdController
         Retrieve_Pwd::deleteByID($A_postParams["id"]);
 
         header("Location: /signin");
+        exit;
     }
 }
