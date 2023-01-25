@@ -12,7 +12,7 @@ class Recipe extends Model
     }
 
 
-    static function selectRecipeByUser(array $A_postParams):array{
+    public static function selectRecipeByUser(array $A_postParams):array{
         $I_id = $A_postParams['id'];
         $O_con = Connection::initConnection();
         $S_sql = "SELECT * FROM RECIPE WHERE user_id = :user";
