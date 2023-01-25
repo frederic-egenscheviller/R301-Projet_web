@@ -23,6 +23,8 @@
 
     View::openBuffer(); // on ouvre le tampon d'affichage, les contrôleurs qui appellent des vues les mettront dedans
 
+    session_start();
+
     try
     {
         $O_controller = new Controller($S_urlToPeer, $A_postParams);

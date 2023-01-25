@@ -7,8 +7,10 @@
         <link rel="stylesheet" href="/static/styles/sign.css">
         <link rel="stylesheet" type="text/css" href="/static/styles/show-three-recipes.css">
         <link rel="stylesheet" type="text/css" href="/static/styles/recipes-show.css">
+        <link rel="stylesheet" type="text/css" href="/static/styles/profile.css">
+        <link rel="stylesheet" type="text/css" href="/static/styles/appreciation.css">
         <link rel="stylesheet" type="text/css" href="/static/styles/one-recipe.css">
-
+        
         <script type='text/javascript' src='/static/js/add-recipe-form.js'></script>
 
         <title>Cookeat</title>
