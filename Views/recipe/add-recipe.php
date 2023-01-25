@@ -1,4 +1,5 @@
 <?php
+print('<link rel="stylesheet" href="../../static/styles/addrecipe.css">');
 echo "<form action='/addrecipe/update' method='POST'>
         <h1>Ajouter une recette</h1>
     
@@ -11,12 +12,12 @@ echo "<form action='/addrecipe/update' method='POST'>
         <br><br>
     
         <div id='container2'>
-        <label for='ingredient'>Ingredient :</label><br>
+        <label for='ingredient'><b>Ingredient :</b></label><br>
             <input type='text' id='ingredient' name='ingredient[]' value='' required>
         </div>
         <button type='button' value='addFields' onclick='addIngredient()'>Ajouter un ingerdient</button><br /><br>
         <div id='container'>
-            <label for=ustensile'>Ustensile :</label><br>
+            <label for=ustensile'><b>Ustensile :</b></label><br>
             <input type='text' id='ustensile' name='ustensile[]' value='' required>
         </div>
         <button type='button' value='addFields' onclick='addUtensil()'>Ajouter un ustensile</button><br><br>
