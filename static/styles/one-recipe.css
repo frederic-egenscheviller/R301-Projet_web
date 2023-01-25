@@ -108,6 +108,12 @@
     min-height: 100px;
 }
 
+.comment-text {
+    display: flex;
+    flex-direction: row;
+
+}
+
 @media screen and (max-width: 768px) {
     #recipe-container{
         flex-direction: column;
