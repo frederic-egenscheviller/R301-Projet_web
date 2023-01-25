@@ -17,8 +17,8 @@ class Recipe extends Model
         $O_con = Connection::initConnection();
         $S_sql = "SELECT * FROM RECIPE WHERE user_id = :user";
         $sth = $O_con->prepare($S_sql);
-        $sth->execute();
         $sth->bindValue(':user', $I_id, PDO::PARAM_INT);
+        $sth->execute();
         return $sth->fetchAll();
     }
 
