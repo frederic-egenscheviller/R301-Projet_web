@@ -24,6 +24,7 @@ class RetrievepwdController
         unset($A_postParams["password_confirmation"]);
         unset($A_postParams["token"]);
 
+        $A_postParams['password'] = hash('sha512', $A_postParams['password']);
         Users::updateById($A_postParams,$A_postParams["id"]);
 
         Retrieve_Pwd::deleteByID($A_postParams["id"]);
