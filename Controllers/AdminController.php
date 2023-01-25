@@ -18,7 +18,6 @@ class AdminController
     }
 
     public function addAction(Array $A_parametres = null, Array $A_postParams = null){
-        var_dump($A_postParams);
         if(Users::checkIfExistsById($A_postParams["id"])){
             Admin::create($A_postParams);
         }
