@@ -13,6 +13,7 @@ final class SigninController
             case 'user':
             case 'admin':
                 Session::start($status, $A_postParams['id']);
+                Users::updateLastLogin($A_postParams['id']);
                 header('Location: /home');
                 break;
             default:
