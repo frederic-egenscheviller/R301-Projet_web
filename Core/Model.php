@@ -2,7 +2,7 @@
 
 abstract class Model{
 
-    public static function selectById(String $id){
+    public static function selectById($id){
         $db = Connection::initConnection();
         $stmnt = "SELECT * FROM ".get_called_class()." WHERE ID = ? ";
         $sth = $db->prepare($stmnt);
@@ -11,7 +11,7 @@ abstract class Model{
         return $row;
     }
 
-    public static function deleteByID(String $id) : bool{
+    public static function deleteByID($id) : bool{
         $db = Connection::initConnection();
         $stmnt = "DELETE FROM ".get_called_class()." WHERE ID = ? ";
         $sth = $db->prepare($stmnt);
@@ -35,7 +35,7 @@ abstract class Model{
         return $sth->execute(array_values($A_postParams));
     }
 
-    public static function updateById(Array $A_postParams,String $id ) : bool{
+    public static function updateById(Array $A_postParams,$id ) : bool{
         $db = Connection::initConnection();
 
         $keys = "";
