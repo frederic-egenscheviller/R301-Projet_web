@@ -72,4 +72,12 @@ abstract class Model{
         $A_postParams['picture'] = $A_picture;
         return $A_postParams;
     }
+
+    public static function checkIfExistsById(String $id) : bool{
+        $db = Connection::initConnection();
+        $stmnt = "SELECT * FROM ".get_called_class()." WHERE ID = ? ";
+        $sth = $db->prepare($stmnt);
+        $sth->execute(array($id));
+        return ($sth->rowCount() > 0);
+    }
 }

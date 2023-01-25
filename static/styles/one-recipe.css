@@ -60,6 +60,54 @@
     gap: 2em;
 }
 
+#add-appreciation{
+    padding-top: 2%;
+    padding-bottom: 2%;
+    display: flex;
+    flex-direction: column;
+    gap: 1em;
+    align-items: center;
+    justify-content: center;
+    align-items: center;
+    background-color: #ffffff;
+    border-bottom: black solid 1px;
+}
+
+#add-appreciation form{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1em;
+    width: 100%;
+}
+
+#add-appreciation form input[type="submit"]{
+    height: 2em;
+    width: fit-content;
+
+    background-color: rgb(255, 185, 46);
+    border-radius: 15px;
+
+    padding: 0 1em;
+    color : white;
+}
+
+#add-appreciation form h3{
+    font-size: 1em;
+    margin-right: 1em;
+}
+
+#rating{
+    display: flex;
+    flex-direction: row;
+}
+
+#comment{
+    width: 40%;
+    min-height: 100px;
+}
+
 @media screen and (max-width: 768px) {
     #recipe-container{
         flex-direction: column;
@@ -71,5 +119,20 @@
 
     #recipe-necessary-elements{
         flex-direction: column;
+        gap: 2em;
+    }
+
+    #recipe-description{
+        margin-bottom: 2em;
+        gap: 1em;
+    }
+
+    #comment{
+        width: 90%;
+    }
+
+    #instructions{
+        margin-right: 2%;
+        margin-left: 2%;
     }
 }
