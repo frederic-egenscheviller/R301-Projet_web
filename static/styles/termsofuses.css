@@ -1,0 +1,33 @@
+
+.terms-box{
+    display: block;
+    margin : 5em auto;
+    padding: 2em 0;
+    max-width: 460px;
+    background-color: #111;
+    color: #fff;
+    font-family: 'Times New Roman', Times, serif;
+    padding: 60px 30px;
+}
+
+.terms-text{
+    padding: 0 20px;
+    height: 400px;
+    overflow-y: auto;
+    font-size: 14px;
+    font-weight: 500;
+    color: #f1f1f1;
+}
+
+.terms-text::-webkit-scrollbar{
+    width: 2px;
+    background-color: #282828;
+}
+
+.terms-text::-webkit-scrollbar-thumb{
+    background-color: red;
+}
+
+.terms-title{
+    text-transform: uppercase;
+}
