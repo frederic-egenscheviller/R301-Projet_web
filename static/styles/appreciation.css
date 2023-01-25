@@ -1,0 +1,42 @@
+.appreciations {
+    display: block;
+    margin : 5em auto;
+    padding: 2em 0;
+
+    background: white;
+    width : 70%;
+    border-radius: 10px;
+
+    text-align: center;
+}
+
+.appreciation-title {
+    text-align: center;
+}
+
+.appreciations-content {
+    margin : 0 20%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding : 0;
+    list-style-type: none;
+    text-decoration: none;
+
+    gap : 1em;
+}
+
+.appreciation {
+    height : fit-content;
+    padding : 0.5em;
+    background: #c5c5c5;
+    border : black 0.5px solid;
+    border-radius: 10px;
+}
+
+.appreciation-link {
+    height : 100%;
+    width : 100%;
+    align-items: center;
+
+}
