@@ -7,8 +7,7 @@ final class AddrecipeController
     }
 
     public function updateAction(Array $A_parametres = null, Array $A_postParams = null) {
-        Recipe::uploadRecipePicture($A_postParams['recipepicture']);
-        unset($A_postParams['recipepicture']);
-        View::show("recipe/add-recipe", Recipe::create($A_postParams));
+        $A_postParams['picture'] = Recipe::uploadRecipePicture($A_postParams['name']);
+        View::show("recipe/add-recipe", array('message' => Recipe::createRecipe($A_postParams)));
     }
 }

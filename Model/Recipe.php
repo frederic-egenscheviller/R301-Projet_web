@@ -3,6 +3,95 @@
 class Recipe extends Model
 {
 
+    public static function addRecipeElem(int $I_recipeId ,array $A_params, string $S_table):bool{
+        
+        $O_con = Connection::initConnection();
+        foreach($A_params as $S_elem){
+            $S_sql = "";
+
+            if($S_table=='utensils'){
+                $S_sql = "insert into utensils_recipe values (:recipe, :elem)";
+                try{
+                    Utensils::create(array('id' => $S_elem));
+                }catch(Exception $e){}
+            }
+            elseif($S_table=='particularities'){
+                $S_sql = "insert into particularities_recipe values (:recipe, :elem)";
+                try{
+                    Particularities::create(array('id' => $S_elem));
+                }catch(Exception $e){}
+            }
+            else{
+                return false;
+            }
+            
+            $sth = $O_con->prepare($S_sql);
+            $sth->bindValue(':elem', $S_elem, PDO::PARAM_STR);
+            $sth->bindValue(':recipe', $I_recipeId, PDO::PARAM_STR);
+            $sth->execute(); 
+        }
+        return true;
+    }
+
+    public static function addRecipeIngredient(int $I_recipeId ,array $A_listIngredients, array $A_listQuantities):bool{
+        
+        $O_con = Connection::initConnection();
+        $I_sizeOfArray = sizeof($A_listIngredients);
+        for($I_i = 0; $I_i < $I_sizeOfArray; $I_i++){
+            try{
+                Ingredients::create(array('id' => $A_listIngredients[$I_i]));
+            }catch(Exception $e){}
+            
+            $S_sql = "insert into ingredients_recipe values (:recipe, :elem, :quantity)";
+            $sth = $O_con->prepare($S_sql);
+            $sth->bindValue(':quantity', $A_listQuantities[$I_i], PDO::PARAM_STR);
+            $sth->bindValue(':elem', $A_listIngredients[$I_i], PDO::PARAM_STR);
+            $sth->bindValue(':recipe', $I_recipeId, PDO::PARAM_STR);
+            $sth->execute();
+        }
+         return true;
+    }
+
+    public static function createRecipe(array $A_postParams):string{
+        $O_con = Connection::initConnection();
+        $S_sql = "INSERT INTO RECIPE (name, picture, preparation_description, cooking_time, difficulty, cost, cooking_type, user_id)
+        VALUES (:name, :picture, :preparation_description, :cooking_time, :difficulty, :cost, :cooking_type, :user_id)";
+        $sth = $O_con->prepare($S_sql);
+        $sth->bindValue(':name', $A_postParams['name'], PDO::PARAM_STR);
+        $sth->bindValue(':picture', $A_postParams['picture'], PDO::PARAM_STR);
+        $sth->bindValue(':preparation_description', $A_postParams['preparation_description'], PDO::PARAM_STR);
+        $sth->bindValue(':cooking_time', $A_postParams['cooking_time'], PDO::PARAM_INT);
+        $sth->bindValue(':difficulty', $A_postParams['difficulty'], PDO::PARAM_STR);
+        $sth->bindValue(':cost', $A_postParams['cost'], PDO::PARAM_STR);
+        $sth->bindValue(':cooking_type', $A_postParams['cooking_type'], PDO::PARAM_STR);
+        $sth->bindValue(':user_id', Session::getSession()['id'], PDO::PARAM_STR);
+        $B_flag = $sth->execute();
+
+        if($B_flag){
+
+            $S_sql = "select id from recipe where name = :name and preparation_description = :desc";
+            $sth = $O_con->prepare($S_sql);
+            $sth->bindValue(':name', $A_postParams['name'], PDO::PARAM_STR);
+            $sth->bindValue(':desc', $A_postParams['preparation_description'], PDO::PARAM_STR);
+            $B_flag = $sth->execute();
+            $A_recipe = $sth->fetch();
+            $O_con=null;
+            $I_recipeId = intval($A_recipe['id']);
+
+            if(isset($A_postParams['ingredients']) && $B_flag){
+                $B_flag = self::addRecipeIngredient($I_recipeId ,$A_postParams['ingredients'], $A_postParams['quantities']);
+            }
+            if(isset($A_postParams['utensils']) && $B_flag){
+                $B_flag = self::addRecipeElem($I_recipeId ,$A_postParams['utensils'], "utensils");
+            }
+            if(isset($A_postParams['particularities']) && $B_flag){
+                $B_flag = self::addRecipeElem($I_recipeId ,$A_postParams['particularities'], "particularities");
+            }
+        }
+        $S_result = $B_flag ? "Vous avez bien ajouté la recette" : "Vous erreur dans l'ajout de la recette";
+        return $S_result;
+    }
+    
     public static function randomRecipe():array{
         $O_con = Connection::initConnection();
         $S_sql = "SELECT * FROM RECIPE ORDER BY RANDOM() LIMIT 3";
@@ -54,8 +143,8 @@ class Recipe extends Model
         return $sth->fetchAll();
     }
 
-    public static function uploadRecipePicture(array $A_getParams):string{
-        return UploadPicture::uploadPicture($A_getParams);
+    public static function uploadRecipePicture(string $name):string{
+        return UploadPicture::uploadPicture($name . Recipe::selectHowMany(), true);
     }
 
 
