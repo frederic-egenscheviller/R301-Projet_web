@@ -37,7 +37,25 @@ echo '              </ul>
         </section>
         <p id="instructions">'. $A_view['recipe']['preparation_description'] . '</p>
     </section>
-</section>
+</section>';
+if($A_view['isUser']){
+    echo '
+    <section id="add-appreciation">
+    <h2>Ajouter un commentaire</h2>
+    <form action="/appreciation/upload" method="post">
+        <input type="hidden" name="recipe_id" value="' . $A_view['recipe']['id'] . '">
+        <input type="hidden" name="appreciation_date" value="'. date("Y-m-d") .'">
+        <input type="hidden" name="user_id" value="'. Session::getSession()['id'] .'">
+        <section id="rating">
+            <label for="rating"><h3>Note</h3></label>
+            <input type="number" name="rating" min="0" max="5" step="1" value="0">
+        </section>
+        <textarea name="comment" id="comment" placeholder="Commentaire"></textarea>
+        <input type="submit" value="Ajouter">
+    </form>
+</section>';
+}
+echo '
 <section id="recipe-comments">
     <h2>Commentaires</h2>
     <section id="comments">';
