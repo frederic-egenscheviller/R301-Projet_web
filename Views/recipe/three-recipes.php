@@ -11,7 +11,7 @@ echo '<h2 id="recipesDiscoverTitle">Faites de nouvelles découvertes culinaires 
 
 echo '<div id="recipesContainer">';
 foreach ($A_view['randomRecipes'] as $A_recipe){
-    echo '<section class="random-recipe-card">
+    echo '<a href="/recipe/show/'. $A_recipe['id'] . '"><section class="random-recipe-card">
                 <img class="card-img" src="' . $A_recipe['picture'] . '" alt="Card image cap">
                 <div class="card-info">
                     <h1 class="card-name">' . $A_recipe['name'] . '</h1>
@@ -21,6 +21,6 @@ foreach ($A_view['randomRecipes'] as $A_recipe){
                         <h2 class="card-average-rating">Note :' . $A_recipe['average_rating'] . '/5 ★</p>
                     </div>
                 </div>
-            </section>';
+            </section></a>';
 }
 echo '</div>';

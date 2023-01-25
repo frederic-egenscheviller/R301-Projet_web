@@ -12,7 +12,7 @@ class Appreciation extends Model
         return $sth->fetchAll();
     }
 
-    public static function selectByRecipeId($recipe_id):array{
+    public static function selectAllByRecipeId($recipe_id):array{
         $O_con = Connection::initConnection();
         $S_sql = "SELECT * FROM APPRECIATION WHERE recipe_id = :recipe_id";
         $sth = $O_con->prepare($S_sql);

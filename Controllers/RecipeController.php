@@ -7,7 +7,7 @@ final class RecipeController
             header("Location: /errors/error404");
             exit();
         }
-        $A_appreciation = Appreciation::selectByRecipeId($A_parametres[0]);
+        $A_appreciation = Appreciation::selectAllByRecipeId($A_parametres[0]);
         for ($i = 0; $i < count($A_appreciation); $i++) {
             $A_appreciation[$i]['id'] = Users::selectById($A_appreciation[$i]['user_id'])['name'];
             $A_appreciation[$i]['user_id'] = Users::selectById($A_appreciation[$i]['user_id'])['user_id'];
@@ -16,6 +16,7 @@ final class RecipeController
             'recipe' => Recipe::selectById($A_parametres[0]),
             'ingredients' => Ingredients::selectAllByRecipeId($A_parametres[0]),
             'utensils' => Utensils::selectAllByRecipeId($A_parametres[0]),
+            'particularities' => Particularities::selectAllByRecipeId($A_parametres[0]),
             'appreciation' => $A_appreciation,
             'isUser' => Session::check()));
     }

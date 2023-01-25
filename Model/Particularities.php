@@ -10,5 +10,4 @@ class Particularities extends Model{
         $sth->execute();
         return $sth->fetchAll();
     }
-
 }
