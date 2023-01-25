@@ -8,10 +8,9 @@
         <div class='menu-button'></div>
     </label>
     <ul class="menu">
-        <li><a href="#">Accueil</a></li>
-        <li><a href="#">Recettes</a></li>
-        <li><a href="#">Compte</a></li>
-        <li><a href="#">A propos</a></li>
-        <li><a href="#">Contact</a></li>
+        <li><a href="/home">Accueil</a></li>
+        <li><a href="/allrecipes">Recettes</a></li>
+        <li><a href="/profil">Compte</a></li>
+        <li><a href="/contact/form">Contact</a></li>
     </ul>
 </section>
