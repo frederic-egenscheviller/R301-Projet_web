@@ -7,6 +7,7 @@ function addInputRadio($A_view, $name, $value) {
 
 echo "<form action='/updaterecipe/update' method='post' enctype='multipart/form-data'>
     <h1>Modification</h1>
+    <input type='hidden' name='id' value='" . $A_view['recipe']['id'] . "' />
 
     <label><b>Nom de la recette</b></label>
     <input type='text' placeholder='nom de la recette' name='name' value='" . $A_view['recipe']['name'] . "' required>

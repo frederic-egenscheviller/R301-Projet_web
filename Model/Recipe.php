@@ -143,8 +143,21 @@ class Recipe extends Model
         return $sth->fetchAll();
     }
 
+    public static function selectMaxId() {
+        $O_con = Connection::initConnection();
+        $S_sql = "SELECT MAX(ID) FROM RECIPE";
+        $sth = $O_con->prepare($S_sql);
+        $sth->execute();
+        return $sth->fetch()[0];
+    }
+
     public static function uploadRecipePicture(string $name):string{
-        return UploadPicture::uploadPicture($name . Recipe::selectHowMany(), true);
+        return UploadPicture::uploadPicture($name . (Recipe::selectMaxId() + 1), true);
+    }
+
+    public static function updateRecipePicture(array $A_params):string{
+        $id = $A_params['id'];
+        return UploadPicture::uploadPicture(Recipe::selectById($id)['name'] . ($id), true);
     }
 
 
