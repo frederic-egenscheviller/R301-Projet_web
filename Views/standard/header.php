@@ -17,7 +17,9 @@ echo "
         <li><a href='/contact/form'>Contact</a></li>";
 if (Session::check()) {
     if(Session::getSession()['status'] == 'admin') {
-        echo '<li><a href="/addrecipe">Ajouter une recette</a></li>';
+        echo '
+        <li><a href="/addrecipe">Ajouter une recette</a></li>
+        <li><a href="/admin">Administration</a></li>';
     }
     echo '<li><a href="/logout">Déconnexion</a></li>';
 } else {
