@@ -10,12 +10,14 @@ class RetrievepwdController
         $A_retrieveTable =  Retrieve_Pwd::selectById($A_postParams["id"]);
 
         if ($A_retrieveTable["token"] != $A_postParams["token"]){
-            echo "token inexistant";
+            //Token doesnt exists
+            header("Location: /retrievepwd");
             return;
         }
 
         if ($A_postParams["password"] != $A_postParams["password_confirmation"]){
-            echo "mdps pas egaux";
+            //Passwords do not match
+            header("Location: /retrievepwd");
             return;
         }
 
@@ -27,6 +29,5 @@ class RetrievepwdController
         Retrieve_Pwd::deleteByID($A_postParams["id"]);
 
         header("Location: /signin");
-        //TODO : Effacer les require dans Model (mm si tt as deja été fait dans Autoload) et creer un mail
     }
 }

@@ -22,7 +22,6 @@ class RetrievepwddirectivesController
         }
 
         Retrieve_Pwd::sendMail($A_postParams);
-        //TODO : Fix PhpMailer class arledy exists bug to send mails
         header("Location: /retrievepwd");
     }
 }
