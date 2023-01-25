@@ -3,9 +3,6 @@
 echo '
 <form action="/searchrecipes/searchRecipe" method="post">
 <div id="features">
-  <div class="search_box">
-    <input name"search" type"text" placeholder="Search">
-  </div>
   <div class="dropdown">
     <a class="dropbtn" id="ingredientsBtn">Ingrédients</a>
     <div class="dropdown-content" id="dropIngredients">';

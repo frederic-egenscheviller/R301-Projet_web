@@ -1,7 +1,6 @@
 <?php
 
-class Recipe extends Model
-{
+class Recipe extends Model{
 
     public static function addRecipeElem(int $I_recipeId ,array $A_params, string $S_table):bool{
         
@@ -149,6 +148,7 @@ class Recipe extends Model
 
 
     public static function searchRecipe(array $A_getParams):array{
+
         $S_sql = "SELECT distinct r.* 
         FROM Recipe r, Ingredients_recipe i, Utensils_recipe u, Particularities_recipe p
         WHERE r.name LIKE :search ";
@@ -161,8 +161,14 @@ class Recipe extends Model
             $S_underSql = "select id from $table
             where ";
             foreach($A_getParams as $value){
-                $S_underSql .= " id = :param$value or";
-                $A_params[':param'.$value]=array($value, PDO::PARAM_STR);
+
+                $nvalue = str_replace(" ", "",$value);                
+                $nvalue = htmlentities($nvalue, ENT_NOQUOTES, 'utf-8');
+                $nvalue = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $nvalue);
+                $nvalue = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $nvalue);
+                $nvalue = preg_replace('#&[^;]+;#', '', $nvalue);
+                $S_underSql .= " id = :param$nvalue or";
+                $A_params[':param'.$nvalue]=array($value, PDO::PARAM_STR);
             }
             $S_underSql = substr( $S_underSql,0,-3);
             return array($S_underSql, $A_params);
@@ -175,26 +181,27 @@ class Recipe extends Model
             AND i.ingredient_id IN (". $A_result[0].") ";
         }
 
-        if(isset($A_getParams['utensil'])){
+        if(isset($A_getParams['utensils'])){
             $A_result = addToQuery("utensils",$A_getParams['utensils']);
             $A_params += $A_result[1];
             $S_sql.="AND r.id = u.recipe_id
             AND u.utensil_id IN (". $A_result[0].") ";
         }
 
-        if(isset($A_getParams['particularity'])){
+        if(isset($A_getParams['particularities'])){
             $A_result = addToQuery("particularities",$A_getParams['particularities']);
             $A_params += $A_result[1];
             $S_sql.="AND r.id = u.recipe_id
             AND u.utensil_id IN (". $A_result[0].") ";
         }
 
-        if(isset($A_getParams['cooking_times']) && intval($A_getParams['cooking_times'])>1){
-            $I_cookingTime = intval($A_getParams['cooking_times']);
+        if(isset($A_getParams['cooking_time'])){
+            $I_cookingTime = intval($A_getParams['cooking_time']);
+            var_dump($I_cookingTime);
             $S_sql.="AND r.cooking_time <= :cookingTime ";
             $A_params[':cookingTime']=array($I_cookingTime,PDO::PARAM_INT);
         }
-
+        
         if(isset($A_getParams['difficulties'])){
             $S_sql.="AND (";
             foreach($A_getParams['difficulties'] as $value){
@@ -204,16 +211,25 @@ class Recipe extends Model
             $S_sql = substr( $S_sql,0,-3);
             $S_sql.=") ";
         }
-
-        if(isset($A_getParams['costs'])){
+        
+        if(isset($A_getParams['cost'])){
             $S_sql.="AND (";
-            foreach($A_getParams['costs'] as $value){
-                $S_sql .= "r.cost = :param$value or ";
-                $A_params[':param'.$value]=array($value, PDO::PARAM_STR);
+            foreach($A_getParams['cost'] as $value){
+                $nvalue ="";
+                if($value == "€"){
+                    $nvalue ='paschere';
+                }elseif($value == "€€"){
+                    $nvalue ="moyenchere";
+                }else{
+                    $nvalue ='chere';
+                }
+                $S_sql .= "r.cost = :param$nvalue or ";
+                $A_params[':param'.$nvalue]=array($value, PDO::PARAM_STR);
             }
             $S_sql = substr( $S_sql,0,-3);
             $S_sql.=") ";
         }
+
         $O_con = Connection::initConnection();
         $sth = $O_con->prepare($S_sql);
 
@@ -222,7 +238,7 @@ class Recipe extends Model
         }
 
         $sth->execute();
-        return($sth->fetchAll());
+        $all =$sth->fetchAll();
+        return($all);
     }
-
 }
