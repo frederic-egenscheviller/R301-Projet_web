@@ -14,7 +14,7 @@ echo "
         <li><a href='/home'>Accueil</a></li>
         <li><a href='/allrecipes'>Recettes</a></li>
         <li><a href='/profil'>Compte</a></li>
-        <li><a href='/contact/form'>Contact</a></li>";
+        <li><a href='/contact'>Contact</a></li>";
 if (Session::check()) {
     if(Session::getSession()['status'] == 'admin') {
         echo '
