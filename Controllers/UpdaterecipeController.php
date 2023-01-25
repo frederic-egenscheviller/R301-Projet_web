@@ -19,6 +19,7 @@ final class UpdaterecipeController
 
     public function updateAction(Array $A_parametres = null, Array $A_postParams = null) {
         $A_postParams['picture'] = Recipe::updateRecipePicture($A_postParams);
-        View::show("recipe/add-recipe", array('message' => Recipe::updateRecipe($A_postParams)));
+        Recipe::updateRecipe($A_postParams);
+        header('Location: /recipe/show/' . $A_postParams['id']);
     }
 }

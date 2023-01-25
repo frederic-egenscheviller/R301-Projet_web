@@ -3,6 +3,63 @@
 class Recipe extends Model
 {
 
+    public static function deleteRecipeElem($I_recipeId){
+
+        $O_con = Connection::initConnection();
+        try{
+            $S_sql = "delete from ingredients_recipe where recipe_id = :id";
+            $sth = $O_con->prepare($S_sql);
+            $sth->bindValue(':id', $I_recipeId, PDO::PARAM_INT);
+            $sth->execute();
+        
+            $S_sql = "delete from utensils_recipe where recipe_id = :id";
+            $sth = $O_con->prepare($S_sql);
+            $sth->bindValue(':id', $I_recipeId, PDO::PARAM_INT);
+            $sth->execute();
+        
+            $S_sql = "delete from particularities_recipe where recipe_id = :id";
+            $sth = $O_con->prepare($S_sql);
+            $sth->bindValue(':id', $I_recipeId, PDO::PARAM_INT);
+            $sth->execute();
+        
+        }catch(Exception $e){
+            return false;
+        }
+        return true;
+        }
+        
+        public static function updateRecipe(array $A_postParams){
+        
+            $I_recipeId = intval($A_postParams['id']);
+
+            $A_paramRecipe = array('id' => $A_postParams['id'], 'name' => $A_postParams['name'], 'cooking_time' => $A_postParams['cooking_time'], 
+            'difficulty' => $A_postParams['difficulty'], 'cooking_type' => $A_postParams['cooking_type'], 'cost'=> $A_postParams['cost'],
+            'preparation_description'=>$A_postParams['preparation_description']);
+            
+
+            if(isset($A_postParams['picture'])){   
+                $A_paramRecipe['picture'] = $A_postParams['picture'];
+            }
+
+            $B_flag = self::updateById($A_paramRecipe,$I_recipeId);
+            
+            if(self::deleteRecipeElem($I_recipeId)){
+                if(isset($A_postParams['ingredients']) && $B_flag){
+                    $B_flag = self::addRecipeIngredient($I_recipeId ,$A_postParams['ingredients'], $A_postParams['quantities']);
+                }
+                if(isset($A_postParams['utensils']) && $B_flag){
+                    $B_flag = self::addRecipeElem($I_recipeId ,$A_postParams['utensils'], "utensils");
+                }
+                if(isset($A_postParams['particularities']) && $B_flag){
+                    $B_flag = self::addRecipeElem($I_recipeId ,$A_postParams['particularities'], "particularities");
+                }
+            }
+            else{
+                return false;
+            }
+        return $B_flag;
+        }
+
     public static function addRecipeElem(int $I_recipeId ,array $A_params, string $S_table):bool{
         
         $O_con = Connection::initConnection();
@@ -155,7 +212,7 @@ class Recipe extends Model
         return UploadPicture::uploadPicture($name . (Recipe::selectMaxId() + 1), true);
     }
 
-    public static function updateRecipePicture(array $A_params):string{
+    public static function updateRecipePicture(array $A_params):?string{
         $id = $A_params['id'];
         return UploadPicture::uploadPicture(Recipe::selectById($id)['name'] . ($id), true);
     }
