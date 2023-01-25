@@ -9,7 +9,8 @@ final class RecipeController
         }
         $A_appreciation = Appreciation::selectAllByRecipeId($A_parametres[0]);
         for ($i = 0; $i < count($A_appreciation); $i++) {
-            $A_appreciation[$i]['user_id'] = Users::selectById($A_appreciation[$i]['user_id'])['name'];
+            $A_appreciation[$i]['id'] = Users::selectById($A_appreciation[$i]['user_id'])['name'];
+            $A_appreciation[$i]['user_id'] = Users::selectById($A_appreciation[$i]['user_id'])['user_id'];
         }
         View::show("/recipe/recipe", array(
             'recipe' => Recipe::selectById($A_parametres[0]),

@@ -13,7 +13,6 @@ echo "
     <ul class='menu'>
         <li><a href='/home'>Accueil</a></li>
         <li><a href='/allrecipes'>Recettes</a></li>
-        <li><a href='/profil'>Compte</a></li>
         <li><a href='/contact'>Contact</a></li>";
 if (Session::check()) {
     if(Session::getSession()['status'] == 'admin') {
@@ -21,7 +20,8 @@ if (Session::check()) {
         <li><a href="/addrecipe">Ajouter une recette</a></li>
         <li><a href="/admin">Administration</a></li>';
     }
-    echo '<li><a href="/logout">Déconnexion</a></li>';
+    echo "<li><a href='/profil/show/" . Session::getSession()['user_id'] . "'>Compte</a></li>
+          <li><a href='/logout'>Déconnexion</a></li>";
 } else {
     echo '
         <li><a href="/signin">Connexion</a></li>';
