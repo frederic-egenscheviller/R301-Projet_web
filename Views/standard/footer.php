@@ -3,19 +3,14 @@
         <div class="row">
             <div class="top-footer">
                 <h6>Categories</h6>
-                <li><a href="#">Accueil</a></li>
-                <li><a href="#">Recettes</a></li>
-                <li><a href="#">Compte</a></li>
+                <li><a href="/home">Accueil</a></li>
+                <li><a href="/allrecipes">Recettes</a></li>
+                <li><a href="/profil">Compte</a></li>
             </div>
             <div class="top-footer">
                 <h6>Liens rapides</h6>
-                <li><a href="#">Mentions Légales</a></li>
-                <li><a href="#">Contact</a></li>
-            </div>
-            <div class="top-footer">
-                <h6>A propos</h6>
-                <li><a href="#">Qui sommes-nous ?</a></li>
-                <li><a href="#">Le site</a></li>
+                <li><a href="/legalnotice">Mentions Légales</a></li>
+                <li><a href="/contact/form">Contact</a></li>
             </div>
         </div>
         <hr>
