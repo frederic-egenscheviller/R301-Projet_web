@@ -13,9 +13,9 @@ final class RecipeController
         }
         View::show("/recipe/recipe", array(
             'recipe' => Recipe::selectById($A_parametres[0]),
-            'ingredients' => Ingredients::selectByRecipeId($A_parametres[0]),
-            'utensils' => Utensils::selectByRecipeId($A_parametres[0]),
-            'appreciation' => $A_appreciation,
+            'ingredients' => Ingredients::selectAllByRecipeId($A_parametres[0]),
+            'utensils' => Utensils::selectAllByRecipeId($A_parametres[0]),
+            'appreciation' => $appreciation));
             'isUser' => Session::check()));
     }
 
