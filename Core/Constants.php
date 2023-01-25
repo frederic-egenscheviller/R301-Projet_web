@@ -18,6 +18,7 @@ final class Constants
     const CONTROLLERS_DIRECTORY = '/Controllers/';
     
     const DATABASE_DIRECTORY = '/Core/Database/';
+    const PHPMAILER_DIRECTORY = '/Core/Phpmailer/';
 
 
     public static function rootDirectory() {
@@ -47,4 +48,7 @@ final class Constants
         return self::rootDirectory() . self::DATABASE_DIRECTORY;
     }
 
+    public static function phpMailerDirectory() {
+        return self::rootDirectory() . self::PHPMAILER_DIRECTORY;
+    }
 }
