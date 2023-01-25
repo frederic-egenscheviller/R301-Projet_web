@@ -13,6 +13,8 @@ echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-dat
         <div id='container2'>
         <label for='ingredient'>Ingredient :</label><br>
             <input type='text' id='ingredient' name='ingredients[]' value='' required>
+            <label for='ingredient'>Quantité :</label><br>
+            <input type='text' id='quantity' name='quantities[]' value='' required>
         </div>
         <button type='button' value='addFields' onclick='addIngredient()'>Ajouter un ingerdient</button><br /><br>
         <div id='container'>
@@ -53,7 +55,7 @@ echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-dat
 
         <div id='container3'>
             <label for='particularite'>Particularite :</label><br>
-            <input type='text' id='particularite' name='particularities[]' value=''>
+            <input type='text' id='particularity' name='particularities[]' value='' required>
         </div>
         <button type='button' value='addFields' onclick='addParticularity()'>Ajouter une particularité</button><br><br>
 
