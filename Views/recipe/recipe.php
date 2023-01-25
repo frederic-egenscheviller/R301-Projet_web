@@ -41,10 +41,10 @@ echo '              </ul>
 <section id="recipe-comments">
     <h2>Commentaires</h2>
     <section id="comments">';
-foreach ($A_view['comments'] as $comment) {
+foreach ($A_view['appreciation'] as $appreciation) {
     echo '<section class="comment">
-        <h3></h3>
-        <p>Commentaire 1</p>
+        <h3>Posté par :' . $appreciation['user_id'] . '</h3>
+        <p>' . $appreciation['comment'] . '</p>
     </section>';
 }
 echo '
