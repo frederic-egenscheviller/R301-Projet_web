@@ -17,5 +17,13 @@ class Users extends Model{
         return 'visitor';
     }
 
-
+    public static function updateLastLogin(string $S_id):array{
+        $O_con = Connection::initConnection();
+        $S_sql = "UPDATE USERS SET last_login = :last_login WHERE id = :id";
+        $sth = $O_con->prepare($S_sql);
+        $sth->bindValue(':id', $S_id, PDO::PARAM_INT);
+        $sth->bindValue(':last_login', date("Y-m-d"));
+        $sth->execute();
+        return $sth->fetch();
+    }
 }
