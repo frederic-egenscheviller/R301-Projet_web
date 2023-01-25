@@ -2,7 +2,9 @@
 
 final class SearchRecipesController
 {
-    public function defaultAction($A_postParams) {
-        View::show("recipe/recipes", Recipe::selectBySearch($A_postParams));
+    public function searchRecipeAction(Array $A_parametres = null, Array $A_postParams = null) {
+        View::show("recipe/recipes", Recipe::searchRecipe($A_postParams));        
     }
 }
+
+
