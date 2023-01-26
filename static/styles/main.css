@@ -26,6 +26,14 @@ body {
     padding: 1em;
 }
 
+.top-nav img{
+    margin-top: 5%;
+    height: 150px;
+    border-radius: 50%;
+    background-color: white;
+    border: black solid 5px;
+}
+
 .menu {
     display: flex;
     flex-direction: row;
@@ -243,4 +251,7 @@ body {
         align-items: center;
     }
 
+    .top-nav img{
+        display: none;
+    }
 }
