@@ -4,7 +4,7 @@ echo '<section class="recipes-container">';
 foreach($A_view as $A_recipe) {
     echo '
     <a href="/recipe/show/'. $A_recipe['id'].'">
-    <section class="card">
+            <section class="card">
                 <img class="card-img" src="' . $A_recipe['picture'] . '" alt="Card image cap">
                 <div class="card-info">
                     <h1 class="card-name">' . $A_recipe['name'] . '</h1>

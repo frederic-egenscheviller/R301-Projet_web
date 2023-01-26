@@ -13,7 +13,6 @@ final class UploadPicture
         if (isset($_FILES['picture'])) {
             $elementName = self::createPictureName($elementName);
 
-            $extensions = ['jpg', 'jpeg','png'];
             $maxSize = 5000000;
 
             $tmpName = $_FILES['picture']['tmp_name'];
@@ -22,7 +21,7 @@ final class UploadPicture
             $error = $_FILES['picture']['error'];
             $tabExtension = explode('.', $name);
             $extension = strtolower(end($tabExtension));
-            if (in_array($extension, $extensions) && $size <= $maxSize && $error == 0) {
+            if ($size <= $maxSize && $error == 0) {
                 $file = $elementName . '.' . $extension;
 
                 if($isRecipe) {

@@ -14,7 +14,7 @@
     border-radius: 15px;
     overflow: hidden;
     box-shadow: 0px 0px 17px 18px rgba(0, 0, 0, 0.1);
-    width: 100%;
+    width: 30vw;
 }
 
 #features {
@@ -108,5 +108,9 @@
 
     #recipesContainer {
         flex-direction: column;
+    }
+
+    .random-recipe-card{
+        width: 100%;
     }
 }

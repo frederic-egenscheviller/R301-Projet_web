@@ -4,12 +4,13 @@ final class Session
 {
     public static function start(string $status, string $id):void {
         session_start();
+        $_SESSION['user_id'] = Users::selectById($id)['user_id'];
         $_SESSION['id'] = $id;
         $_SESSION['status'] = $status;
     }
 
     public static function check():bool {
-        return isset($_SESSION);
+        return (isset($_SESSION['id']) && isset($_SESSION['status']));
     }
 
     public static function getSession(): ?array {

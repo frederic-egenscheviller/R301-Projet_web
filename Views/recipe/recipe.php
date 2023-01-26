@@ -34,19 +34,17 @@ echo '              </ul>
 echo '              </ul>
                 </section>
             </section>
+            <section id="recipe-particularities">
+                <h2>Particularités</h2>
+                <section class="particularity">
+                    <ul>';
+                    foreach($A_view['particularities'] as $particularity) {
+                        echo '<li>' . $particularity['particularity_id'] . '</li>';
+                    }
+echo '              </ul>
+                </section>
+            </section>
         </section>
         <p id="instructions">'. $A_view['recipe']['preparation_description'] . '</p>
-    </section>
-</section>
-<section id="recipe-comments">
-    <h2>Commentaires</h2>
-    <section id="comments">';
-foreach ($A_view['appreciation'] as $appreciation) {
-    echo '<section class="comment">
-        <h3>Posté par :' . $appreciation['user_id'] . '</h3>
-        <p>' . $appreciation['comment'] . '</p>
-    </section>';
-}
-echo '
     </section>
 </section>';
