@@ -25,7 +25,8 @@ dropdown($A_view['particularities'], 'particularities', 'particularitiesBtn', 'd
 dropdown($A_view['costs'], 'costs', 'costsBtn', 'dropCosts', 'Coûts');
 dropdown($A_view['difficulties'], 'difficulties', 'difficultiesBtn', 'dropDifficulties', 'Difficultés');
 echo '
-  <input id="sendFeaturesSearch" type="submit">
+  <input class="buttonSearchBar" type="submit">
+  <input class="buttonSearchBar" type="reset">
 </div>
 </form>';
 echo '<script type="text/javascript" src="/static/js/filterBtnShow.js"></script>';

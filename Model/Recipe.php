@@ -184,12 +184,14 @@ class Recipe extends Model{
             $S_sql = $S_sql . self::addToQuery('UTENSILS_RECIPE', 'UTENSIL_ID', $A_getParams['utensils'],$A_paramBindValue);
         }
 
-        if(isset($A_getParams['cooking_type'])){
-            foreach ($A_getParams['cooking_type'] as $S_type) {
+        if(isset($A_getParams['cooking_types'])){
+            $S_sql = $S_sql . " and ";
+            foreach ($A_getParams['cooking_types'] as $S_type) {
                 $S_typeBind = self::goodString($S_type);
-                $S_sql = $S_sql . " and cooking_type = :$S_typeBind ";
+                $S_sql = $S_sql . " cooking_type = :$S_typeBind or ";
                 $A_paramBindValue[":$S_typeBind"] = array($S_type, PDO::PARAM_STR);
             }
+            $S_sql = substr($S_sql, 0, -3);
         }
 
         if(isset($A_getParams['cooking_time'])) {
