@@ -1,6 +1,13 @@
 <?php
 class Recipe extends Model{
 
+    public static function goodRecipeName($S_str){
+        $str = htmlentities($S_str, ENT_NOQUOTES, 'utf-8');
+        $str = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str);
+        return preg_replace('#&[^;]+;#', '', $str);
+    }
+
     public static function addRecipeElem(int $I_recipeId ,array $A_params, string $S_table):bool{
         
         $O_con = Connection::initConnection();
@@ -55,7 +62,8 @@ class Recipe extends Model{
         $S_sql = "INSERT INTO RECIPE (name, picture, preparation_description, cooking_time, difficulty, cost, cooking_type, user_id)
         VALUES (:name, :picture, :preparation_description, :cooking_time, :difficulty, :cost, :cooking_type, :user_id)";
         $sth = $O_con->prepare($S_sql);
-        $sth->bindValue(':name', $A_postParams['name'], PDO::PARAM_STR);
+        $S_name  = strtoupper(self::goodRecipeName($A_postParams['name']));
+        $sth->bindValue(':name', $S_name, PDO::PARAM_STR);
         $sth->bindValue(':picture', $A_postParams['picture'], PDO::PARAM_STR);
         $sth->bindValue(':preparation_description', $A_postParams['preparation_description'], PDO::PARAM_STR);
         $sth->bindValue(':cooking_time', $A_postParams['cooking_time'], PDO::PARAM_INT);
@@ -69,7 +77,7 @@ class Recipe extends Model{
 
             $S_sql = "select id from recipe where name = :name and preparation_description = :desc";
             $sth = $O_con->prepare($S_sql);
-            $sth->bindValue(':name', $A_postParams['name'], PDO::PARAM_STR);
+            $sth->bindValue(':name', $S_name, PDO::PARAM_STR);
             $sth->bindValue(':desc', $A_postParams['preparation_description'], PDO::PARAM_STR);
             $B_flag = $sth->execute();
             $A_recipe = $sth->fetch();
@@ -168,8 +176,8 @@ class Recipe extends Model{
     public static function searchRecipe(array $A_getParams): array{
 
         $S_sql = "SELECT distinct r.* FROM Recipe r WHERE r.name LIKE :search ";
-        $S_search = isset($A_getParams['search']) ? "%" . $A_getParams['search'] . "%" : "%";
-
+        $S_search = isset($A_getParams['search']) ? "%" . strtoupper(self::goodRecipeName($A_getParams['search'])) . "%" : "%";
+        echo strtoupper($S_search);
         $A_paramBindValue = array(':search' => array($S_search , PDO::PARAM_STR));
 
         if (isset($A_getParams['ingredients'])) {
