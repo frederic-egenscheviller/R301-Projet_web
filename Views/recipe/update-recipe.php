@@ -15,7 +15,7 @@ echo "<form action='/updaterecipe/update' method='post' enctype='multipart/form-
 
     <label><b>Photo de la recette</b></label>
     <img class='card-img' src='" . $A_view['recipe']['picture'] . "' alt='Card image cap'>
-    <input type='file' id='file' name='picture'  >
+    <input type='file' id='file' name='picture' accept='.jpg, .jpeg, .png'>
     <br><br>
 
     <div id='container2'>";
