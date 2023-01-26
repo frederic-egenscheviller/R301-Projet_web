@@ -18,7 +18,7 @@ foreach ($A_view['randomRecipes'] as $A_recipe){
                     <h2 class="card-difficulty">Difficulté :' . $A_recipe['difficulty'] . '</h3>
                     <h2 class="card-cooking-time">Temps de préparation :' . $A_recipe['cooking_time'] . 'minutes</p>
                     <div class="card-rating-box">
-                        <h2 class="card-average-rating">Note :' . $A_recipe['average_rating'] . '/5 </p>
+                        <h2 class="card-average-rating">Note :' . $A_recipe['average_rating'] . '/5 ★</p>
                     </div>
                 </div>
             </section></a>';
