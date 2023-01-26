@@ -1,7 +1,19 @@
 <?php
 
+/**
+ * Class Utensils
+ *
+ * This class represents the Utensils table in the DB and communicates with it
+ */
 class Utensils extends Model{
 
+    /**
+     * Selects all utensils from the database by the recipe id
+     *
+     * @param int $I_recipe_id The id of the recipe
+     *
+     * @return array An array with the utensils
+     */
     public static function selectAllByRecipeId(int $I_recipe_id):array{
         $P_db = Connection::initConnection();
         $S_sql = "SELECT utensil_id FROM utensils_RECIPE WHERE recipe_id = :recipe_id";

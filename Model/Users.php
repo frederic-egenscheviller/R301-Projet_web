@@ -1,9 +1,28 @@
 <?php
+
+/**
+ * Class Users
+ *
+ * This class represents the Users table in the DB and communicates with it
+ */
 class Users extends Model{
+
+    /**
+     * Uploads a picture in the DB
+     *
+     * @param string $S_name the name of the user
+     * @return string the name of the uploaded file
+     */
     public static function uploadUserPicture(string $S_name):string{
         return UploadPicture::upload($S_name . Users::selectHowMany() ,false);
     }
 
+    /**
+     * Checks if the user is an admin, user or visitor
+     *
+     * @param array $A_getParams the user credentials
+     * @return string if the user is an admin, user or visitor
+     */
     public static function isUser(array $A_getParams):string{
         $S_id = $A_getParams['id'];
 
@@ -18,6 +37,12 @@ class Users extends Model{
         return 'visitor';
     }
 
+    /**
+     * Updates the last login of the user
+     *
+     * @param string $S_id the id of the user
+     * @return array the updated user
+     */
     public static function updateLastLogin(string $S_id):array{
         $P_db = Connection::initConnection();
         $S_sql = "UPDATE USERS SET last_login = :last_login WHERE id = :id";
@@ -30,6 +55,12 @@ class Users extends Model{
         return $A_result;
     }
 
+    /**
+     * Selects a user by their user id
+     *
+     * @param string $S_user_id the user id
+     * @return array the user
+     */
     public static function selectByUserId(string $S_user_id) : array{
         $P_db = Connection::initConnection();
         $S_stmnt = "SELECT * FROM USERS WHERE USER_ID = :user_id ";
