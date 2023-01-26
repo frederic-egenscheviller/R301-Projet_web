@@ -9,7 +9,7 @@ echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-dat
     <br><br>
 
     <label><b>Photo de la recette</b></label>
-    <input type='file' id='file' name='picture' required>
+    <input type='file' id='file' name='picture' accept='.jpg, .jpeg, .png' required>
     <br><br>
 
     <div id='container2'>
