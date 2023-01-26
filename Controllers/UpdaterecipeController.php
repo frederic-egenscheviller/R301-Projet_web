@@ -15,6 +15,11 @@ final class UpdaterecipeController
      * @return void
      */
     public function showAction(Array $A_parametres = null, Array $A_postParams = null) : void{
+        if (!Session::check()) {
+            header('Location: /signin');
+            exit;
+        }
+
         $S_id = $A_parametres[0];
         if(!Recipe::selectById($S_id)) {
             header('Location: /errors/error404');

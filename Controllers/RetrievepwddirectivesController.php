@@ -24,7 +24,7 @@ class RetrievepwddirectivesController
      *
      * @return void
      */
-    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) : void{
+    public function sendAction(Array $A_parametres = null, Array $A_postParams = null) : void{
 
         if(!Users::checkIfExistsById($A_postParams["id"])){
             header("Location: /signup");

@@ -72,7 +72,7 @@ class AdminController
      *
      * @return void
      */
-    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) : void{
+    public function deleteappreciationAction(Array $A_parametres = null, Array $A_postParams = null) : void{
         Appreciation::deleteByID($A_parametres[0]);
         header("Location: /admin");
     }

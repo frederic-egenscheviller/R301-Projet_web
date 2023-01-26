@@ -28,7 +28,7 @@ final class SigninController
      *
      * @return void
      */
-    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) : void{
+    public function connectAction(Array $A_parametres = null, Array $A_postParams = null) : void{
         $S_status = Users::isUser($A_postParams);
 
         switch ($S_status) {

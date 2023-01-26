@@ -26,7 +26,7 @@ final class AddrecipeController {
     }
 
     /**
-     * updateAction
+     * addAction
      *
      * This method uploads a picture and creates a recipe
      *
@@ -35,7 +35,7 @@ final class AddrecipeController {
      *
      * @return void
      */
-    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) : void{
+    public function addAction(Array $A_parametres = null, Array $A_postParams = null) : void{
         $A_postParams['picture'] = Recipe::uploadRecipePicture($A_postParams['name']);
         View::show("/recipe/add-recipe", array('message' => Recipe::createRecipe($A_postParams)));
     }
