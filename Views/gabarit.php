@@ -11,6 +11,8 @@
         <link rel="stylesheet" type="text/css" href="/static/styles/appreciation.css">
         <link rel="stylesheet" type="text/css" href="/static/styles/one-recipe.css">
         <link rel="stylesheet" type="text/css" href="/static/styles/termsofuses.css">
+
+        <link rel="icon" type="image/x-icon" href="/static/content/pictures/icon.ico">
         
         <script type='text/javascript' src='/static/js/add-recipe-form.js'></script>
 
