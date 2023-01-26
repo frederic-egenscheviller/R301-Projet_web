@@ -1,0 +1,151 @@
+CREATE TABLE Users (
+    id VARCHAR(254) PRIMARY KEY,/*email*/
+    user_id Serial not null,
+    name VARCHAR(254) NOT NULL,
+    picture VARCHAR(254) NOT NULL,
+    password VARCHAR(254) NOT NULL,
+    first_login DATE NOT NULL,
+    last_login DATE NOT NULL
+);
+
+CREATE TABLE Admin (
+    id VARCHAR(254) primary key,
+    FOREIGN KEY (id) REFERENCES Users (id)
+);
+
+CREATE TYPE cost_enums AS ENUM ('€', '€€', '€€€');
+CREATE TYPE difficulty_enum AS ENUM ('facile', 'moyen', 'difficile');
+
+CREATE TABLE Recipe (
+    id SERIAL PRIMARY KEY,/*int*/
+    name VARCHAR(254) not null,
+    average_rating DECIMAL(3,2) NOT NULL,
+    picture VARCHAR(254) NOT NULL,
+    preparation_description VARCHAR NOT NULL,
+    cooking_time INT NOT NULL,
+    difficulty difficulty_enum NOT NULL,
+    cost cost_enums NOT NULL,
+    cooking_type VARCHAR(254) NOT NULL,
+    user_id VARCHAR(254),
+    FOREIGN KEY (user_id) REFERENCES Users (id)
+);
+
+
+CREATE TABLE Appreciation (
+    id SERIAL PRIMARY KEY,/*int*/
+    rating INT NOT NULL,
+    appreciation_date DATE NOT NULL,
+    comment VARCHAR(254) NOT NULL,
+    recipe_id INT NOT NULL,
+    user_id VARCHAR(254) NOT NULL,
+    FOREIGN KEY (recipe_id) REFERENCES Recipe (id),
+    FOREIGN KEY (user_id) REFERENCES Users (id)
+);
+
+CREATE TABLE Ingredients (
+	id VARCHAR(254) PRIMARY key /*nom*/
+);
+
+CREATE TABLE Utensils (
+    id VARCHAR(254) PRIMARY key /*nom*/
+);
+
+CREATE TABLE particularities (
+    id VARCHAR(254) PRIMARY key /*nom*/
+);
+
+create table Ingredients_Recipe(
+	recipe_id int,
+	ingredient_id VARCHAR(254),
+	quantity VARCHAR(254),
+	FOREIGN KEY (recipe_id) REFERENCES Recipe (id),
+    FOREIGN KEY (ingredient_id) REFERENCES INgredients (id)
+);
+
+create table Utensils_Recipe(
+	recipe_id int,
+	utensil_id VARCHAR(254),
+	FOREIGN KEY (recipe_id) REFERENCES Recipe (id),
+    FOREIGN KEY (utensil_id) REFERENCES utensils (id)
+);
+
+create table particularities_Recipe(
+	recipe_id int,
+	particularity_id VARCHAR(254),
+	FOREIGN KEY (recipe_id) REFERENCES Recipe (id),
+    FOREIGN KEY (particularity_id) REFERENCES particularities (id)
+);
+
+/* TRIGGER */
+
+CREATE OR REPLACE FUNCTION update_average_rating()
+RETURNS trigger AS $$
+BEGIN
+	IF TG_OP = 'INSERT' OR TG_OP = 'UPDATE' THEN 
+		UPDATE Recipe
+			SET average_rating = (SELECT AVG(rating) 
+				FROM Appreciation 
+				WHERE Recipe.id = Appreciation.recipe_id) 
+			WHERE Recipe.id = new.recipe_id;
+	ELSIF TG_OP = 'DELETE' THEN
+		UPDATE Recipe
+			SET average_rating = (SELECT AVG(rating)
+				FROM Appreciation
+				WHERE Appreciation.recipe_id = OLD.recipe_id)
+			WHERE id = OLD.recipe_id;
+	END IF;
+	RETURN NULL;
+END;
+$$ LANGUAGE plpgsql;
+
+
+CREATE TRIGGER update_rating
+AFTER INSERT OR update or DELETE
+ON Appreciation 
+FOR EACH ROW 
+EXECUTE PROCEDURE update_average_rating();
+
+
+/* INSERTIONS*/
+
+INSERT INTO Users VALUES ('user1@example.com', 'User 1', 'picture_user1', 'password1', '2020-01-01', '2020-02-02');
+
+INSERT INTO Admin VALUES ('user1@example.com');
+
+INSERT INTO Recipe (name, average_rating, picture, preparation_description, cooking_time,difficulty, "cost", cooking_type) VALUES ('Charlotte aux fraises', 4.5, '../static/content/charlotte_fraises.jpg', 'Préparez une pâte à charlotte, faites une crème pâtissière et préparez des fraises. 
+Mettez la pâte à charlotte dans un cercle à pâtisserie, ajoutez une couche de crème pâtissière et des fraises. 
+Recouvrez avec une autre couche de pâte à charlotte. 
+Mettez au four et servez.', 120, 'facile', 'Coûteux', 'Four');
+
+INSERT INTO Recipe (name, average_rating, picture, preparation_description, cooking_time,difficulty, "cost", cooking_type) VALUES ('Eclair au chocolat', 3.2, '../static/content/eclair_chocolat.jpg', 'Préparez la pâte à choux, faites une crème au chocolat.
+Mettez la pâte à choux dans une poche à douille et faites des boudins sur une plaque recouverte de papier sulfurisé. 
+Cuire au four et laissez refroidir.
+Faire une crème au chocolat et garnir les boudins.
+Saupoudrez de cacao et servez.', 120, 'facile', 'Coûteux', 'Four');
+
+INSERT INTO Recipe (name, average_rating, picture, preparation_description, cooking_time,difficulty, "cost", cooking_type) VALUES ('Paris-Brest', 4.2, '../static/content/paris_brest.jpg', 'Préparez la pâte à choux, faites une crème pâtissière.
+Mettez la pâte à choux dans une poche à douille et faites des boudins sur une plaque recouverte de papier sulfurisé. 
+Cuire au four et laissez refroidir.
+Faire une crème pâtissière et garnir les boudins.
+Saupoudrez de sucre glace et servez.', 120, 'facile', 'Coûteux', 'Four');
+
+INSERT INTO Recipe (name, average_rating, picture, preparation_description, cooking_time,difficulty, "cost", cooking_type) VALUES ('Tarte Tatin', 4.0, '../static/content/tarte_tatin.jpg', 'Faites une pâte brisée, préparez des pommes. 
+Mettez la pâte brisée dans un moule à tarte, garnissez avec des pommes et saupoudrez de sucre. 
+Mettez le moule dans un four et laissez cuire. 
+Une fois cuit, retournez le moule et servez.', 120, 'facile', 'Coûteux', 'Four');
+
+INSERT INTO Ingredients VALUES ('farine'), ('oeuf'), ('sucre'), ('sel'), ('cacao'), ('beurre'), ('fraises'), ('pommes');
+
+INSERT INTO Utensils VALUES ('cercle à pâtisserie'), ('poche à douille'), ('moule à tarte');
+
+INSERT INTO particularities VALUES ('sans gluten'), ('sans lactose'), ('vegan');
+
+INSERT INTO Appreciation (appreciation_date, "comment", rating, recipe_id, user_id) VALUES ('2020-01-02', 'Je trouve que cette recette est très bonne !',2 , 1, 'user1@example.com');
+
+INSERT INTO Appreciation (appreciation_date, "comment", rating, recipe_id, user_id) VALUES ('2020-02-03', 'Recette très bien réalisée.',2, 2, 'user1@example.com');
+
+INSERT INTO Appreciation (appreciation_date, "comment", rating, recipe_id, user_id) VALUES ('2020-03-04', 'C était très bon, mais je trouve que ça manquait un peu de goût.',2, 3, 'user1@example.com');
+
+INSERT INTO Appreciation (appreciation_date, "comment", rating, recipe_id, user_id) VALUES ('2020-04-05', 'C était absolument parfait !',2 , 4, 'user1@example.com');
+
+
