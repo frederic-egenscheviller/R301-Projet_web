@@ -1,7 +1,10 @@
 
 <?php
-echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-data' class='signup'>
-    <h1>Ajouter une recette</h1>
+echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-data' class='signup'>";
+if (isset($A_view['message'])) {
+    echo "<p>" . $A_view['message'] . "</p>";
+}
+echo "<h1>Ajouter une recette</h1>
 
     <label><b>Nom de la recette</b></label>
     <input type='text' placeholder='nom de la recette' name='name' required>

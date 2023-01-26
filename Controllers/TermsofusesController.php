@@ -1,7 +1,7 @@
 <?php
 final class TermsofusesController
 {
-    public function defaultAction() {
+    public function defaultAction() : void{
         View::show("/signup/termsofuses");
     }
 }

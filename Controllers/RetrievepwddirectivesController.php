@@ -2,10 +2,10 @@
 
 class RetrievepwddirectivesController
 {
-    public function defaultAction() {
+    public function defaultAction() : void{
         View::show("retrieve_pwd/form-directives");
     }
-    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) {
+    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) : void{
 
         if(!Users::checkIfExistsById($A_postParams["id"])){
             header("Location: /signup");
