@@ -2,16 +2,16 @@
 
 final class ProfilController
 {
-    function showAction(Array $A_parametres = null) {
-        $user_id = $A_parametres[0];
-        $user = Users::selectByUserId($user_id);
-        View::show("/profil/profil", Users::selectByUserId($user_id));
-        View::show("/recipe/recipes", Recipe::selectRecipeByUser($user['id']));
+    function showAction(Array $A_parametres = null) : void{
+        $S_user_id = $A_parametres[0];
+        $A_user = Users::selectByUserId($S_user_id);
+        View::show("/profil/profil", Users::selectByUserId($S_user_id));
+        View::show("/recipe/recipes", Recipe::selectRecipeByUser($A_user['id']));
 
-        $session = Session::getSession();
+        $A_session = Session::getSession();
         View::show("/appreciation/appreciation", array(
-            'isOwner' => (($session != null) && ($session['user_id'] == $user_id)),
-            'appreciations' => Appreciation::selectAppreciationByUser($user['id'])
+            'isOwner' => (($A_session != null) && ($A_session['user_id'] == $S_user_id)),
+            'appreciations' => Appreciation::selectAppreciationByUser($A_user['id'])
         ));
     }
 }

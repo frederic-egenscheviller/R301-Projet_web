@@ -2,11 +2,10 @@
 
 final class Session
 {
-    public static function start(string $status, string $id):void {
-        session_start();
-        $_SESSION['user_id'] = Users::selectById($id)['user_id'];
-        $_SESSION['id'] = $id;
-        $_SESSION['status'] = $status;
+    public static function start(string $S_status, string $S_id):void {
+        $_SESSION['user_id'] = Users::selectById($S_id)['user_id'];
+        $_SESSION['id'] = $S_id;
+        $_SESSION['status'] = $S_status;
     }
 
     public static function check():bool {
@@ -22,9 +21,9 @@ final class Session
 
     public static function destroy() {
         if (ini_get("session.use_cookies")) {
-            $params = session_get_cookie_params();
-            setcookie(session_name(), '', time() - 42000, $params["path"],
-                $params["domain"], $params["secure"], $params["httponly"]
+            $A_params = session_get_cookie_params();
+            setcookie(session_name(), '', time() - 42000, $A_params["path"],
+                $A_params["domain"], $A_params["secure"], $A_params["httponly"]
             );
         }
         session_destroy();

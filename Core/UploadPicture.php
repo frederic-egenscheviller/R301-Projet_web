@@ -8,28 +8,28 @@ final class UploadPicture
         return strtolower(preg_replace("/[^A-Za-z1-9]/", "", iconv('UTF-8', 'ASCII//TRANSLIT', $projectName)));
     }
 
-    static function uploadPicture($elementName, $isRecipe)
+    static function upload($S_elementName, $B_isRecipe)
     {
         if (isset($_FILES['picture'])) {
-            $elementName = self::createPictureName($elementName);
+            $S_elementName = self::createPictureName($S_elementName);
 
-            $maxSize = 5000000;
+            $I_maxSize = 5000000;
 
-            $tmpName = $_FILES['picture']['tmp_name'];
-            $name = $_FILES['picture']['name'];
-            $size = $_FILES['picture']['size'];
-            $error = $_FILES['picture']['error'];
-            $tabExtension = explode('.', $name);
-            $extension = strtolower(end($tabExtension));
-            if ($size <= $maxSize && $error == 0) {
-                $file = $elementName . '.' . $extension;
+            $S_tmpName = $_FILES['picture']['tmp_name'];
+            $S_name = $_FILES['picture']['name'];
+            $I_size = $_FILES['picture']['size'];
+            $I_error = $_FILES['picture']['error'];
+            $S_tabExtension = explode('.', $S_name);
+            $S_extension = strtolower(end($S_tabExtension));
+            if ($I_size <= $I_maxSize && $I_error == 0) {
+                $S_file = $S_elementName . '.' . $S_extension;
 
-                if($isRecipe) {
-                    move_uploaded_file($tmpName, $_SERVER['DOCUMENT_ROOT'] . "/static/content/recipes/" . $file);
-                    return "/static/content/recipes/". $file;
+                if($B_isRecipe) {
+                    move_uploaded_file($S_tmpName, $_SERVER['DOCUMENT_ROOT'] . "/static/content/recipes/" . $S_file);
+                    return "/static/content/recipes/". $S_file;
                 }
-                move_uploaded_file($tmpName, $_SERVER['DOCUMENT_ROOT'] . "/static/content/users/" . $file);
-                return "/static/content/users/". $file;
+                move_uploaded_file($S_tmpName, $_SERVER['DOCUMENT_ROOT'] . "/static/content/users/" . $S_file);
+                return "/static/content/users/". $S_file;
             }
         }
         return null;

@@ -2,11 +2,11 @@
 
 final class SignupController
 {
-    public function defaultAction() {
+    public function defaultAction() :void{
         View::show("signup/form");
     }
 
-    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) {
+    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) : void{
         $A_postParams['picture'] = Users::uploadUserPicture($A_postParams['name']);
         $A_postParams['password'] = hash('sha512', $A_postParams['password']);
         if(Users::create($A_postParams)) {
@@ -15,6 +15,5 @@ final class SignupController
             exit;
         }
         header('Location: /signin');
-        exit;
     }
 }

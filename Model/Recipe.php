@@ -1,31 +1,31 @@
 <?php
 class Recipe extends Model{
 
-    public static function goodRecipeName($S_str){
-        $str = htmlentities($S_str, ENT_NOQUOTES, 'utf-8');
-        $str = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $str);
-        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str);
-        return preg_replace('#&[^;]+;#', '', $str);
+    public static function goodRecipeName($S_oldName) : string{
+        $S_newName = htmlentities($S_oldName, ENT_NOQUOTES, 'utf-8');
+        $S_newName = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $S_newName);
+        $S_newName = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $S_newName);
+        return preg_replace('#&[^;]+;#', '', $S_newName);
     }
 
-    public static function deleteRecipeElem($I_recipeId){
+    public static function deleteRecipeElem($I_recipeId) : bool{
 
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         try{
             $S_sql = "delete from ingredients_recipe where recipe_id = :id";
-            $sth = $O_con->prepare($S_sql);
-            $sth->bindValue(':id', $I_recipeId, PDO::PARAM_INT);
-            $sth->execute();
+            $P_sth = $P_db->prepare($S_sql);
+            $P_sth->bindValue(':id', $I_recipeId, PDO::PARAM_INT);
+            $P_sth->execute();
         
             $S_sql = "delete from utensils_recipe where recipe_id = :id";
-            $sth = $O_con->prepare($S_sql);
-            $sth->bindValue(':id', $I_recipeId, PDO::PARAM_INT);
-            $sth->execute();
+            $P_sth = $P_db->prepare($S_sql);
+            $P_sth->bindValue(':id', $I_recipeId, PDO::PARAM_INT);
+            $P_sth->execute();
         
             $S_sql = "delete from particularities_recipe where recipe_id = :id";
-            $sth = $O_con->prepare($S_sql);
-            $sth->bindValue(':id', $I_recipeId, PDO::PARAM_INT);
-            $sth->execute();
+            $P_sth = $P_db->prepare($S_sql);
+            $P_sth->bindValue(':id', $I_recipeId, PDO::PARAM_INT);
+            $P_sth->execute();
         
         }catch(Exception $e){
             return false;
@@ -33,7 +33,7 @@ class Recipe extends Model{
         return true;
         }
         
-        public static function updateRecipe(array $A_postParams){
+        public static function updateRecipe(array $A_postParams) : bool{
         
             $I_recipeId = intval($A_postParams['id']);
 
@@ -67,7 +67,7 @@ class Recipe extends Model{
 
     public static function addRecipeElem(int $I_recipeId ,array $A_params, string $S_table):bool{
         
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         foreach($A_params as $S_elem){
             $S_sql = "";
 
@@ -87,17 +87,17 @@ class Recipe extends Model{
                 return false;
             }
             
-            $sth = $O_con->prepare($S_sql);
-            $sth->bindValue(':elem', $S_elem, PDO::PARAM_STR);
-            $sth->bindValue(':recipe', $I_recipeId, PDO::PARAM_STR);
-            $sth->execute(); 
+            $P_sth = $P_db->prepare($S_sql);
+            $P_sth->bindValue(':elem', $S_elem, PDO::PARAM_STR);
+            $P_sth->bindValue(':recipe', $I_recipeId, PDO::PARAM_STR);
+            $P_sth->execute();
         }
         return true;
     }
 
     public static function addRecipeIngredient(int $I_recipeId ,array $A_listIngredients, array $A_listQuantities):bool{
         
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         $I_sizeOfArray = sizeof($A_listIngredients);
         for($I_i = 0; $I_i < $I_sizeOfArray; $I_i++){
             try{
@@ -105,40 +105,40 @@ class Recipe extends Model{
             }catch(Exception $e){}
             
             $S_sql = "insert into ingredients_recipe values (:recipe, :elem, :quantity)";
-            $sth = $O_con->prepare($S_sql);
-            $sth->bindValue(':quantity', $A_listQuantities[$I_i], PDO::PARAM_STR);
-            $sth->bindValue(':elem', $A_listIngredients[$I_i], PDO::PARAM_STR);
-            $sth->bindValue(':recipe', $I_recipeId, PDO::PARAM_STR);
-            $sth->execute();
+            $P_sth = $P_db->prepare($S_sql);
+            $P_sth->bindValue(':quantity', $A_listQuantities[$I_i], PDO::PARAM_STR);
+            $P_sth->bindValue(':elem', $A_listIngredients[$I_i], PDO::PARAM_STR);
+            $P_sth->bindValue(':recipe', $I_recipeId, PDO::PARAM_STR);
+            $P_sth->execute();
         }
          return true;
     }
 
     public static function createRecipe(array $A_postParams):string{
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         $S_sql = "INSERT INTO RECIPE (name, picture, preparation_description, cooking_time, difficulty, cost, cooking_type, user_id)
         VALUES (:name, :picture, :preparation_description, :cooking_time, :difficulty, :cost, :cooking_type, :user_id)";
-        $sth = $O_con->prepare($S_sql);
+        $P_sth = $P_db->prepare($S_sql);
         $S_name  = strtoupper(self::goodRecipeName($A_postParams['name']));
-        $sth->bindValue(':name', $S_name, PDO::PARAM_STR);
-        $sth->bindValue(':picture', $A_postParams['picture'], PDO::PARAM_STR);
-        $sth->bindValue(':preparation_description', $A_postParams['preparation_description'], PDO::PARAM_STR);
-        $sth->bindValue(':cooking_time', $A_postParams['cooking_time'], PDO::PARAM_INT);
-        $sth->bindValue(':difficulty', $A_postParams['difficulty'], PDO::PARAM_STR);
-        $sth->bindValue(':cost', $A_postParams['cost'], PDO::PARAM_STR);
-        $sth->bindValue(':cooking_type', $A_postParams['cooking_type'], PDO::PARAM_STR);
-        $sth->bindValue(':user_id', Session::getSession()['id'], PDO::PARAM_STR);
-        $B_flag = $sth->execute();
+        $P_sth->bindValue(':name', $S_name, PDO::PARAM_STR);
+        $P_sth->bindValue(':picture', $A_postParams['picture'], PDO::PARAM_STR);
+        $P_sth->bindValue(':preparation_description', $A_postParams['preparation_description'], PDO::PARAM_STR);
+        $P_sth->bindValue(':cooking_time', $A_postParams['cooking_time'], PDO::PARAM_INT);
+        $P_sth->bindValue(':difficulty', $A_postParams['difficulty'], PDO::PARAM_STR);
+        $P_sth->bindValue(':cost', $A_postParams['cost'], PDO::PARAM_STR);
+        $P_sth->bindValue(':cooking_type', $A_postParams['cooking_type'], PDO::PARAM_STR);
+        $P_sth->bindValue(':user_id', Session::getSession()['id'], PDO::PARAM_STR);
+        $B_flag = $P_sth->execute();
 
         if($B_flag){
 
             $S_sql = "select id from recipe where name = :name and preparation_description = :desc";
-            $sth = $O_con->prepare($S_sql);
-            $sth->bindValue(':name', $S_name, PDO::PARAM_STR);
-            $sth->bindValue(':desc', $A_postParams['preparation_description'], PDO::PARAM_STR);
-            $B_flag = $sth->execute();
-            $A_recipe = $sth->fetch();
-            $O_con=null;
+            $P_sth = $P_db->prepare($S_sql);
+            $P_sth->bindValue(':name', $S_name, PDO::PARAM_STR);
+            $P_sth->bindValue(':desc', $A_postParams['preparation_description'], PDO::PARAM_STR);
+            $B_flag = $P_sth->execute();
+            $A_recipe = $P_sth->fetch();
+            $P_db=null;
             $I_recipeId = intval($A_recipe['id']);
 
             if(isset($A_postParams['ingredients']) && $B_flag){
@@ -151,86 +151,86 @@ class Recipe extends Model{
                 $B_flag = self::addRecipeElem($I_recipeId ,$A_postParams['particularities'], "particularities");
             }
         }
-        $S_result = $B_flag ? "Vous avez bien ajouté la recette" : "Vous erreur dans l'ajout de la recette";
+        $S_result = $B_flag ? "Vous avez bien ajouté la recette" : "Erreur dans l'ajout de la recette";
         return $S_result;
     }
     
     public static function randomRecipe():array{
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         $S_sql = "SELECT * FROM RECIPE ORDER BY RANDOM() LIMIT 3";
-        $sth = $O_con->prepare($S_sql);
-        $sth->execute();
-        return $sth->fetchAll();
+        $P_sth = $P_db->prepare($S_sql);
+        $P_sth->execute();
+        return $P_sth->fetchAll();
     }
 
 
     public static function selectRecipeByUser(string $id):array{
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         $S_sql = "SELECT * FROM RECIPE WHERE user_id = :user";
-        $sth = $O_con->prepare($S_sql);
-        $sth->bindValue(':user', $id, PDO::PARAM_INT);
-        $sth->execute();
-        return $sth->fetchAll();
+        $P_sth = $P_db->prepare($S_sql);
+        $P_sth->bindValue(':user', $id, PDO::PARAM_INT);
+        $P_sth->execute();
+        return $P_sth->fetchAll();
     }
 
     public static function selectCookingTimes(): array{
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         $S_sql = "SELECT DISTINCT COOKING_TIME FROM RECIPE";
-        $sth = $O_con->prepare($S_sql);
-        $sth->execute();
-        return $sth->fetchAll();
+        $P_sth = $P_db->prepare($S_sql);
+        $P_sth->execute();
+        return $P_sth->fetchAll();
     }
 
     public static function selectCookingTypes(): array{
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         $S_sql = "SELECT DISTINCT COOKING_TYPE FROM RECIPE";
-        $sth = $O_con->prepare($S_sql);
-        $sth->execute();
-        return $sth->fetchAll();
+        $P_sth = $P_db->prepare($S_sql);
+        $P_sth->execute();
+        return $P_sth->fetchAll();
     }
 
     public static function selectDifficulties(): array{
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         $S_sql = "SELECT DISTINCT DIFFICULTY FROM RECIPE";
-        $sth = $O_con->prepare($S_sql);
-        $sth->execute();
-        return $sth->fetchAll();
+        $P_sth = $P_db->prepare($S_sql);
+        $P_sth->execute();
+        return $P_sth->fetchAll();
     }
 
     public static function selectCosts(): array{
-        $O_con = Connection::initConnection();
+        $P_db = Connection::initConnection();
         $S_sql = "SELECT DISTINCT COST FROM RECIPE";
-        $sth = $O_con->prepare($S_sql);
-        $sth->execute();
-        return $sth->fetchAll();
+        $P_sth = $P_db->prepare($S_sql);
+        $P_sth->execute();
+        return $P_sth->fetchAll();
     }
 
-    public static function selectMaxId() {
-        $O_con = Connection::initConnection();
+    public static function selectMaxId() : string{
+        $P_db = Connection::initConnection();
         $S_sql = "SELECT MAX(ID) FROM RECIPE";
-        $sth = $O_con->prepare($S_sql);
-        $sth->execute();
-        return $sth->fetch()[0];
+        $P_sth = $P_db->prepare($S_sql);
+        $P_sth->execute();
+        return $P_sth->fetch()[0];
     }
 
     public static function uploadRecipePicture(string $name):string{
-        return UploadPicture::uploadPicture($name . (Recipe::selectMaxId() + 1), true);
+        return UploadPicture::upload($name . (Recipe::selectMaxId() + 1), true);
     }
 
     public static function updateRecipePicture(array $A_params):?string{
         $id = $A_params['id'];
-        return UploadPicture::uploadPicture(Recipe::selectById($id)['name'] . ($id), true);
+        return UploadPicture::upload(Recipe::selectById($id)['name'] . ($id), true);
     }
 
-    public static function goodString($S_str){
-        $str = str_replace(" ","",$S_str);
-        $str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
-        $str = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $str);
-        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str);
-        return preg_replace('#&[^;]+;#', '', $str);
+    public static function goodString($S_oldString):string{
+        $S_newString = str_replace(" ","",$S_oldString);
+        $S_newString = htmlentities($S_newString, ENT_NOQUOTES, 'utf-8');
+        $S_newString = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $S_newString);
+        $S_newString = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $S_newString);
+        return preg_replace('#&[^;]+;#', '', $S_newString);
     }
 
-    public static function addToQuery($S_table, $S_itemId, $A_items, &$A_paramBindValue){
+    public static function addToQuery($S_table, $S_itemId, $A_items, &$A_paramBindValue) : string{
         $S_s = "and id in (SELECT RECIPE_ID FROM $S_table WHERE ";
         foreach ($A_items as $item){
             $itemBind = self::goodString($item);
@@ -302,14 +302,14 @@ class Recipe extends Model{
             $S_sql = substr($S_sql, 0, -3);
         }
 
-        $O_con = Connection::initConnection();
-        $sth = $O_con->prepare($S_sql);
+        $P_db = Connection::initConnection();
+        $P_sth = $P_db->prepare($S_sql);
         
         foreach ($A_paramBindValue as $key => $value) {
-            $sth->bindValue($key, $value[0], $value[1]);
+            $P_sth->bindValue($key, $value[0], $value[1]);
         }
 
-        $sth->execute();
-        return ($sth->fetchAll());
+        $P_sth->execute();
+        return ($P_sth->fetchAll());
     }
 }

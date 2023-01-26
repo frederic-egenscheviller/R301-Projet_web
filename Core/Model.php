@@ -2,98 +2,94 @@
 
 abstract class Model{
 
-    public static function selectById($id){
-        $db = Connection::initConnection();
-        $stmnt = "SELECT * FROM ".get_called_class()." WHERE ID = ? ";
-        $sth = $db->prepare($stmnt);
-        $sth->execute(array($id));
-        $row = $sth->fetch(PDO::FETCH_ASSOC);
-        $db = null;
-        return $row;
+    public static function selectById($S_id){
+        $P_db = Connection::initConnection();
+        $S_stmnt = "SELECT * FROM ".get_called_class()." WHERE ID = ? ";
+        $P_sth = $P_db->prepare($S_stmnt);
+        $P_sth->execute(array($S_id));
+        $A_row = $P_sth->fetch(PDO::FETCH_ASSOC);
+        $P_db = null;
+        return $A_row;
     }
 
-    public static function deleteByID($id) : bool{
-        if(!self::checkIfExistsById($id)){
+    public static function deleteByID($S_id) : bool{
+        if(!self::checkIfExistsById($S_id)){
             return false;
         }
-        $db = Connection::initConnection();
-        $stmnt = "DELETE FROM ".get_called_class()." WHERE ID = ? ";
-        $sth = $db->prepare($stmnt);
-        $B_state = $sth->execute(array($id));
-        $db = null;
+        $P_db = Connection::initConnection();
+        $S_stmnt = "DELETE FROM ".get_called_class()." WHERE ID = ? ";
+        $P_sth = $P_db->prepare($S_stmnt);
+        $B_state = $P_sth->execute(array($S_id));
+        $P_db = null;
         return $B_state;
     }
 
     public static function create(Array $A_postParams) : bool{
-        if(self::checkIfExistsById($A_postParams['id'])){
-            return false;
+        $P_db = Connection::initConnection();
+
+        $S_keys = " ";
+        $S_vals = " ";
+        foreach (array_keys($A_postParams) as &$S_key){
+            $S_keys .= $S_key.",";
+            $S_vals .= "?,";
         }
+        $S_keys[-1] = " ";
+        $S_vals[-1] = " ";
 
-        $db = Connection::initConnection();
-
-        $keys = " ";
-        $vals = " ";
-        foreach (array_keys($A_postParams) as &$key){
-            $keys .= $key.",";
-            $vals .= "?,";
-        }
-        $keys[-1] = " ";
-        $vals[-1] = " ";
-
-        $stmnt = "INSERT INTO ".get_called_class()." ($keys) VALUES ($vals)";
-        $sth = $db->prepare($stmnt);
-        $db = null;
-        $B_state = $sth->execute(array_values($A_postParams));
+        $S_stmnt = "INSERT INTO ".get_called_class()." ($S_keys) VALUES ($S_vals)";
+        $P_sth = $P_db->prepare($S_stmnt);
+        $P_db = null;
+        $B_state = $P_sth->execute(array_values($A_postParams));
         return $B_state;
     }
 
-    public static function updateById(Array $A_postParams,$id ) : bool{
-        $db = Connection::initConnection();
+    public static function updateById(Array $A_postParams,$S_id ) : bool{
+        $P_db = Connection::initConnection();
 
-        $keys = "";
-        foreach (array_keys($A_postParams) as &$key){
-            $keys.= $key."= ? ,";
+        $S_keys = "";
+        foreach (array_keys($A_postParams) as &$S_key){
+            $S_keys.= $S_key."= ? ,";
         }
-        $keys[-1] = " ";
+        $S_keys[-1] = " ";
 
-        $stmnt = "UPDATE ".get_called_class()." SET ".$keys." WHERE ID = ?";
-        $sth = $db->prepare($stmnt);
-        array_push($A_postParams,$id);
-        $B_state = $sth->execute(array_values($A_postParams));
-        $db = null;
+        $S_stmnt = "UPDATE ".get_called_class()." SET ".$S_keys." WHERE ID = ?";
+        $P_sth = $P_db->prepare($S_stmnt);
+        array_push($A_postParams,$S_id);
+        $B_state = $P_sth->execute(array_values($A_postParams));
+        $P_db = null;
         return $B_state;
     }
 
     public static function selectHowMany() : int{
-        $db = Connection::initConnection();
-        $stmnt = "SELECT count(*) FROM ".get_called_class();
-        $sth = $db->prepare($stmnt);
-        $sth->execute();
-        $row = $sth->fetch(PDO::FETCH_ASSOC);
-        $db = null;
-        return $row['count'];
+        $P_db = Connection::initConnection();
+        $S_stmnt = "SELECT count(*) FROM ".get_called_class();
+        $P_sth = $P_db->prepare($S_stmnt);
+        $P_sth->execute();
+        $A_row = $P_sth->fetch(PDO::FETCH_ASSOC);
+        $P_db = null;
+        return $A_row['count'];
     }
 
     public static function selectAll(): Array{
-        $O_db = Connection::initConnection();
+        $P_db = Connection::initConnection();
         $S_stmnt = "SELECT * FROM ".get_called_class();
-        $sth = $O_db->prepare($S_stmnt);
-        $sth->execute();
-        $O_db = null;
-        return $sth->fetchAll();
+        $P_sth = $P_db->prepare($S_stmnt);
+        $P_sth->execute();
+        $P_db = null;
+        return $P_sth->fetchAll();
     }
 
     public static function uploadPictures(Array $A_postParams) : Array{
-        $A_picture = UploadPicture::uploadPicture($A_postParams);
+        $A_picture = UploadPicture::upload($A_postParams);
         $A_postParams['picture'] = $A_picture;
         return $A_postParams;
     }
 
-    public static function checkIfExistsById(String $id) : bool{
-        $db = Connection::initConnection();
-        $stmnt = "SELECT * FROM ".get_called_class()." WHERE ID = ? ";
-        $sth = $db->prepare($stmnt);
-        $sth->execute(array($id));
-        return ($sth->rowCount() > 0);
+    public static function checkIfExistsById(String $S_id) : bool{
+        $P_db = Connection::initConnection();
+        $S_stmnt = "SELECT * FROM ".get_called_class()." WHERE ID = ? ";
+        $P_sth = $P_db->prepare($S_stmnt);
+        $P_sth->execute(array($S_id));
+        return ($P_sth->rowCount() > 0);
     }
 }

@@ -45,6 +45,10 @@ echo '              </ul>
                 </section>
             </section>
         </section>
-        <p id="instructions">'. $A_view['recipe']['preparation_description'] . '</p>
-    </section>
+        <p id="instructions">'. $A_view['recipe']['preparation_description'] . '</p>';
+
+if ($A_view['isOwner']) {
+    echo '<a id="submit" href="/updaterecipe/show/' . $A_view['recipe']['id'] . '">Modifier</a>';
+}
+echo '</section>
 </section>';
