@@ -1,6 +1,6 @@
 
 <?php
-echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-data'>
+echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-data' class='signup'>
     <h1>Ajouter une recette</h1>
 
     <label><b>Nom de la recette</b></label>

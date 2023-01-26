@@ -9,8 +9,8 @@
             </div>
             <div class="top-footer">
                 <h6>Liens rapides</h6>
-                <li><a href="/legalnotice">Mentions Légales</a></li>
-                <li><a href="/contact/form">Contact</a></li>
+                <li><a href="/termsofuses">Mentions Légales</a></li>
+                <li><a href="/contact">Contact</a></li>
             </div>
         </div>
         <hr>
