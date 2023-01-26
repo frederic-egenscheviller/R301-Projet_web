@@ -177,7 +177,7 @@ class Recipe extends Model{
 
         $S_sql = "SELECT distinct r.* FROM Recipe r WHERE r.name LIKE :search ";
         $S_search = isset($A_getParams['search']) ? "%" . strtoupper(self::goodRecipeName($A_getParams['search'])) . "%" : "%";
-        echo strtoupper($S_search);
+        
         $A_paramBindValue = array(':search' => array($S_search , PDO::PARAM_STR));
 
         if (isset($A_getParams['ingredients'])) {

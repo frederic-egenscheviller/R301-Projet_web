@@ -10,6 +10,7 @@
         <link rel="stylesheet" type="text/css" href="/static/styles/profile.css">
         <link rel="stylesheet" type="text/css" href="/static/styles/appreciation.css">
         <link rel="stylesheet" type="text/css" href="/static/styles/one-recipe.css">
+        <link rel="stylesheet" type="text/css" href="/static/styles/norecipe.css">
         
         <script type='text/javascript' src='/static/js/add-recipe-form.js'></script>
 
