@@ -15,7 +15,9 @@ function dropdown($A_list, $name, $dropDownID, $dropNameID, $frenchName) {
 }
 echo '
 <form action="/searchRecipes" method="post">
-<div id="features">';
+<div id="features">
+<input type="txt" name="search" placeholder="Nom de la recette">
+<input type="number" name="cooking_time" placeholder="Temps de préparation" min="1">';
 dropdown($A_view['ingredients'], 'ingredients', 'ingredientsBtn', 'dropIngredients', 'Ingrédients');
 dropdown($A_view['utensils'], 'utensils', 'utensilsBtn', 'dropUtensils', 'Ustensiles');
 dropdown($A_view['cooking_types'], 'cooking_types', 'cookingTypesBtn', 'dropTypes', 'Types de cuisson');
