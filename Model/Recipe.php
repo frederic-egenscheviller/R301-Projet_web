@@ -1,13 +1,35 @@
 <?php
+
+/**
+ * Class Recipe
+ *
+ * This class represents the Recipe table in the DB and communicates with it
+ */
 class Recipe extends Model{
 
+    /**
+     * Formats a string to have only alphanumeric characters, no accents
+     *
+     * @param string $S_oldName The string to be formatted
+     * @return string The formated string
+     */
     public static function goodRecipeName(string $S_oldName) : string{
+        // convert special characters to HTML entities
         $S_newName = htmlentities($S_oldName, ENT_NOQUOTES, 'utf-8');
+        // replace single-character entities with the character
         $S_newName = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $S_newName);
+        // replace ligature entities with the character
         $S_newName = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $S_newName);
+        // remove any remaining HTML entities
         return preg_replace('#&[^;]+;#', '', $S_newName);
     }
 
+    /**
+     * Delete all the elements related to a recipe in the database
+     *
+     * @param int $I_recipeId The id of the recipe
+     * @return bool true if the deletion is successful, false otherwise
+     */
     public static function deleteRecipeElem(int $I_recipeId) : bool{
 
         $P_db = Connection::initConnection();
@@ -30,11 +52,17 @@ class Recipe extends Model{
         }catch(Exception $e){
             return false;
         }
-        return true;
+            return true;
         }
-        
-        public static function updateRecipe(array $A_postParams) : bool{
-        
+
+    /**
+     * Update a recipe in the database according to an array of parameters
+     *
+     * @param array $A_postParams An array containing the parameters of the recipe : id, name, cooking_time, difficulty, cooking_type, cost, preparation_description, picture, ingredients, quantities, utensils, particularities
+     * @return bool true if the update was successful, false otherwise
+     */
+    public static function updateRecipe(array $A_postParams) : bool{
+
             $I_recipeId = intval($A_postParams['id']);
 
             $A_paramRecipe = array('id' => $A_postParams['id'], 'name' => $A_postParams['name'], 'cooking_time' => $A_postParams['cooking_time'], 
@@ -62,9 +90,18 @@ class Recipe extends Model{
             else{
                 return false;
             }
-        return $B_flag;
+            return $B_flag;
         }
 
+    /**
+     * Add a new element to a recipe
+     *
+     * @param int $I_recipeId The ID of the recipe
+     * @param array $A_params The array of elements to add
+     * @param string $S_table The name of the table to add the elements to
+     *
+     * @return bool True if the elements were added, False otherwise
+     */
     public static function addRecipeElem(int $I_recipeId ,array $A_params, string $S_table):bool{
         
         $P_db = Connection::initConnection();
@@ -95,6 +132,15 @@ class Recipe extends Model{
         return true;
     }
 
+    /**
+     * Adds a recipe ingredient
+     *
+     * @param int $I_recipeId the id of the recipe
+     * @param array $A_listIngredients a list of ingredients
+     * @param array $A_listQuantities a list of quantities
+     *
+     * @return bool true if the ingredient was added, otherwise false
+     */
     public static function addRecipeIngredient(int $I_recipeId ,array $A_listIngredients, array $A_listQuantities):bool{
         
         $P_db = Connection::initConnection();
@@ -114,6 +160,13 @@ class Recipe extends Model{
          return true;
     }
 
+    /**
+     * Creates a new recipe in the database
+     *
+     * @param array $A_postParams The POST parameters from the form
+     *
+     * @return string A message indicating the success of the recipe creation
+     */
     public static function createRecipe(array $A_postParams):string{
         $P_db = Connection::initConnection();
         $S_sql = "INSERT INTO RECIPE (name, picture, preparation_description, cooking_time, difficulty, cost, cooking_type, user_id)
@@ -154,7 +207,12 @@ class Recipe extends Model{
         $S_result = $B_flag ? "Vous avez bien ajouté la recette" : "Erreur dans l'ajout de la recette";
         return $S_result;
     }
-    
+
+    /**
+     * Returns an array of 3 random recipes from the database.
+     *
+     * @return array An array of 3 random recipes from the database.
+     */
     public static function randomRecipe():array{
         $P_db = Connection::initConnection();
         $S_sql = "SELECT * FROM RECIPE ORDER BY RANDOM() LIMIT 3";
@@ -163,7 +221,13 @@ class Recipe extends Model{
         return $P_sth->fetchAll();
     }
 
-
+    /**
+     * Selects a recipe from the database based on user id
+     *
+     * @param string $id The user id
+     *
+     * @return array The array of recipes
+     */
     public static function selectRecipeByUser(string $id):array{
         $P_db = Connection::initConnection();
         $S_sql = "SELECT * FROM RECIPE WHERE user_id = :user";
@@ -173,6 +237,12 @@ class Recipe extends Model{
         return $P_sth->fetchAll();
     }
 
+    /**
+     *
+     * Retrieves all distinct cooking times from the RECIPE table
+     *
+     * @return array Returns an array with all the retrieved cooking times
+     */
     public static function selectCookingTimes(): array{
         $P_db = Connection::initConnection();
         $S_sql = "SELECT DISTINCT COOKING_TIME FROM RECIPE";
@@ -181,6 +251,11 @@ class Recipe extends Model{
         return $P_sth->fetchAll();
     }
 
+    /**
+     * Selects the distinct cooking types from the recipe table
+     *
+     * @return array An array of the cooking types
+     */
     public static function selectCookingTypes(): array{
         $P_db = Connection::initConnection();
         $S_sql = "SELECT DISTINCT COOKING_TYPE FROM RECIPE";
@@ -189,6 +264,11 @@ class Recipe extends Model{
         return $P_sth->fetchAll();
     }
 
+    /**
+     * This method select the distinct difficulties from the recipe table
+     *
+     * @return array An array of the different difficulties
+     */
     public static function selectDifficulties(): array{
         $P_db = Connection::initConnection();
         $S_sql = "SELECT DISTINCT DIFFICULTY FROM RECIPE";
@@ -197,6 +277,11 @@ class Recipe extends Model{
         return $P_sth->fetchAll();
     }
 
+    /**
+     * Select the distinct costs of recipes from the database
+     *
+     * @return array An array of the distinct costs
+     */
     public static function selectCosts(): array{
         $P_db = Connection::initConnection();
         $S_sql = "SELECT DISTINCT COST FROM RECIPE";
@@ -205,6 +290,11 @@ class Recipe extends Model{
         return $P_sth->fetchAll();
     }
 
+    /**
+     * Selects the maximum id of the "RECIPE" table.
+     *
+     * @return string The maximum id of the "RECIPE" table.
+     */
     public static function selectMaxId() : string{
         $P_db = Connection::initConnection();
         $S_sql = "SELECT MAX(ID) FROM RECIPE";
@@ -213,15 +303,36 @@ class Recipe extends Model{
         return $P_sth->fetch()[0];
     }
 
-    public static function uploadRecipePicture(string $name):string{
-        return UploadPicture::upload($name . (Recipe::selectMaxId() + 1), true);
+    /**
+     * Uploads a recipe picture
+     *
+     * @param string $name The name of the picture
+     * @return string The name of the uploaded picture
+     */
+    public static function uploadRecipePicture(string $S_name):string{
+        return UploadPicture::upload($S_name . (Recipe::selectMaxId() + 1), true);
     }
 
+    /**
+     * Updates a recipe picture by its id
+     *
+     * @param array $A_params The array of parameters
+     *
+     * @return string|null The picture name or null
+     */
     public static function updateRecipePicture(array $A_params):?string{
-        $id = $A_params['id'];
-        return UploadPicture::upload(Recipe::selectById($id)['name'] . ($id), true);
+        $S_id = $A_params['id'];
+        return UploadPicture::upload(Recipe::selectById($S_id)['name'] . ($S_id), true);
     }
 
+    /**
+     *
+     * Removes spaces, html entities and other special characters from a string
+     *
+     * @param string $S_oldString The string to be modified
+     *
+     * @return string The modified string
+     */
     public static function goodString(string $S_oldString):string{
         $S_newString = str_replace(" ","",$S_oldString);
         $S_newString = htmlentities($S_newString, ENT_NOQUOTES, 'utf-8');
@@ -230,6 +341,16 @@ class Recipe extends Model{
         return preg_replace('#&[^;]+;#', '', $S_newString);
     }
 
+    /**
+     * Adds a query to a given array
+     *
+     * @param string $S_table The database table
+     * @param string $S_itemId The database table item id
+     * @param array $A_items An array of items
+     * @param array $A_paramBindValue The array to which the query will be added
+     *
+     * @return string The query
+     */
     public static function addToQuery(string $S_table, string $S_itemId, array $A_items, &$A_paramBindValue) : string{
         $S_s = "and id in (SELECT RECIPE_ID FROM $S_table WHERE ";
         foreach ($A_items as $item){
@@ -240,7 +361,14 @@ class Recipe extends Model{
         $S_s = substr($S_s, 0, -4) . ") ";
         return $S_s;
     }
-    
+
+    /**
+     * Searches for recipes based on parameters
+     *
+     * @param array $A_getParams The parameters used for the search
+     *
+     * @return array An array containing the recipes that have been found
+     */
     public static function searchRecipe(array $A_getParams): array{
 
         $S_sql = "SELECT distinct r.* FROM Recipe r WHERE r.name LIKE :search ";

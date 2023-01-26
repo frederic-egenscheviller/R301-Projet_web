@@ -1,10 +1,29 @@
 <?php
 
+/**
+ * Class RetrievepwddirectivesController
+ *
+ * This class provides methods to give the directives for retrieving password.
+ */
 class RetrievepwddirectivesController
 {
+    /**
+     * Show view for password retrieval
+     *
+     * @return void
+     */
     public function defaultAction() : void{
         View::show("retrieve_pwd/form-directives");
     }
+
+    /**
+     * Send password retrieval details and e-mail
+     *
+     * @param Array $A_parametres [optional]
+     * @param Array $A_postParams [optional]
+     *
+     * @return void
+     */
     public function updateAction(Array $A_parametres = null, Array $A_postParams = null) : void{
 
         if(!Users::checkIfExistsById($A_postParams["id"])){

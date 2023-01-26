@@ -1,13 +1,30 @@
 <?php
 
+/**
+ * UploadPicture
+ *
+ * Final Class to UploadPicture
+ */
 final class UploadPicture
 {
-
+    /**
+     * Create a picture name
+     *
+     * @param string $projectName
+     * @return string The picture name
+     */
     static function createPictureName(string $projectName): string
     {
         return strtolower(preg_replace("/[^A-Za-z1-9]/", "", iconv('UTF-8', 'ASCII//TRANSLIT', $projectName)));
     }
 
+    /**
+     * Upload the picture
+     *
+     * @param string $S_elementName The name of the element
+     * @param bool $B_isRecipe Boolean to know if the picture is a recipe
+     * @return string|null Return the path of the uploaded picture or null
+     */
     static function upload(string $S_elementName, bool $B_isRecipe) : ?string
     {
         if (isset($_FILES['picture'])) {

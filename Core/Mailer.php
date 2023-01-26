@@ -1,10 +1,22 @@
 <?php
+
 //Les methodes pour charger les 3 classes ont été faites dans la classe AutoLoad et Constants, mais etant donnée qu'elles ne marchent pas on as du utiliser require
 require "Core/Phpmailer/PHPMailer.php";
 require "Core/Phpmailer/SMTP.php";
 require "Core/Phpmailer/Exception.php";
+
+/**
+ * Mailer class
+ */
 class Mailer
 {
+    /**
+     * Send a mail
+     *
+     * @param string $S_mail The mail adress of the recipient
+     * @param Array $S_mailContent An array containing the subject and body of the mail
+     * @return void
+     */
     public static function sendMail(string $S_mail, Array $S_mailContent) : void {
         //We create an instance of PHPMailer
         $P_sentMail = new \PHPMailer\PHPMailer\PHPMailer();

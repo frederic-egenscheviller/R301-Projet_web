@@ -1,7 +1,20 @@
 <?php
-
+/**
+ * RecipeController class
+ *
+ * Final class for RecipeController
+ */
 final class RecipeController
 {
+    /**
+     * showAction
+     *
+     * Function that show the content of a recipe
+     *
+     * @param  Array $A_parametres=null  The parameters of the recipe
+     *
+     * @return void
+     */
     public function showAction(Array $A_parametres = null) : void{
         if($A_parametres == null || Recipe::selectById($A_parametres[0]) == null) {
             header("Location: /errors/error404");
@@ -34,6 +47,15 @@ final class RecipeController
         ));
     }
 
+    /**
+     * editappreciationAction
+     *
+     * Function that edit an appreciation
+     *
+     * @param  Array $A_parametres=null  The parameters of the appreciation
+     *
+     * @return void
+     */
     public function editappreciationAction(Array $A_parametres = null) : void{
         if(($A_parametres == null) || (Recipe::selectById($A_parametres[0]) == null) || (Session::getSession()['id'] != (Appreciation::selectById($A_parametres[1])['user_id']))) {
             header("Location: /errors/error404");
@@ -54,11 +76,31 @@ final class RecipeController
         ));
     }
 
+    /**
+     * updateappreciationAction
+     *
+     * Function that update an appreciation
+     *
+     * @param  Array $A_parametres=null  The parameters of the appreciation
+     * @param  Array $A_postParams=null  The post params of the appreciation
+     *
+     * @return void
+     */
     public function updateappreciationAction(Array $A_parametres = null, Array $A_postParams = null): void {
         Appreciation::updateById($A_postParams,$A_postParams["id"]);
         header('Location: /recipe/show/' . $A_postParams['recipe_id']);
     }
 
+    /**
+     * uploadappreciationAction
+     *
+     * Function that upload an appreciation
+     *
+     * @param  Array $A_parametres=null  The parameters of the appreciation
+     * @param  Array $A_postParams=null  The post params of the appreciation
+     *
+     * @return void
+     */
     public static function uploadappreciationAction(Array $A_parametres = null, Array $A_postParams = null):void {
         if(Session::check()) {
             Appreciation::create($A_postParams);

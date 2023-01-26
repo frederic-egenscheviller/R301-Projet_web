@@ -1,7 +1,23 @@
 <?php
 
+/**
+ * Class ProfileController
+ *
+ * Final class for the ProfileController.
+ *
+ * @final
+ */
 final class ProfileController
 {
+    /**
+     * showAction
+     *
+     * Show the profile page
+     *
+     * @param Array $A_parametres - The array of parametres.
+     *
+     * @return void
+     */
     function showAction(Array $A_parametres = null) : void{
         $S_user_id = $A_parametres[0];
         $A_user = Users::selectByUserId($S_user_id);
