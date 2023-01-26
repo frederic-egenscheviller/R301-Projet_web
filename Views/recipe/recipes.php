@@ -11,8 +11,7 @@ foreach($A_view as $A_recipe) {
                     <h2 class="card-difficulty">Difficulty :' . $A_recipe['difficulty'] . '</h3>
                     <h2 class="card-cooking-time">Cooking time :' . $A_recipe['cooking_time'] . 'minutes</p>
                     <div class="card-rating-box">
-                        <h2 class="card-average-rating">Rating :' . $A_recipe['average_rating'] . '/5</p>
-                        <i class="fa fa-sta" style="color: white"></i>
+                        <h2 class="card-average-rating">Rating :' . $A_recipe['average_rating'] . '/5 ★</p>
                     </div>
                 </div>
             </section></a>';

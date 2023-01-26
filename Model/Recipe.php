@@ -296,7 +296,7 @@ class Recipe extends Model{
         if(isset($A_getParams['difficulties'])) {
             $S_sql = $S_sql . " and ";
             foreach ($A_getParams['difficulties'] as $S_difficulty) {
-                $S_sql = $S_sql . "difficulty = :$S_difficulty or";
+                $S_sql = $S_sql . "difficulty = :$S_difficulty or ";
                 $A_paramBindValue[":$S_difficulty"] = array($S_difficulty, PDO::PARAM_STR);
             }
             $S_sql = substr($S_sql, 0, -3);
