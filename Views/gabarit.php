@@ -14,7 +14,7 @@
         
         <script type='text/javascript' src='/static/js/add-recipe-form.js'></script>
 
-        <title>Cookeat</title>
+        <title>Le gato | Patisserie</title>
     </head>
     <body>
         <?php View::show('standard/header'); ?>
