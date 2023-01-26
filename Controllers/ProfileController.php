@@ -1,11 +1,11 @@
 <?php
 
-final class ProfilController
+final class ProfileController
 {
     function showAction(Array $A_parametres = null) : void{
         $S_user_id = $A_parametres[0];
         $A_user = Users::selectByUserId($S_user_id);
-        View::show("/profil/profil", Users::selectByUserId($S_user_id));
+        View::show("/profile/profile", Users::selectByUserId($S_user_id));
         View::show("/recipe/recipes", Recipe::selectRecipeByUser($A_user['id']));
 
         $A_session = Session::getSession();

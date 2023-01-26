@@ -19,7 +19,7 @@ final class Session
         return null;
     }
 
-    public static function destroy() {
+    public static function destroy() : void{
         if (ini_get("session.use_cookies")) {
             $A_params = session_get_cookie_params();
             setcookie(session_name(), '', time() - 42000, $A_params["path"],

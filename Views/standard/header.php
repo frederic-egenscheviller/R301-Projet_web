@@ -18,7 +18,7 @@ if (Session::check()) {
         <li><a href="/addrecipe">Ajouter une recette</a></li>
         <li><a href="/admin">Administration</a></li>';
     }
-    echo "<li><a href='/profil/show/" . Session::getSession()['user_id'] . "'>Compte</a></li>
+    echo "<li><a href='/profile/show/" . Session::getSession()['user_id'] . "'>Compte</a></li>
           <li><a href='/logout'>Déconnexion</a></li>";
 } else {
     echo '

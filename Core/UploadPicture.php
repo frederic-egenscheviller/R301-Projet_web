@@ -8,7 +8,7 @@ final class UploadPicture
         return strtolower(preg_replace("/[^A-Za-z1-9]/", "", iconv('UTF-8', 'ASCII//TRANSLIT', $projectName)));
     }
 
-    static function upload($S_elementName, $B_isRecipe)
+    static function upload(string $S_elementName, bool $B_isRecipe) : ?string
     {
         if (isset($_FILES['picture'])) {
             $S_elementName = self::createPictureName($S_elementName);

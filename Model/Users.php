@@ -30,11 +30,11 @@ class Users extends Model{
         return $A_result;
     }
 
-    public static function selectByUserId($user_id) : array{
+    public static function selectByUserId(string $S_user_id) : array{
         $P_db = Connection::initConnection();
         $S_stmnt = "SELECT * FROM USERS WHERE USER_ID = :user_id ";
         $P_sth = $P_db->prepare($S_stmnt);
-        $P_sth->bindValue(':user_id', $user_id, PDO::PARAM_INT);
+        $P_sth->bindValue(':user_id', $S_user_id, PDO::PARAM_INT);
         $P_sth->execute();
         $A_row = $P_sth->fetch(PDO::FETCH_ASSOC);
         $P_db = null;

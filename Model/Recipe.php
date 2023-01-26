@@ -1,14 +1,14 @@
 <?php
 class Recipe extends Model{
 
-    public static function goodRecipeName($S_oldName) : string{
+    public static function goodRecipeName(string $S_oldName) : string{
         $S_newName = htmlentities($S_oldName, ENT_NOQUOTES, 'utf-8');
         $S_newName = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $S_newName);
         $S_newName = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $S_newName);
         return preg_replace('#&[^;]+;#', '', $S_newName);
     }
 
-    public static function deleteRecipeElem($I_recipeId) : bool{
+    public static function deleteRecipeElem(int $I_recipeId) : bool{
 
         $P_db = Connection::initConnection();
         try{
@@ -222,7 +222,7 @@ class Recipe extends Model{
         return UploadPicture::upload(Recipe::selectById($id)['name'] . ($id), true);
     }
 
-    public static function goodString($S_oldString):string{
+    public static function goodString(string $S_oldString):string{
         $S_newString = str_replace(" ","",$S_oldString);
         $S_newString = htmlentities($S_newString, ENT_NOQUOTES, 'utf-8');
         $S_newString = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $S_newString);
@@ -230,7 +230,7 @@ class Recipe extends Model{
         return preg_replace('#&[^;]+;#', '', $S_newString);
     }
 
-    public static function addToQuery($S_table, $S_itemId, $A_items, &$A_paramBindValue) : string{
+    public static function addToQuery(string $S_table, string $S_itemId, array $A_items, &$A_paramBindValue) : string{
         $S_s = "and id in (SELECT RECIPE_ID FROM $S_table WHERE ";
         foreach ($A_items as $item){
             $itemBind = self::goodString($item);
@@ -240,8 +240,7 @@ class Recipe extends Model{
         $S_s = substr($S_s, 0, -4) . ") ";
         return $S_s;
     }
-
-
+    
     public static function searchRecipe(array $A_getParams): array{
 
         $S_sql = "SELECT distinct r.* FROM Recipe r WHERE r.name LIKE :search ";

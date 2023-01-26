@@ -2,7 +2,7 @@
 
 abstract class Model{
 
-    public static function selectById($S_id){
+    public static function selectById($S_id) : array{
         $P_db = Connection::initConnection();
         $S_stmnt = "SELECT * FROM ".get_called_class()." WHERE ID = ? ";
         $P_sth = $P_db->prepare($S_stmnt);
@@ -70,7 +70,7 @@ abstract class Model{
         return $A_row['count'];
     }
 
-    public static function selectAll(): Array{
+    public static function selectAll(): array{
         $P_db = Connection::initConnection();
         $S_stmnt = "SELECT * FROM ".get_called_class();
         $P_sth = $P_db->prepare($S_stmnt);
@@ -79,7 +79,7 @@ abstract class Model{
         return $P_sth->fetchAll();
     }
 
-    public static function uploadPictures(Array $A_postParams) : Array{
+    public static function uploadPictures(Array $A_postParams) : array{
         $A_picture = UploadPicture::upload($A_postParams);
         $A_postParams['picture'] = $A_picture;
         return $A_postParams;
