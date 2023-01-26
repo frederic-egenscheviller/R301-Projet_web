@@ -1,5 +1,5 @@
 <?php
-echo("<form class='sigin' method='post' action='/contact/update'>
+echo("<form class='sigin' method='post' action='/contact/send'>
         <title>Comment pouvons nous vous aider?</title>
         
         <label><b>Votre Nom :</b></label>

@@ -1,5 +1,5 @@
 <?php
-echo("<form class='sigin' method='post' action='/signin/update'>
+echo("<form class='sigin' method='post' action='/signin/connect'>
         
         <label><b>Votre Mail</b></label>
         <input type='text' placeholder='Entrez votre mail' name='id' required><br>

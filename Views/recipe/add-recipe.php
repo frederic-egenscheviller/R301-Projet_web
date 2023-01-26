@@ -1,6 +1,6 @@
 
 <?php
-echo "<form action='/addrecipe/update' method='post' enctype='multipart/form-data' class='signup'>";
+echo "<form action='/addrecipe/add' method='post' enctype='multipart/form-data' class='signup'>";
 if (isset($A_view['message'])) {
     echo "<p>" . $A_view['message'] . "</p>";
 }

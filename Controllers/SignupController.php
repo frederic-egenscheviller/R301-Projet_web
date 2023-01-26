@@ -24,7 +24,7 @@ final class SignupController
      *
      * @return void
      */
-    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) : void{
+    public function createAction(Array $A_parametres = null, Array $A_postParams = null) : void{
         $A_postParams['picture'] = Users::uploadUserPicture($A_postParams['name']);
         $A_postParams['password'] = hash('sha512', $A_postParams['password']);
         if(Users::create($A_postParams)) {

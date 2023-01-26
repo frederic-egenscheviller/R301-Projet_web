@@ -1,5 +1,5 @@
 <?php
-echo("<form class='sigin' method='post' action='/retrievepwddirectives/update'>
+echo("<form class='sigin' method='post' action='/retrievepwddirectives/send'>
         <label><b>Recuperation de mot de passe</b></label>
         <input type='text' placeholder='Votre mail' name='id' required><br>
         

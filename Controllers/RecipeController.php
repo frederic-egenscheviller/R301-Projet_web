@@ -63,7 +63,9 @@ final class RecipeController
         }
 
         $A_recipe = Recipe::selectById($A_parametres[0]);
+        $A_session = Session::getSession();
         View::show("/recipe/recipe", array(
+            'isOwner' => (($A_session != null) && ($A_session['id'] == $A_recipe['user_id'])),
             'recipe' => $A_recipe,
             'ingredients' => Ingredients::selectAllByRecipeId($A_parametres[0]),
             'utensils' => Utensils::selectAllByRecipeId($A_parametres[0]),

@@ -1,5 +1,5 @@
 <?php
-echo("<form class='signup' method='post' action='/signup/update' enctype='multipart/form-data'>
+echo("<form class='signup' method='post' action='/signup/create' enctype='multipart/form-data'>
         <label>eMail :</label>
         <input type='email' id='id' name='id' placeholder='eMail' required><br>
         <label>Pseudo :</label>

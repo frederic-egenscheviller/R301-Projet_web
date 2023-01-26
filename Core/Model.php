@@ -9,7 +9,7 @@ abstract class Model{
      * @param string $S_id The id to search for
      * @return array The entry from the database
      */
-    public static function selectById($S_id) : array{
+    public static function selectById($S_id){
         $P_db = Connection::initConnection();
         $S_stmnt = "SELECT * FROM ".get_called_class()." WHERE ID = ? ";
         $P_sth = $P_db->prepare($S_stmnt);
