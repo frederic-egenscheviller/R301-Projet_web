@@ -1,7 +1,12 @@
 <?php
+class Recipe extends Model{
 
-class Recipe extends Model
-{
+    public static function goodRecipeName($S_str){
+        $str = htmlentities($S_str, ENT_NOQUOTES, 'utf-8');
+        $str = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str);
+        return preg_replace('#&[^;]+;#', '', $str);
+    }
 
     public static function deleteRecipeElem($I_recipeId){
 
@@ -114,7 +119,8 @@ class Recipe extends Model
         $S_sql = "INSERT INTO RECIPE (name, picture, preparation_description, cooking_time, difficulty, cost, cooking_type, user_id)
         VALUES (:name, :picture, :preparation_description, :cooking_time, :difficulty, :cost, :cooking_type, :user_id)";
         $sth = $O_con->prepare($S_sql);
-        $sth->bindValue(':name', $A_postParams['name'], PDO::PARAM_STR);
+        $S_name  = strtoupper(self::goodRecipeName($A_postParams['name']));
+        $sth->bindValue(':name', $S_name, PDO::PARAM_STR);
         $sth->bindValue(':picture', $A_postParams['picture'], PDO::PARAM_STR);
         $sth->bindValue(':preparation_description', $A_postParams['preparation_description'], PDO::PARAM_STR);
         $sth->bindValue(':cooking_time', $A_postParams['cooking_time'], PDO::PARAM_INT);
@@ -128,7 +134,7 @@ class Recipe extends Model
 
             $S_sql = "select id from recipe where name = :name and preparation_description = :desc";
             $sth = $O_con->prepare($S_sql);
-            $sth->bindValue(':name', $A_postParams['name'], PDO::PARAM_STR);
+            $sth->bindValue(':name', $S_name, PDO::PARAM_STR);
             $sth->bindValue(':desc', $A_postParams['preparation_description'], PDO::PARAM_STR);
             $B_flag = $sth->execute();
             $A_recipe = $sth->fetch();
@@ -216,82 +222,94 @@ class Recipe extends Model
         return UploadPicture::uploadPicture(Recipe::selectById($id)['name'] . ($id), true);
     }
 
+    public static function goodString($S_str){
+        $str = str_replace(" ","",$S_str);
+        $str = htmlentities($str, ENT_NOQUOTES, 'utf-8');
+        $str = preg_replace('#&([A-za-z])(?:uml|circ|tilde|acute|grave|cedil|ring);#', '\1', $str);
+        $str = preg_replace('#&([A-za-z]{2})(?:lig);#', '\1', $str);
+        return preg_replace('#&[^;]+;#', '', $str);
+    }
 
-    public static function searchRecipe(array $A_getParams):array{
-        $S_sql = "SELECT distinct r.* 
-        FROM Recipe r, Ingredients_recipe i, Utensils_recipe u, Particularities_recipe p
-        WHERE r.name LIKE :search ";
+    public static function addToQuery($S_table, $S_itemId, $A_items, &$A_paramBindValue){
+        $S_s = "and id in (SELECT RECIPE_ID FROM $S_table WHERE ";
+        foreach ($A_items as $item){
+            $itemBind = self::goodString($item);
+            $S_s = $S_s."$S_itemId = :$itemBind and ";
+            $A_paramBindValue[":$itemBind"] = array($item, PDO::PARAM_STR);
+        }
+        $S_s = substr($S_s, 0, -4) . ") ";
+        return $S_s;
+    }
 
-        $S_search = isset($A_getParams['search']) ? "%".$A_getParams['search']."%" : "'%%'";
 
-        $A_params = array(':search'=>array($S_search,PDO::PARAM_STR));
+    public static function searchRecipe(array $A_getParams): array{
 
-        function addToQuery($table,$A_getParams){
-            $S_underSql = "select id from $table
-            where ";
-            foreach($A_getParams as $value){
-                $S_underSql .= " id = :param$value or";
-                $A_params[':param'.$value]=array($value, PDO::PARAM_STR);
+        $S_sql = "SELECT distinct r.* FROM Recipe r WHERE r.name LIKE :search ";
+        $S_search = isset($A_getParams['search']) ? "%" . strtoupper(self::goodRecipeName($A_getParams['search'])) . "%" : "%";
+        echo strtoupper($S_search);
+        $A_paramBindValue = array(':search' => array($S_search , PDO::PARAM_STR));
+
+        if (isset($A_getParams['ingredients'])) {
+            $S_sql = $S_sql . self::addToQuery('INGREDIENTS_RECIPE', 'INGREDIENT_ID', $A_getParams['ingredients'], $A_paramBindValue) ;
+        }
+
+        if (isset($A_getParams['particularities'])) {
+            $S_sql = $S_sql . self::addToQuery('PARTICULARITIES_RECIPE', 'PARTICULARITY_ID', $A_getParams['particularities'],$A_paramBindValue);
+        }
+
+        if (isset($A_getParams['utensils'])) {
+            $S_sql = $S_sql . self::addToQuery('UTENSILS_RECIPE', 'UTENSIL_ID', $A_getParams['utensils'],$A_paramBindValue);
+        }
+
+        if(isset($A_getParams['cooking_types'])){
+            $S_sql = $S_sql . " and ";
+            foreach ($A_getParams['cooking_types'] as $S_type) {
+                $S_typeBind = self::goodString($S_type);
+                $S_sql = $S_sql . " cooking_type = :$S_typeBind or ";
+                $A_paramBindValue[":$S_typeBind"] = array($S_type, PDO::PARAM_STR);
             }
-            $S_underSql = substr( $S_underSql,0,-3);
-            return array($S_underSql, $A_params);
+            $S_sql = substr($S_sql, 0, -3);
         }
 
-        if(isset($A_getParams['ingredients'])){
-            $A_result = addToQuery("ingredients",$A_getParams['ingredients']);
-            $A_params += $A_result[1];
-            $S_sql.="AND r.id = i.recipe_id
-            AND i.ingredient_id IN (". $A_result[0].") ";
+        if(isset($A_getParams['cooking_time'])) {
+            $I_time = intval($A_getParams['cooking_time']) > 0 ?  intval($A_getParams['cooking_time']) : 9999999;
+            $S_sql = $S_sql . " and cooking_time <= :cooking_time ";
+            $A_paramBindValue[":cooking_time"] = array($I_time, PDO::PARAM_INT);
         }
 
-        if(isset($A_getParams['utensil'])){
-            $A_result = addToQuery("utensils",$A_getParams['utensils']);
-            $A_params += $A_result[1];
-            $S_sql.="AND r.id = u.recipe_id
-            AND u.utensil_id IN (". $A_result[0].") ";
-        }
-
-        if(isset($A_getParams['particularity'])){
-            $A_result = addToQuery("particularities",$A_getParams['particularities']);
-            $A_params += $A_result[1];
-            $S_sql.="AND r.id = u.recipe_id
-            AND u.utensil_id IN (". $A_result[0].") ";
-        }
-
-        if(isset($A_getParams['cooking_times']) && intval($A_getParams['cooking_times'])>1){
-            $I_cookingTime = intval($A_getParams['cooking_times']);
-            $S_sql.="AND r.cooking_time <= :cookingTime ";
-            $A_params[':cookingTime']=array($I_cookingTime,PDO::PARAM_INT);
-        }
-
-        if(isset($A_getParams['difficulties'])){
-            $S_sql.="AND (";
-            foreach($A_getParams['difficulties'] as $value){
-                $S_sql .= "r.difficulty = :param$value or ";
-                $A_params[':param'.$value]=array($value, PDO::PARAM_STR);
+        if(isset($A_getParams['costs'])) {
+            $S_sql = $S_sql . " and ";
+            foreach ($A_getParams['costs'] as $S_cost) {
+                if($S_cost == '€'){
+                    $S_costBind = "paschere";
+                }elseif ($S_cost == '€€'){
+                    $S_costBind = "moyenchere";
+                }else{
+                    $S_costBind = "chere";
+                }
+                $S_sql = $S_sql . "cost = :$S_costBind or ";
+                $A_paramBindValue[":$S_costBind"] = array($S_cost, PDO::PARAM_STR);
             }
-            $S_sql = substr( $S_sql,0,-3);
-            $S_sql.=") ";
+            $S_sql = substr($S_sql, 0, -3);
         }
 
-        if(isset($A_getParams['costs'])){
-            $S_sql.="AND (";
-            foreach($A_getParams['costs'] as $value){
-                $S_sql .= "r.cost = :param$value or ";
-                $A_params[':param'.$value]=array($value, PDO::PARAM_STR);
+        if(isset($A_getParams['difficulties'])) {
+            $S_sql = $S_sql . " and ";
+            foreach ($A_getParams['difficulties'] as $S_difficulty) {
+                $S_sql = $S_sql . "difficulty = :$S_difficulty or";
+                $A_paramBindValue[":$S_difficulty"] = array($S_difficulty, PDO::PARAM_STR);
             }
-            $S_sql = substr( $S_sql,0,-3);
-            $S_sql.=") ";
+            $S_sql = substr($S_sql, 0, -3);
         }
+
         $O_con = Connection::initConnection();
         $sth = $O_con->prepare($S_sql);
-
-        foreach($A_params as $key => $value){
-            $sth->bindValue($key,  $value[0], $value[1]);
+        
+        foreach ($A_paramBindValue as $key => $value) {
+            $sth->bindValue($key, $value[0], $value[1]);
         }
 
         $sth->execute();
-        return($sth->fetchAll());
+        return ($sth->fetchAll());
     }
-
 }

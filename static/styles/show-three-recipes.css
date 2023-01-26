@@ -78,8 +78,13 @@
     margin-top: 5%;
 }
 
-#sendFeaturesSearch{
+.buttonSearchBar{
     background: #ffffff;
+    border:none;
+}
+
+.buttonSearchBar:hover{
+    background: #EEA849FF;
     border:none;
 }
 

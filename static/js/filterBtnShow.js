@@ -4,9 +4,7 @@ document.getElementById("ingredientsBtn").addEventListener("click", function() {
 document.getElementById("utensilsBtn").addEventListener("click", function() {
     toggleVisibility("dropUtensils");
 });
-document.getElementById("cookingTimesBtn").addEventListener("click", function() {
-    toggleVisibility("dropTimes");
-});
+
 document.getElementById("cookingTypesBtn").addEventListener("click", function() {
     toggleVisibility("dropTypes");
 });
