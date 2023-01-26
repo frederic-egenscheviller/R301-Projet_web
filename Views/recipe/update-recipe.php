@@ -5,7 +5,7 @@ function addInputRadio($A_view, $name, $value) {
           <input type='radio' name=$name value=$value "; if ($A_view['recipe'][$name] == $value) { echo "checked"; }  echo "  ><br>";
 }
 
-echo "<form action='/updaterecipe/update' method='post' enctype='multipart/form-data'>
+echo "<form action='/updaterecipe/update' method='post' enctype='multipart/form-data' class='signup'>
     <h1>Modification</h1>
     <input type='hidden' name='id' value='" . $A_view['recipe']['id'] . "' />
 

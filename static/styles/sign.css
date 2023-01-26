@@ -54,3 +54,9 @@ input::file-selector-button {
 .menu-container{
     position: relative;
 }
+
+#termsOfUse{
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}

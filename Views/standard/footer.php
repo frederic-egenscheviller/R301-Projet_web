@@ -5,7 +5,7 @@
                 <h6>Categories</h6>
                 <li><a href="/home">Accueil</a></li>
                 <li><a href="/allrecipes">Recettes</a></li>
-                <li><a href="/profil">Compte</a></li>
+                <li><a href="/profile">Compte</a></li>
             </div>
             <div class="top-footer">
                 <h6>Liens rapides</h6>

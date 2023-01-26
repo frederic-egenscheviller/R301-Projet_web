@@ -2,11 +2,11 @@
 
 class RetrievepwdController
 {
-    public function defaultAction() {
+    public function defaultAction() : void{
         View::show("retrieve_pwd/form-change-pwd");
     }
 
-    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) {
+    public function updateAction(Array $A_parametres = null, Array $A_postParams = null) : void{
         $A_retrieveTable =  Retrieve_Pwd::selectById($A_postParams["id"]);
 
         if ($A_retrieveTable["token"] != $A_postParams["token"]){
