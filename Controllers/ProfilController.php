@@ -7,6 +7,11 @@ final class ProfilController
         $user = Users::selectByUserId($user_id);
         View::show("/profil/profil", Users::selectByUserId($user_id));
         View::show("/recipe/recipes", Recipe::selectRecipeByUser($user['id']));
-        View::show("/appreciation/appreciation", Appreciation::selectAppreciationByUser($user['id']));
+
+        $session = Session::getSession();
+        View::show("/appreciation/appreciation", array(
+            'isOwner' => (($session != null) && ($session['user_id'] == $user_id)),
+            'appreciations' => Appreciation::selectAppreciationByUser($user['id'])
+        ));
     }
 }
