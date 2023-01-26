@@ -1,4 +1,5 @@
 <?php
+//Les methodes pour charger les 3 classes ont été faites dans la classe AutoLoad et Constants, mais etant donnée qu'elles ne marchent pas on as du utiliser require
 require "Core/Phpmailer/PHPMailer.php";
 require "Core/Phpmailer/SMTP.php";
 require "Core/Phpmailer/Exception.php";

@@ -8,17 +8,27 @@ abstract class Model{
         $sth = $db->prepare($stmnt);
         $sth->execute(array($id));
         $row = $sth->fetch(PDO::FETCH_ASSOC);
+        $db = null;
         return $row;
     }
 
     public static function deleteByID($id) : bool{
+        if(!self::checkIfExistsById($id)){
+            return false;
+        }
         $db = Connection::initConnection();
         $stmnt = "DELETE FROM ".get_called_class()." WHERE ID = ? ";
         $sth = $db->prepare($stmnt);
-        return $sth->execute(array($id));
+        $B_state = $sth->execute(array($id));
+        $db = null;
+        return $B_state;
     }
 
     public static function create(Array $A_postParams) : bool{
+        if(self::checkIfExistsById($A_postParams['id'])){
+            return false;
+        }
+
         $db = Connection::initConnection();
 
         $keys = " ";
@@ -32,7 +42,9 @@ abstract class Model{
 
         $stmnt = "INSERT INTO ".get_called_class()." ($keys) VALUES ($vals)";
         $sth = $db->prepare($stmnt);
-        return $sth->execute(array_values($A_postParams));
+        $db = null;
+        $B_state = $sth->execute(array_values($A_postParams));
+        return $B_state;
     }
 
     public static function updateById(Array $A_postParams,$id ) : bool{
@@ -47,7 +59,9 @@ abstract class Model{
         $stmnt = "UPDATE ".get_called_class()." SET ".$keys." WHERE ID = ?";
         $sth = $db->prepare($stmnt);
         array_push($A_postParams,$id);
-        return $sth->execute(array_values($A_postParams));
+        $B_state = $sth->execute(array_values($A_postParams));
+        $db = null;
+        return $B_state;
     }
 
     public static function selectHowMany() : int{
@@ -56,6 +70,7 @@ abstract class Model{
         $sth = $db->prepare($stmnt);
         $sth->execute();
         $row = $sth->fetch(PDO::FETCH_ASSOC);
+        $db = null;
         return $row['count'];
     }
 
@@ -64,6 +79,7 @@ abstract class Model{
         $S_stmnt = "SELECT * FROM ".get_called_class();
         $sth = $O_db->prepare($S_stmnt);
         $sth->execute();
+        $O_db = null;
         return $sth->fetchAll();
     }
 
