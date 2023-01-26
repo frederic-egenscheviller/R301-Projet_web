@@ -13,8 +13,7 @@ final class HomeController
         View::show("categories/show", array(
             'ingredients' =>  Ingredients::selectAll(),
             'utensils' => Utensils::selectAll(),
-            'cooking_times' => Recipe::selectCookingTimes(),
-            'types_cooking' => Recipe::selectCookingTypes(),
+            'cooking_types' => Recipe::selectCookingTypes(),
             'difficulties' => Recipe::selectDifficulties(),
             'costs' => Recipe::selectCosts(),
             'particularities' => Particularities::selectAll()));

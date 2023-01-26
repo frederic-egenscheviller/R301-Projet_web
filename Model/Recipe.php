@@ -148,12 +148,11 @@ class Recipe extends Model{
 
 
     public static function searchRecipe(array $A_getParams):array{
-
         $S_sql = "SELECT distinct r.* 
         FROM Recipe r, Ingredients_recipe i, Utensils_recipe u, Particularities_recipe p
-        WHERE r.name LIKE :search ";
+        WHERE r.name LIKE :search";
 
-        $S_search = isset($A_getParams['search']) ? "%".$A_getParams['search']."%" : "'%%'";
+        $S_search = isset($A_getParams['search']) ? "%" . $A_getParams['search'] . "%" : "%";
 
         $A_params = array(':search'=>array($S_search,PDO::PARAM_STR));
 
@@ -232,7 +231,6 @@ class Recipe extends Model{
 
         $O_con = Connection::initConnection();
         $sth = $O_con->prepare($S_sql);
-
         foreach($A_params as $key => $value){
             $sth->bindValue($key,  $value[0], $value[1]);
         }
