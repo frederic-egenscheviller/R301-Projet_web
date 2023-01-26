@@ -20,8 +20,8 @@ body {
     flex-direction: row;
     align-items: center;
     justify-content: space-between;
-    background: linear-gradient(to left, #f46b45, #eea849);
-    color: #FFF;
+    background: #F7F4EF;
+    color: #ff1651;
     height: 50px;
     padding: 1em;
 }
@@ -51,7 +51,7 @@ body {
 
 .menu > li a {
     text-decoration: none;
-    color: white;
+    color: #ff1651;
 
 }
 
@@ -73,7 +73,7 @@ body {
 .menu-button::before,
 .menu-button::after {
     display: block;
-    background-color: #fff;
+    background-color: #ff1651;
     position: absolute;
     height: 4px;
     width: 30px;
@@ -113,7 +113,7 @@ body {
     height: 2px;
     bottom: 0;
     left: 0;
-    background-color: #ffffff;
+    background-color: #ff1651;
     transform-origin: bottom right;
     transition: transform 0.25s ease-out;
 }
@@ -156,13 +156,13 @@ body {
         margin: 0;
         padding: 0.5em 0;
         width: 100%;
-        color: white;
-        background-color: #222;
+        color: #ff1651;
+        background-color: #F7F4EF;
     }
 
     .menu > a {
         text-decoration: none;
-        color: white;
+        color: #ff1651;
     }
 
     .menu > li:not(:last-child) {
@@ -173,7 +173,7 @@ body {
 .site-footer
 {
     width: 100%;
-    background: linear-gradient(to left, #f46b45, #eea849);
+    background: #F7F4EF;
     font-size:15px;
 }
 .row
@@ -190,7 +190,7 @@ body {
 }
 .site-footer h6
 {
-    color:#fff;
+    color:#ff1651;
     font-size:16px;
     text-transform:uppercase;
     margin-top:5px;
@@ -214,7 +214,7 @@ body {
 }
 .top-footer a:focus,.top-footer a:hover
 {
-    color:white;
+    color:#ff1651;
     text-decoration:none;
 }
 .top-footer.inline li

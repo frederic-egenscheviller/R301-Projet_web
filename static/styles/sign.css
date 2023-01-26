@@ -16,7 +16,7 @@ a{
 
 a:hover{
     text-decoration: none;
-    color: #EEA849FF;
+    color: #ff1651;
 }
 
 input[type=email], input[type=text], input[type=password], input[type=text] {
@@ -29,7 +29,7 @@ input[type=email], input[type=text], input[type=password], input[type=text] {
 }
 
 input::file-selector-button {
-    background-color: #EEA849FF;
+    background-color: #ff1651;
     color: white;
     font-weight: bold;
     border-radius: 10px;
@@ -38,7 +38,7 @@ input::file-selector-button {
 }
 
 #submit {
-    background-color: #EEA849FF;
+    background-color: #fd597c;
     color: white;
     padding: 14px 20px;
     margin: 8px 0;
@@ -46,7 +46,7 @@ input::file-selector-button {
 }
 
 #submit:hover {
-    background-color: #f17555;
+    background-color: #ff1651;
     color: white;
     cursor: pointer;
 }
