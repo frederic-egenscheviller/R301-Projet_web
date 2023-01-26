@@ -1,12 +1,13 @@
 <?php
-echo("<form class='sigin' method='post' action='#'>
+echo("<form class='sigin' method='post' action='/signin/update'>
+        
         <label><b>Nom d'utilisateur</b></label>
-        <input type='text' placeholder='Votre pseudo' name='username' required><br>
+        <input type='text' placeholder='Votre pseudo' name='id' required><br>
 
         <label><b>Mot de passe</b></label>
         <input type='password' placeholder='Entrer le mot de passe' name='password' required>
 
-       <label><a href='./'><b>Mot de passe oublié?</b></a></label>
+       <label><a href='/retrievepwddirectives'><b>Mot de passe oublié?</b></a></label>
 
         <input type='submit' id='submit' value='Se connecter' >
         

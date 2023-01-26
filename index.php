@@ -20,8 +20,10 @@
 
     $S_urlToPeer = isset($_GET['url']) ? $_GET['url'] : null;
     $A_postParams = isset($_POST) ? $_POST : null;
-
+    
     View::openBuffer(); // on ouvre le tampon d'affichage, les contrôleurs qui appellent des vues les mettront dedans
+
+    session_start();
 
     try
     {

@@ -26,9 +26,12 @@ body {
     padding: 1em;
 }
 
-.center-title {
-    vertical-align: center;
-    text-align: center;
+.top-nav img{
+    margin-top: 5%;
+    height: 150px;
+    border-radius: 50%;
+    background-color: white;
+    border: black solid 5px;
 }
 
 .menu {
@@ -248,4 +251,7 @@ body {
         align-items: center;
     }
 
+    .top-nav img{
+        display: none;
+    }
 }
