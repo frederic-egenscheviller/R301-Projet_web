@@ -51,4 +51,16 @@ final class UploadPicture
         }
         return null;
     }
+
+    /**
+     * Delete a picture
+     *
+     * @param string $S_PathToPicture The path to the picture
+     *
+     * @return bool True on success, false on failure
+     */
+    public static function deletePicture(string $S_PathToPicture): bool
+    {
+        return unlink($_SERVER['DOCUMENT_ROOT'].$S_PathToPicture);
+    }
 }

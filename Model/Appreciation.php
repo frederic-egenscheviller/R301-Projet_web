@@ -57,4 +57,21 @@ class Appreciation extends Model
         $P_db = null;
         return $A_result;
     }
+
+    /**
+     * Deletes all the appreciations of a user by his id
+     *
+     * @param string $S_user_id The id of the user
+     * @return array The array of the recipe's appreciations
+     */
+    public static function deleteAllByUserId(string $S_user_id):array{
+        $P_db = Connection::initConnection();
+        $S_sql = "DELETE FROM APPRECIATION WHERE user_id = :user_id";
+        $P_sth = $P_db->prepare($S_sql);
+        $P_sth -> bindParam(':user_id',$S_user_id);
+        $P_sth->execute();
+        $A_result =$P_sth->fetchAll();
+        $P_db = null;
+        return $A_result;
+    }
 }

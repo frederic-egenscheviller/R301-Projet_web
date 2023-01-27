@@ -3,7 +3,7 @@
 echo "
 <meta name='viewport' content='width=device-width, initial-scale=1'>
 <section class='top-nav'>
-    <img src='/static/content/pictures/logo.png'>
+    <img src='/static/content/pictures/fred7.png'>
     <input id='menu-toggle' type='checkbox' />
     <label class='menu-button-container'' for='menu-toggle'>
         <div class='menu-button'></div>

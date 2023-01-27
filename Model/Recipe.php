@@ -441,14 +441,20 @@ class Recipe extends Model{
     }
 
     /**
-     * Delete a recipe picture
+     * Deletes all the recipes of a user by his id
      *
-     * @param string $S_PathToPicture The path to the recipe picture
-     *
-     * @return bool True on success, false on failure
+     * @param string $S_user_id The id of the user
+     * @return array The array of the recipe's appreciations
      */
-    public static function deleteRecipePicture(string $S_PathToPicture): bool
-    {
-        return unlink($_SERVER['DOCUMENT_ROOT'].$S_PathToPicture);
+    public static function deleteAllByUserId(string $S_user_id){
+        $A_recipesIds = Recipe::selectRecipeByUser($S_user_id);
+        foreach ($A_recipesIds as $S_recipeId){
+            Ingredients::deleteAllByRecipeId($S_recipeId["id"]);
+            Utensils::deleteAllByRecipeId($S_recipeId["id"]);
+            Particularities::deleteAllByRecipeId($S_recipeId["id"]);
+            Appreciation::deleteAllByRecipeId($S_recipeId["id"]);
+            UploadPicture::deletePicture(Recipe::selectById($S_recipeId["id"])['picture']);
+            Recipe::deleteByID($S_recipeId["id"]);
+        }
     }
 }
