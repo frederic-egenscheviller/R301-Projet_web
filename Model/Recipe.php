@@ -439,4 +439,16 @@ class Recipe extends Model{
         $P_sth->execute();
         return ($P_sth->fetchAll());
     }
+
+    /**
+     * Delete a recipe picture
+     *
+     * @param string $S_PathToPicture The path to the recipe picture
+     *
+     * @return bool True on success, false on failure
+     */
+    public static function deleteRecipePicture(string $S_PathToPicture): bool
+    {
+        return unlink($_SERVER['DOCUMENT_ROOT'].$S_PathToPicture);
+    }
 }
