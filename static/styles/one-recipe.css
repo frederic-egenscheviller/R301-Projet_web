@@ -114,6 +114,10 @@
 
 }
 
+#recipe-owner-btns{
+    margin: 0 20%;
+}
+
 @media screen and (max-width: 768px) {
     #recipe-container{
         flex-direction: column;

@@ -40,4 +40,21 @@ class Appreciation extends Model
         $P_db = null;
         return $A_result;
     }
+
+    /**
+     * Deletes all the appreciations of a recipe by their id
+     *
+     * @param string $S_recipe_id The id of the recipe
+     * @return array The array of the recipe's appreciations
+     */
+    public static function deleteAllByRecipeId(string $S_recipe_id):array{
+        $P_db = Connection::initConnection();
+        $S_sql = "DELETE FROM APPRECIATION WHERE recipe_id = :recipe_id";
+        $P_sth = $P_db->prepare($S_sql);
+        $P_sth -> bindParam(':recipe_id',$S_recipe_id);
+        $P_sth->execute();
+        $A_result =$P_sth->fetchAll();
+        $P_db = null;
+        return $A_result;
+    }
 }

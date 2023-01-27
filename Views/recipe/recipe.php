@@ -48,7 +48,11 @@ echo '              </ul>
         <p id="instructions">'. $A_view['recipe']['preparation_description'] . '</p>';
 
 if ($A_view['isOwner']) {
-    echo '<a id="submit" href="/updaterecipe/show/' . $A_view['recipe']['id'] . '">Modifier</a>';
+    echo '
+    <section id="recipe-owner-btns">   
+        <a id="submit" href="/updaterecipe/show/' . $A_view['recipe']['id'] . '">Modifier</a>
+        <a id="submit" href="/deleterecipe/delete/' . $A_view['recipe']['id'] . '">Supprimer</a>
+    </section>';
 }
 echo '</section>
 </section>';
