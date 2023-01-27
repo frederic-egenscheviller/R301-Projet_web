@@ -7,7 +7,7 @@ echo("<form class='signup' method='post' action='/signup/create' enctype='multip
         <label>Mot de Passe :</label>
         <input type='password' id='password' name='password' placeholder='Mot de Passe' minlength='12' required><br>
         <label>Photo de profil :</label>
-        <input type='file' id='file' name='picture' required><br>
+        <input type='file' id='file' name='picture' accept='.jpg, .jpeg, .png' required><br>
         <input type='hidden' id='first_login' name='first_login' value='".date('Y-m-d',time())."'>
         <input type='hidden' id='last_login' name='last_login' value='". date('Y-m-d',time()) ."'>
         <section id='termsOfUse'>
