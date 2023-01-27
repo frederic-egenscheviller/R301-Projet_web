@@ -38,10 +38,15 @@ class AdminController
      * @return void
      */
     public function deleteAction(Array $A_parametres = null, Array $A_postParams = null):void{
-        Users::deleteByID($A_postParams["id"]);
+        if (Users::checkIfExistsById($A_postParams["id"])) {
+            UploadPicture::deletePicture(Users::selectById($A_postParams["id"])["picture"]);
+            Appreciation::deleteAllByUserId($A_postParams["id"]);
+            Recipe::deleteAllByUserId($A_postParams["id"]);
+        }
         if (Admin::checkIfExistsById($A_postParams["id"])){
             Admin::deleteByID($A_postParams["id"]);
         }
+        Users::deleteByID($A_postParams["id"]);
         header("Location: /admin");
     }
 

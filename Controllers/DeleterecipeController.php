@@ -26,7 +26,7 @@ final class DeleterecipeController
             Utensils::deleteAllByRecipeId($S_id);
             Particularities::deleteAllByRecipeId($S_id);
             Appreciation::deleteAllByRecipeId($S_id);
-            Recipe::deleteRecipePicture(Recipe::selectById($S_id)['picture']);
+            UploadPicture::deletePicture(Recipe::selectById($S_id)['picture']);
             Recipe::deleteByID($S_id);
             header('Location: /home');
             exit;
